@@ -27,11 +27,11 @@ export const publicRoutes=[
         Component: shop
     },
     {
-        path: PRODUCT_ROUTE,
+        path: PRODUCT_ROUTE + '/:id',
         Component: ProductPage
     },
 ]
-export const loginRoutes=[
+export const adminRoutes=[
     {}
     // this array routes for user who authenticate in web-site
 ]
