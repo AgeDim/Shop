@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Card, Container, Form} from "react-bootstrap";
 import {REG_ROUTE} from "../utils/const";
-import bg from "../assets/bg.webp"
+import bg from "../assets/BG.png"
 const Auth = () => {
     return (
         <Container className="d-flex justify-content-center align-items-center"

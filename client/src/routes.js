@@ -16,6 +16,7 @@ import ServicesPage from "./pages/ServicesPage";
 import DeliveryPage from "./pages/DeliveryPage";
 import BasketPage from "./pages/BasketPage";
 import ContactPage from "./pages/ContactPage";
+import RegPage from "./pages/RegPage";
 
 
 export const publicRoutes = [
@@ -34,7 +35,7 @@ export const publicRoutes = [
     },
     {
         path: REG_ROUTE,
-        Component: Auth
+        Component: RegPage
     },
     {
         path: SHOP_ROUTE,

@@ -17,7 +17,7 @@ const NavBar = () => {
     const {user} = useContext(Context)
     return (
         <Navbar bg="light" className="d-flex justify-content-lg-center">
-            <NavLink to={MAIN_ROUTE} className='me-auto' style={{margin: 15}}><img className='NavbarImg'
+            <NavLink to={MAIN_ROUTE} className='me-auto' style={{margin: 10}}><img className='NavbarImg'
                                                                                            src={NavbarImg}
                                                                                            alt="example"/></NavLink>
             <Nav className="justify-content-lg-center me-auto" >
