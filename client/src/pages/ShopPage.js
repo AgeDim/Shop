@@ -2,6 +2,7 @@ import React from 'react';
 import {Col, Row} from "react-bootstrap";
 import TypeBar from "../components/TypeBar";
 import ProductList from "../components/ProductList";
+import {useHistory} from "react-router-dom";
 
 const ShopPage = () => {
     return (

@@ -21,11 +21,11 @@ const RegPage = () => {
                     <Form.Control className="mb-3" id="reg_pass" placeholder="Введите ваш пароль..." type="password"></Form.Control>
                     <h5>Повторите пароль</h5>
                     <Form.Control className="mb-3" id="reg_pass1" placeholder="Повторите ваш пароль..." type="password"></Form.Control>
+                    <div style={{color: "red", fontSize: 20}} id="reg_err_msg"></div>
                     <Checkbox id="reg_check" isSelected={selected} onChange={setSelected}><h6>Я согласен с <a href="https://www.securitycode.ru/personal-data/"
                                                   style={{color: "lightblue"}}>политикой обработки персональных
                         данных</a></h6></Checkbox>
                     <Button style={{background: "rgba(0, 0, 0, 0)", borderColor:"rgba(0, 0, 0, 0)"}} onClick={registerUser}><img src={reg}/></Button>
-                    <div style={{color: "red", fontSize: 20}} id="reg_err_msg"></div>
                     <a href={LOGIN_ROUTE} className="align-self-center mt-3 mb-3" style={{fontSize:13, color: "black", textDecoration:"none"}}>У меня есть аккаунт</a>
                 </Form>
             </Card>
