@@ -1,10 +1,9 @@
 import React from 'react';
-import {Button, Col, Container, Nav, Navbar, Row} from "react-bootstrap";
-import {LOGIN_ROUTE} from "../utils/const";
+import {Col, Nav, Navbar, Row} from "react-bootstrap";
 
 const FooterBar = () => {
     return (
-        <Navbar style={{position: "fixed", bottom: 0, width: "100%"}} bg="light">
+        <Navbar style={{position: "fixed", bottom: 0, width: "100%", height: 25}} bg="light">
             <Nav className="justify-content-end" style={{width:"100%"}}>
                 <Row className="m-lg-1">
                     <Col className="d-flex align-self-end">example@example.com</Col>

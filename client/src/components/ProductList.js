@@ -1,16 +1,16 @@
-import React, {useContext} from 'react';
-import {Context} from "../index";
+import React from 'react';
 import {observer} from "mobx-react-lite";
 import ProductItem from "./ProductItem";
 import {Row} from "react-bootstrap";
+import {useSelector} from "react-redux";
 
 const ProductList = observer(() => {
-    const {product} = useContext(Context)
+    const productState = useSelector(state => state.products)
     return (
-        <Row>
-            {product.products.map(product =>
+        <div style={{display: 'flex'}}>
+            {productState.products.map(product =>
                 <ProductItem key={product.id} device={product}/>)}
-        </Row>
+        </div>
     );
 });
 

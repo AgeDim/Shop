@@ -1,6 +1,5 @@
-import React, {useContext} from 'react';
-import {Context} from "../index";
-import {Breadcrumb, Button, Col, Nav, Navbar, NavItem, Row} from "react-bootstrap";
+import React from 'react';
+import { Button, Col, Nav, Navbar, NavItem, Row} from "react-bootstrap";
 import {
     BASKET_ROUTE,
     CONTACTS_ROUTE,
@@ -12,24 +11,25 @@ import {
 } from "../utils/const";
 import {NavLink} from "react-router-dom";
 import NavbarImg from "../assets/NavBarImg.webp"
+import {useSelector} from "react-redux";
 
 const NavBar = () => {
-    const {user} = useContext(Context)
+    const user = useSelector(state => state.users.user)
+
     return (
         <Navbar bg="light" className="d-flex justify-content-lg-center">
-            <NavLink to={MAIN_ROUTE} className='me-auto' style={{margin: 10}}><img className='NavbarImg'
+            <NavLink to={SHOP_ROUTE} className='me-auto' style={{margin: 10}}><img className='NavbarImg'
                                                                                            src={NavbarImg}
                                                                                            alt="example"/></NavLink>
             <Nav className="justify-content-lg-center me-auto" >
-                <NavItem><Nav.Link href={MAIN_ROUTE} >Главная</Nav.Link></NavItem>
-                <NavItem><Nav.Link href={SERVICES_ROUTE}>Услуги</Nav.Link></NavItem>
                 <NavItem><Nav.Link href={SHOP_ROUTE}>Магазин</Nav.Link></NavItem>
                 <NavItem><Nav.Link href={DELIVERY_ROUTE}>Доставка и оплата</Nav.Link></NavItem>
                 <NavItem><Nav.Link href={BASKET_ROUTE}>Мои заказы</Nav.Link></NavItem>
                 <NavItem><Nav.Link href={CONTACTS_ROUTE}>Контакты</Nav.Link></NavItem>
             </Nav>
             <Nav className="flex-column me-3">
-                <a href={LOGIN_ROUTE} ><Button variant="secondary" style={{marginRight: 15, width: 80}}>Вход</Button></a>
+                {user? null: <a href={LOGIN_ROUTE} ><Button variant="secondary" style={{marginRight: 15, width: 80}}>Вход</Button></a>}
+
                 <Row>
                     <Col><a href=""  style={{fontSize:12, color: "black", textDecoration:"none"}}>РУС</a></Col>
                     <Col><h5>/</h5></Col>

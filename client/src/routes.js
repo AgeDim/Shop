@@ -8,8 +8,7 @@ import {
     SERVICES_ROUTE,
     SHOP_ROUTE
 } from "./utils/const";
-import Auth from "./pages/Auth";
-import shop from "./pages/Shop";
+import AuthPage from "./pages/AuthPage";
 import ProductPage from "./pages/ProductPage";
 import MainPage from "./pages/MainPage";
 import ServicesPage from "./pages/ServicesPage";
@@ -17,13 +16,14 @@ import DeliveryPage from "./pages/DeliveryPage";
 import BasketPage from "./pages/BasketPage";
 import ContactPage from "./pages/ContactPage";
 import RegPage from "./pages/RegPage";
+import shopPage from "./pages/ShopPage";
 
 
 export const publicRoutes = [
     // this array routes for user who not authenticate in web-site
     {
         path: LOGIN_ROUTE,
-        Component: Auth
+        Component: AuthPage
     },
     {
         path: MAIN_ROUTE,
@@ -39,7 +39,7 @@ export const publicRoutes = [
     },
     {
         path: SHOP_ROUTE,
-        Component: shop
+        Component: shopPage
     },
     {
         path: PRODUCT_ROUTE + '/:id',
