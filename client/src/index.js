@@ -16,7 +16,7 @@ const localStorageMiddleware = ({getState}) => next => action => {
 };
 
 const loadFromLocalStorage = () => {
-    if(localStorage.getItem('user') !== null) {
+    if (localStorage.getItem('user') !== null) {
         return {users: {user: JSON.parse(localStorage.getItem('user'))}}
     }
     return undefined;
@@ -24,8 +24,7 @@ const loadFromLocalStorage = () => {
 
 const store = configureStore({
     reducer: {
-        users: userReducer,
-        products: productReducer
+        users: userReducer, products: productReducer
     },
     preloadedState: loadFromLocalStorage(),
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStorageMiddleware)
@@ -41,10 +40,8 @@ axios.interceptors.request.use(config => {
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-    <Provider store={store}>
-            <App />
-    </Provider>
-);
+root.render(<Provider store={store}>
+    <App/>
+</Provider>);
 
 reportWebVitals();

@@ -1,4 +1,3 @@
-export const MAIN_ROUTE = '/main'
 export const LOGIN_ROUTE = '/login'
 export const REG_ROUTE = '/register'
 export const SHOP_ROUTE = '/shop'

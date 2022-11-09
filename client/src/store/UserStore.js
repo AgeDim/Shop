@@ -4,10 +4,7 @@ import validator from 'validator';
 import {SHOP_ROUTE} from "../utils/const";
 
 const initialState = {
-    username: "",
-    pass: "",
-    login: "",
-    isAuth: false
+    username: "", pass: "", login: "", isAuth: false
 }
 
 export const loginUser = event => {
@@ -18,8 +15,7 @@ export const loginUser = event => {
         document.getElementById("log_err_msg").textContent = 'Password couldn\'t be empty!'
     } else {
         axios.post("/login", {
-            email: document.getElementById("log_email").value,
-            password: document.getElementById("log_pass").value,
+            email: document.getElementById("log_email").value, password: document.getElementById("log_pass").value,
         }).then(res => {
             if (res.data === true) {
                 initialState.users = initialState.users.map(user => (user.username = res.data.username, user.isAuth = true, user.pass = res.data.pass, user.login = res.data.login))
@@ -76,23 +72,17 @@ export const registerUser = event => {
 // )
 
 const usersSlice = createSlice({
-    name: 'users',
-    initialState,
-    reducers: {
+    name: 'users', initialState, reducers: {
 
         loginafterRegister: (state, action) => {
             state.user = action.payload;
-        },
-        catchRegisterError: (state, action) => {
+        }, catchRegisterError: (state, action) => {
             state.registerError = action.payload;
-        },
-        catchLoginError: (state, action) => {
+        }, catchLoginError: (state, action) => {
             state.loginError = action.payload;
-        },
-        globalError: (state, action) => {
+        }, globalError: (state, action) => {
             state.global = action.payload;
-        },
-        logoutUser: (state) => {
+        }, logoutUser: (state) => {
             state.user = null;
         }
     }
