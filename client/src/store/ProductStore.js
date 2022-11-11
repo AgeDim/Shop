@@ -8,7 +8,7 @@ const initialState = {
         id: 10, name: 'Сборки'
     }, {id: 11, name: 'Прикормка'}, {id: 12, name: 'База'}, {id: 13, name: 'Добавки'}, {id: 14, name: 'Ароматизаторы'}],
     name: "",
-    selectedType: {},
+    selectedType: [{id: 1, name: 'Удилища'}],
     products: [{
         id: 1,
         type: 'Удилища',
@@ -16,17 +16,41 @@ const initialState = {
         rating: '5',
         price: 1500,
         description: "Серия максимально надежных маховых удилищ для ловли в очень широком спектре условий ловли. Удилища данной серии разработаны специально для ловли крупной рыбы в береговой зоне, поэтому их длина ограничивается шестью метрами."
-    }, {id: 3, type: 'Леска', name: 'Мишин хуй', rating: 'маловат', price: 1500, description: ""}, {
-        id: 2, type: 'Катушки', name: 'Самая быстрая рука', rating: 'Крутит шо пиздец', price: 1500, description: ""
-    }, {id: 4, type: 'Катушки', name: 'Самая быстрая рука', rating: 'Крутит шо пиздец', price: 1500, description: ""}, {
-        id: 5, type: 'Катушки', name: 'Самая быстрая рука', rating: 'Крутит шо пиздец', price: 1500, description: ""
+    }, {id: 3, type: 'Леска', name: 'Мишин хуй', rating: 'маловат', price: 1500, description: "", href: ""}, {
+        id: 2,
+        type: 'Катушки',
+        name: 'Самая быстрая рука',
+        rating: 'Крутит шо пиздец',
+        price: 1500,
+        description: "",
+        href: ""
+    }, {
+        id: 4,
+        type: 'Катушки',
+        name: 'Самая быстрая рука',
+        rating: 'Крутит шо пиздец',
+        price: 1500,
+        description: "",
+        href: ""
+    }, {
+        id: 5,
+        type: 'Катушки',
+        name: 'Самая быстрая рука',
+        rating: 'Крутит шо пиздец',
+        price: 1500,
+        description: "",
+        href: ""
     }]
 }
 
-export const setSelectedType = ((selected) => {
-    initialState.selectedType = selected
-})
-
+export function setSelectedType(selected) {
+    if (!initialState.selectedType.includes(selected)) {
+        initialState.selectedType = [...initialState.selectedType, selected];
+    } else {
+        initialState.selectedType.filter(type => type !== selected)
+    }
+    console.log(initialState.selectedType)
+}
 
 const productStore = createSlice({
     name: 'products', initialState, reducers: {}

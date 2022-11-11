@@ -2,13 +2,15 @@ import React, {useState} from 'react';
 import {Col, Image, Row} from "react-bootstrap";
 import left from "../assets/left.png"
 import right from "../assets/right.png"
+import "./css/counter.css"
 
 const Counter = ({product}) => {
     const [counter, setCounter] = useState(1);
-    console.log(product.price)
     //increase counter
     const increase = () => {
-        setCounter(count => count + 1);
+        if (counter < 99) {
+            setCounter(count => count + 1);
+        }
     };
 
     //decrease counter
@@ -19,24 +21,24 @@ const Counter = ({product}) => {
     };
     return (
 
-        <div className="counter" style={{borderColor: "black", width: 500}}>
+        <div className="counter" id="counter_div">
             <Row>
-                <Col md={3} style={{padding: 0, width: 30}}>
-                    <button className="control__btn" style={{padding: 0, borderRadius: "75% 0% 0% 75%"}}
+                <Col md={3} style={{padding: 0, width: 30, height: 55}}>
+                    <button className="control__btn"
                             onClick={decrease}><Image src={left}></Image></button>
                 </Col>
-                <Col md={1} style={{padding: 0, width: 20, marginLeft: 14}} className="align-self-center">
-                    <span className="counter__output">{counter}</span>
+                <Col style={{padding: 0, width: 40, marginLeft: 5, marginBottom: 3, height: 43, fontSize: 35}} md={1}
+                     className="align-self-center">
+                    <span className="d-flex justify-content-center">{counter}</span>
                 </Col>
-                <Col md={1} style={{padding: 0, width: 30}}>
-                    <button className="control__btn" style={{padding: 0, borderRadius: "0% 75% 75% 0%"}}><Image
+                <Col style={{padding: 0, width: 30, height: 55}} md={1}>
+                    <button className="control__btn_1"><Image
                         src={right} onClick={increase}></Image></button>
                 </Col>
                 <Col><h3>Итог:{product.price * counter} РУБ </h3></Col>
             </Row>
 
-        </div>
-    );
+        </div>);
 };
 
 export default Counter;
