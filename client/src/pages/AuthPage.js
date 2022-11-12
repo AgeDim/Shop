@@ -18,11 +18,11 @@ const AuthPage = () => {
                     <Form.Control id="log_pass" className="mb-4" placeholder="Введите ваш пароль...."
                                   type="password"></Form.Control>
                     <a href="" className="align-self-lg-end"
-                       style={{fontSize: 13, color: "black", textDecoration: "none"}}>Забыли пароль?</a>
+                       style={{fontSize: 17, color: "black", textDecoration: "none"}}>Забыли пароль?</a>
                     <Button className="w-20 align-self-center" variant="secondary" color="gray"
                             onClick={loginUser}>Вход</Button>
                     <a href={REG_ROUTE} className="align-self-center mt-3 mb-3"
-                       style={{fontSize: 13, color: "black", textDecoration: "none"}}>У меня нету аккаунта</a>
+                       style={{fontSize: 17, color: "black", textDecoration: "none"}}>У меня нету аккаунта</a>
                 </Form>
             </Card>
         </Container>

@@ -1,16 +1,15 @@
 import React, {useState} from 'react';
-import {Button, Card, Container, Form} from "react-bootstrap";
-import {Checkbox} from "@nextui-org/react";
+import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
 import reg from "../assets/active.png"
 import {LOGIN_ROUTE} from "../utils/const";
 import {registerUser} from "../store/UserStore";
 
+
 const RegPage = () => {
-    const [selected, setSelected] = useState(false)
     return (<Container className="d-flex justify-content-center align-items-center"
                        style={{height: window.innerHeight - 200}}>
         <Card style={{width: 500}} className="p-5">
-            <h2 className="m-auto">Вход</h2>
+            <h2 className="m-auto">Регистрация</h2>
             <Form className="d-flex flex-column">
                 <h5 className="mt-1">Имя</h5>
                 <Form.Control className="mb-3" id="reg_name" placeholder="Введите ваше имя..."
@@ -25,14 +24,14 @@ const RegPage = () => {
                 <Form.Control className="mb-3" id="reg_pass1" placeholder="Повторите ваш пароль..."
                               type="password"></Form.Control>
                 <div style={{color: "red", fontSize: 20}} id="reg_err_msg"></div>
-                <Checkbox id="reg_check" isSelected={selected} onChange={setSelected}><h6>Я согласен с <a
+                <Row><Col md={1}><input id="reg_check" type="checkbox"/></Col><Col><h6>Я согласен с <a
                     href="https://www.securitycode.ru/personal-data/"
                     style={{color: "lightblue"}}>политикой обработки персональных
-                    данных</a></h6></Checkbox>
+                    данных</a></h6></Col></Row>
                 <Button style={{background: "rgba(0, 0, 0, 0)", borderColor: "rgba(0, 0, 0, 0)"}}
-                        onClick={registerUser}><img src={reg}/></Button>
+                        onClick={registerUser}><img src={reg} alt={""}/></Button>
                 <a href={LOGIN_ROUTE} className="align-self-center mt-3 mb-3"
-                   style={{fontSize: 13, color: "black", textDecoration: "none"}}>У меня есть аккаунт</a>
+                   style={{fontSize: 18, color: "black", textDecoration: "none"}}>У меня есть аккаунт</a>
             </Form>
         </Card>
     </Container>);

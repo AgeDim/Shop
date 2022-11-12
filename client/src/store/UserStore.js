@@ -7,7 +7,7 @@ import {getSalt} from "../Salt";
 
 
 const initialState = {
-    username: "", pass: "", login: "", isAuth: false
+    username: "", pass: "", login: "", name: '', isReg: false, isAuth: false, isModer: false, isAdmin: false
 }
 
 export const loginUser = async event => {
@@ -24,7 +24,7 @@ export const loginUser = async event => {
             email: document.getElementById("log_email").value, password: result,
         }).then(res => {
             if (res.data === true) {
-                initialState.users = initialState.users.map(user => (user.username = res.data.username, user.isAuth = true, user.pass = res.data.pass, user.login = res.data.login))
+                initialState.users = initialState.users.map(user => (user.username = res.data.username, user.pass = res.data.pass, user.login = res.data.login, user.isAuth = res.data.isAuth, user.isReg = res.data.isReg))
                 window.location.href = SHOP_ROUTE
             } else {
                 document.getElementById("log_err_msg").textContent = 'Wrong email or password!'
@@ -38,7 +38,7 @@ export const loginUser = async event => {
 
 
 export const registerUser = async event => {
-
+    let checkBox = document.getElementById('reg_check')
     event.preventDefault();
     if (!validator.isEmail(document.getElementById("reg_email").value)) {
         document.getElementById("reg_err_msg").textContent = 'Uncorrect email!'
@@ -46,7 +46,7 @@ export const registerUser = async event => {
         document.getElementById("reg_err_msg").textContent = "Repeated password incorrectly"
     } else if (!validator.isStrongPassword(document.getElementById("reg_pass").value, {minSymbols: 0})) {
         document.getElementById("reg_err_msg").textContent = "Password must consist of one lowercase, uppercase letter and number, at least 8 characters"
-    } else if (false) {
+    } else if (!checkBox.checked) {
         document.getElementById("reg_err_msg").textContent = 'You need to accept personal data processing policies!'
     } else {
         let result = await sha512(document.getElementById("reg_pass").value)
@@ -57,7 +57,7 @@ export const registerUser = async event => {
             password: result,
         }).then(res => {
             if (res.data === true) {
-                initialState.users = initialState.users.map(user => (user.username = res.data.username, user.isAuth = true, user.pass = res.data.pass, user.login = res.data.login));
+                initialState.users = initialState.users.map(user => (user.username = res.data.username, user.pass = res.data.pass, user.login = res.data.login));
                 window.location.href = SHOP_ROUTE
             } else {
                 document.getElementById("reg_err_msg").textContent = "There is already a user with this email"
