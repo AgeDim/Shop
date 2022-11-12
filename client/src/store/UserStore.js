@@ -2,23 +2,26 @@ import {createSlice} from "@reduxjs/toolkit";
 import axios from "../axiosAPI";
 import validator from 'validator';
 import {SHOP_ROUTE} from "../utils/const";
-import "js-sha1"
+import {sha512} from 'crypto-hash';
+import {getSalt} from "../Salt";
 
 
 const initialState = {
     username: "", pass: "", login: "", isAuth: false
 }
 
-export const loginUser = event => {
+export const loginUser = async event => {
     event.preventDefault();
     if (!validator.isEmail(document.getElementById("log_email").value)) {
         document.getElementById("log_err_msg").textContent = 'Uncorrect email!'
     } else if (document.getElementById("log_pass").value === "") {
         document.getElementById("log_err_msg").textContent = 'Password couldn\'t be empty!'
     } else {
-        console.log(sha1(document.getElementById("log_pass").value))
+        let result = await sha512(document.getElementById("log_pass").value)
+        result += getSalt()
+        console.log(result)
         axios.post("/login", {
-            email: document.getElementById("log_email").value, password: document.getElementById("log_pass").value,
+            email: document.getElementById("log_email").value, password: result,
         }).then(res => {
             if (res.data === true) {
                 initialState.users = initialState.users.map(user => (user.username = res.data.username, user.isAuth = true, user.pass = res.data.pass, user.login = res.data.login))
@@ -34,7 +37,7 @@ export const loginUser = event => {
 }
 
 
-export const registerUser = event => {
+export const registerUser = async event => {
 
     event.preventDefault();
     if (!validator.isEmail(document.getElementById("reg_email").value)) {
@@ -46,10 +49,12 @@ export const registerUser = event => {
     } else if (false) {
         document.getElementById("reg_err_msg").textContent = 'You need to accept personal data processing policies!'
     } else {
+        let result = await sha512(document.getElementById("reg_pass").value)
+        result += getSalt()
         axios.post("/reg", {
             username: document.getElementById("reg_name").value,
             email: document.getElementById("reg_email").value,
-            password: document.getElementById("reg_pass").value,
+            password: result,
         }).then(res => {
             if (res.data === true) {
                 initialState.users = initialState.users.map(user => (user.username = res.data.username, user.isAuth = true, user.pass = res.data.pass, user.login = res.data.login));
