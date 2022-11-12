@@ -7,7 +7,7 @@ import {useSelector} from "react-redux";
 
 const App = () => {
     const state = useSelector(state => state)
-    console.log(state)
+    // console.log(state)
     return (<BrowserRouter>
         <NavBar/>
         <AppRouter/>
