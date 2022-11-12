@@ -22,7 +22,12 @@ public class UserController {
     public ResponseEntity<?> register (@RequestBody AuthRequest user){
         try {
             userService.register(user);
-            return ResponseEntity.status(HttpStatus.OK).headers(getCORSHeaders(ResponseEntity.EMPTY.getHeaders())).body("Регистрация успешна.");
+            return ResponseEntity.status(HttpStatus.OK)
+                    .header("Access-Control-Allow-Origin","*")
+                    .header("Access-Control-Allow-Credentials","true")
+            .header("Access-Control-Allow-Headers","origin, content-type, accept, authorization")
+            .header("Access-Control-Allow-Methods","*")
+                    .body("Регистрация успешна.");
 //            return ResponseEntity.ok("Регистрация успешна.");
         } catch (UserAlreadyExistsException e){
             return ResponseEntity.badRequest().body(e.getMessage());
