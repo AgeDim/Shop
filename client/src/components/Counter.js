@@ -23,19 +23,19 @@ const Counter = ({product}) => {
 
         <div className="counter" id="counter_div">
             <Row>
-                <Col md={3} style={{padding: 0, width: 30, height: 55}}>
+                <Col md={3} style={{padding: 0, width: 30, height: 55, paddingTop: 12}}>
                     <button className="control__btn"
-                            onClick={decrease}><Image src={left}></Image></button>
+                            onClick={decrease}><Image style={{width: 22, height: 25}} src={left}></Image></button>
                 </Col>
-                <Col style={{padding: 0, width: 40, marginLeft: 5, marginBottom: 3, height: 43, fontSize: 35}} md={1}
-                     className="align-self-center">
+                <Col style={{padding: 0, width: 40, marginRight: 15, marginBottom: 3, height: 43, fontSize: 35}} md={1}
+                     className="justify-content-center">
                     <span className="d-flex justify-content-center">{counter}</span>
                 </Col>
-                <Col style={{padding: 0, width: 30, height: 55}} md={1}>
-                    <button className="control__btn_1"><Image
-                        src={right} onClick={increase}></Image></button>
+                <Col style={{padding: 0, width: 30, height: 50, paddingTop: 12}} md={1}>
+                    <button className="control__btn_1"><Image style={{width: 22, height: 25}}
+                                                              src={right} onClick={increase}></Image></button>
                 </Col>
-                <Col><h3>Итог:{product.price * counter} РУБ </h3></Col>
+                <Col style={{paddingTop: 10}}><h3>Итог:{product.price * counter} РУБ </h3></Col>
             </Row>
 
         </div>);

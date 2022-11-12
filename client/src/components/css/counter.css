@@ -2,6 +2,8 @@
    transform: scale(1.1)
 }
 .control__btn{
+   border: none;
+   background: white;
    padding: 0;
    border-radius: 75% 0 0 75%;
 }
@@ -9,11 +11,12 @@
    transform: scale(1.1)
 }
 .control__btn_1{
+   border: none;
+   background: white;
    padding: 0;
    border-radius: 0 75% 75% 0;
 }
 .counter_div{
-   border-color: black;
    width: 500px;
 }
 

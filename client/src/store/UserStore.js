@@ -2,6 +2,8 @@ import {createSlice} from "@reduxjs/toolkit";
 import axios from "../axiosAPI";
 import validator from 'validator';
 import {SHOP_ROUTE} from "../utils/const";
+import "js-sha1"
+
 
 const initialState = {
     username: "", pass: "", login: "", isAuth: false
@@ -14,6 +16,7 @@ export const loginUser = event => {
     } else if (document.getElementById("log_pass").value === "") {
         document.getElementById("log_err_msg").textContent = 'Password couldn\'t be empty!'
     } else {
+        console.log(sha1(document.getElementById("log_pass").value))
         axios.post("/login", {
             email: document.getElementById("log_email").value, password: document.getElementById("log_pass").value,
         }).then(res => {
