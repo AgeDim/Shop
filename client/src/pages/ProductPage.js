@@ -21,7 +21,7 @@ const ProductPage = () => {
             src={back}/></Button></Row>
 
         <Row>
-            <Col md={7} className="d-flex"><Image src={pik} width={450} height={450}
+            <Col md={7} className="d-flex justify-content-center"><Image src={pik} width={450} height={450}
                                                   style={{
                                                       marginLeft: 50, marginTop: 20, borderRadius: 20
                                                   }}></Image></Col>

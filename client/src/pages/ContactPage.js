@@ -23,7 +23,7 @@ const ContactPage = () => {
                 className="justify-content-center"><img src={mail_icon}
                                                         className="align-self-center"
                                                         style={{
-                                                            height: 180, width: 170
+                                                            height: 180, width: 200
                                                         }}
                                                         alt=""/></Row>
                 <Row><h1 className="text-center">Напишите нам</h1></Row><Row><h2 style={{padding: 30}}
@@ -35,7 +35,7 @@ const ContactPage = () => {
                 className="justify-content-center"><img src={phone_icon}
                                                         className="align-self-center"
                                                         style={{
-                                                            height: 180, width: 200
+                                                            height: 180, width: 230
                                                         }}
                                                         alt=""/></Row><Row><h1 className="text-center">Позвоните
                 нам</h1></Row><Row><h2 className="text-center" style={{padding: 30}}>Есть вопросы? Мы поможем!</h2>
@@ -44,7 +44,7 @@ const ContactPage = () => {
                 2151627</a></Row></Card></Col>
             <Col md={2}><Card style={{width: 350, height: 600}}><Row className="justify-content-center"><img
                 src={tg_icon} className="align-self-center"
-                style={{height: 180, width: 180}}
+                style={{height: 180, width: 190}}
                 alt=""/></Row><Row><h1 className="text-center">Напишите нам</h1></Row><Row><h2 className="text-center"
                                                                                                style={{padding: 30}}>В
                 нашем telegram чате помогут разобраться с вашим вопросом</h2></Row><Row><a
