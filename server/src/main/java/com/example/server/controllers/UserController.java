@@ -6,7 +6,6 @@ import com.example.server.exceptions.UserAlreadyExistsException;
 import com.example.server.exceptions.WrongPasswordException;
 import com.example.server.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,13 +22,7 @@ public class UserController {
     public ResponseEntity<?> register (@RequestBody AuthRequest user){
         try {
             userService.register(user);
-            return ResponseEntity.status(HttpStatus.OK)
-                    .header("Access-Control-Allow-Origin","*")
-                    .header("Access-Control-Allow-Credentials","true")
-            .header("Access-Control-Allow-Headers","origin, content-type, accept, authorization")
-            .header("Access-Control-Allow-Methods","*")
-                    .body("Регистрация успешна.");
-//            return ResponseEntity.ok("Регистрация успешна.");
+            return ResponseEntity.ok("Регистрация успешна.");
         } catch (UserAlreadyExistsException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e){
@@ -67,16 +60,6 @@ public class UserController {
         } catch (NotHavePermissionException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-    }
-
-    private HttpHeaders getCORSHeaders(HttpHeaders oldHeaders){
-        HttpHeaders headers = new HttpHeaders();
-        headers.addAll(oldHeaders);
-        headers.add("Access-Control-Allow-Origin","*");
-        headers.add("Access-Control-Allow-Credentials","true");
-        headers.add("Access-Control-Allow-Headers","origin, content-type, accept, authorization");
-        headers.add("Access-Control-Allow-Methods","*");
-        return headers;
     }
 
 }
