@@ -2,6 +2,7 @@ package com.example.server.services;
 
 import com.example.server.POJO.AuthRequest;
 import com.example.server.entities.UserEntity;
+import com.example.server.exceptions.NotHavePermissionException;
 import com.example.server.exceptions.UserAlreadyExistsException;
 import com.example.server.exceptions.WrongPasswordException;
 import com.example.server.repositories.UserRepository;
@@ -49,6 +50,20 @@ public class UserService {
         UserEntity entity = userRepository.findByEmail(authRequest.getEmail());
         if (!passwordEncoder().matches(authRequest.getPassword()+salt, entity.getPassword())){
             throw new WrongPasswordException(authRequest.getEmail());
+        }
+    }
+
+    public void checkModerRights(String email) throws NotHavePermissionException{
+        UserEntity entity = userRepository.findByEmail(email);
+        if (!entity.isModerRights()){
+            throw new NotHavePermissionException(email, "moderator");
+        }
+    }
+
+    public void checkAdminRights(String email) throws NotHavePermissionException{
+        UserEntity entity = userRepository.findByEmail(email);
+        if (!entity.isAdminRights()){
+            throw new NotHavePermissionException(email, "admin");
         }
     }
 }
