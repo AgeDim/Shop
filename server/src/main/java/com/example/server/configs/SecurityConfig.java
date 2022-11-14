@@ -14,12 +14,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class SecurityConfig extends WebMvcConfigurerAdapter implements WebMvcConfigurer {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        http.authorizeRequests()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .httpBasic();
         http.cors();
+        http.httpBasic();
+        http.csrf().disable();
         return http.build();
     }
     @Override
