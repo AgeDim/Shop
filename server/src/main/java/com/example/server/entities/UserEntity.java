@@ -4,18 +4,16 @@ package com.example.server.entities;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter
 @Setter
 @Entity
-@Table(name="user")
+@Table(name="user", schema = "public")
 public class UserEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "user_id_seq")
     @Column(name = "id")
     private Long id;
 

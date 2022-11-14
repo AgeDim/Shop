@@ -22,7 +22,7 @@ public class UserController {
     public ResponseEntity<?> register (@RequestBody AuthRequest user){
         try {
             userService.register(user);
-            return ResponseEntity.ok("Регистрация успешна.");
+            return ResponseEntity.ok(true);
         } catch (UserAlreadyExistsException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e){
@@ -35,7 +35,7 @@ public class UserController {
     public ResponseEntity<?> login(@RequestBody AuthRequest user){
         try {
             userService.login(user);
-            return ResponseEntity.ok("Авторизация успешна.");
+            return ResponseEntity.ok(true);
         } catch (UserAlreadyExistsException | WrongPasswordException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e){

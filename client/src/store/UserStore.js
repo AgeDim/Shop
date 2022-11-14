@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "../axiosAPI";
 import validator from 'validator';
 import {SHOP_ROUTE} from "../utils/const";
@@ -7,7 +7,7 @@ import {getSalt} from "../Salt";
 
 
 const initialState = {
-    username: "", pass: "", login: "", name: '', isReg: false, isAuth: false, isModer: false, isAdmin: false
+    username: "", pass: "", login: "", isReg: false, isAuth: false, isModer: false, isAdmin: false
 }
 
 export const loginUser = async event => {
@@ -37,11 +37,40 @@ export const loginUser = async event => {
 }
 
 
-export const registerUser = async event => {
+export const login = createAsyncThunk('login', async (payload, thunkAPI) => {
+    if (!validator.isEmail(document.getElementById("log_email").value)) {
+        document.getElementById("log_err_msg").textContent = 'Uncorrect email!'
+    } else if (document.getElementById("log_pass").value === "") {
+        document.getElementById("log_err_msg").textContent = 'Password couldn\'t be empty!'
+    } else {
+        let result = await sha512(document.getElementById("log_pass").value)
+        result += getSalt()
+        console.log(result)
+        axios.post("/login", {
+            email: document.getElementById("log_email").value, password: result,
+        }).then(res => {
+            if (res.status === 200) {
+                thunkAPI.dispatch(usersSlice.actions.setLogin(document.getElementById("log_email").value))
+                thunkAPI.dispatch(usersSlice.actions.setPassword(document.getElementById("log_pass").value))
+                thunkAPI.dispatch(usersSlice.actions.setPassword(res.data.username))
+                thunkAPI.dispatch(usersSlice.actions.setIsAuth(true))
+                // window.location.href = SHOP_ROUTE
+            } else {
+                document.getElementById("log_err_msg").textContent = 'Wrong email or password!'
+            }
+        }).catch(() => {
+            document.getElementById("log_err_msg").textContent = "An error occurred on the server"
+        })
+    }
+})
+
+
+export const register = createAsyncThunk('register', async (payload, thunkAPI) => {
     let checkBox = document.getElementById('reg_check')
-    event.preventDefault();
     if (!validator.isEmail(document.getElementById("reg_email").value)) {
         document.getElementById("reg_err_msg").textContent = 'Uncorrect email!'
+    } else if (document.getElementById("reg_pass").value === '') {
+        document.getElementById("reg_err_msg").textContent = "Name can't be empty"
     } else if (document.getElementById("reg_pass").value !== document.getElementById("reg_pass1").value) {
         document.getElementById("reg_err_msg").textContent = "Repeated password incorrectly"
     } else if (!validator.isStrongPassword(document.getElementById("reg_pass").value, {minSymbols: 0})) {
@@ -51,49 +80,43 @@ export const registerUser = async event => {
     } else {
         let result = await sha512(document.getElementById("reg_pass").value)
         result += getSalt()
-        axios.post("/reg", {
+        await axios.post('/reg', {
             username: document.getElementById("reg_name").value,
             email: document.getElementById("reg_email").value,
-            password: result,
+            password: result
         }).then(res => {
+            console.log(res)
             if (res.data === true) {
-                initialState.users = initialState.users.map(user => (user.username = res.data.username, user.pass = res.data.pass, user.login = res.data.login));
-                window.location.href = SHOP_ROUTE
-            } else {
-                document.getElementById("reg_err_msg").textContent = "There is already a user with this email"
+                thunkAPI.dispatch(usersSlice.actions.setName(document.getElementById("reg_name").value))
+                thunkAPI.dispatch(usersSlice.actions.setLogin(document.getElementById("reg_email").value))
+                thunkAPI.dispatch(usersSlice.actions.setPassword(document.getElementById("reg_pass").value))
             }
-        }).catch(() => {
+        }).catch((e) => {
+            console.log(e)
             document.getElementById("reg_err_msg").textContent = "An error occurred on the server"
         })
     }
+})
 
-}
-
-// export const logoutUser = createAsyncThunk(
-//     'logout',
-//     async (payload, thunkAPI) => {
-//         await axios.delete('users/sessions');
-//         thunkAPI.dispatch(usersSlice.actions.logoutUser());
-//         console.log(usersSlice.actions);
-//         payload.navigate('/');
-//     }
-// )
+export const logoutUser = createAsyncThunk(
+    'logout',
+    async (payload, thunkAPI) => {
+        thunkAPI.dispatch(usersSlice.actions.setIsAuth(false));
+    }
+)
 
 const usersSlice = createSlice({
     name: 'users', initialState, reducers: {
-
-        loginafterRegister: (state, action) => {
-            state.user = action.payload;
-        }, catchRegisterError: (state, action) => {
-            state.registerError = action.payload;
-        }, catchLoginError: (state, action) => {
-            state.loginError = action.payload;
-        }, globalError: (state, action) => {
-            state.global = action.payload;
-        }, logoutUser: (state) => {
-            state.user = null;
+        setName(state, action) {
+            state.username = action.payload
+        }, setLogin(state, action) {
+            state.login = action.payload
+        }, setPassword(state, action) {
+            state.pass = action.payload
+        }, setIsAuth(state, action) {
+            state.isAuth = action.payload
         }
-    }
+    },
 })
 
 export default usersSlice.reducer;

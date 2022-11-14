@@ -1,5 +1,6 @@
 import React from 'react';
 import {createSlice} from "@reduxjs/toolkit";
+import axios from "../axiosAPI";
 
 const initialState = {
     types: [{id: 1, name: 'Удилища'}, {id: 2, name: 'Катушки'}, {id: 3, name: 'Леска'}, {id: 4, name: 'Крючки'}, {
@@ -41,6 +42,17 @@ const initialState = {
         description: "",
         href: ""
     }]
+}
+export function getProducts(){
+    axios.post("/product").then(res =>{
+        if(res.status === 200){
+            console.log(res)
+            console.log("done /product")
+        }
+    }).catch((e) => {
+        console.log(e)
+        console.log("error with post /product")
+    })
 }
 
 export function setSelectedType(selected) {

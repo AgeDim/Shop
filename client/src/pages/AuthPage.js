@@ -1,9 +1,14 @@
 import React from 'react';
 import {Button, Card, Container, Form} from "react-bootstrap";
 import {REG_ROUTE} from "../utils/const";
-import {loginUser} from "../store/UserStore";
+import {login, loginUser, register} from "../store/UserStore";
+import {useDispatch} from "react-redux";
 
 const AuthPage = () => {
+    const dispatch = useDispatch()
+    const loginUser = () => {
+        dispatch(login())
+    }
     return (<div id="page">
         <Container className="d-flex justify-content-center align-items-center"
                    style={{height: window.innerHeight - 123}}>
