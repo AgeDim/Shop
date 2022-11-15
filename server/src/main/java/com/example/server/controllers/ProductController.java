@@ -16,4 +16,14 @@ public class ProductController {
             return ResponseEntity.badRequest().body("Ошибка.");
         }
     }
+
+    @GetMapping("/product/{id}")
+    public ResponseEntity<?> getProduct(@PathVariable String id){
+        try {
+            return ResponseEntity.ok("HUY");
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Ошибка.");
+        }
+    }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "../axiosAPI";
 
 const initialState = {
@@ -8,7 +8,6 @@ const initialState = {
     }, {id: 6, name: 'Наживка'}, {id: 7, name: 'Поводки'}, {id: 8, name: 'Грузила'}, {id: 9, name: 'Кормушки'}, {
         id: 10, name: 'Сборки'
     }, {id: 11, name: 'Прикормка'}, {id: 12, name: 'База'}, {id: 13, name: 'Добавки'}, {id: 14, name: 'Ароматизаторы'}],
-    name: "",
     selectedType: [{id: 1, name: 'Удилища'}],
     products: [{
         id: 1,
@@ -43,17 +42,20 @@ const initialState = {
         href: ""
     }]
 }
-export function getProducts(){
+
+export const getProducts = createAsyncThunk('getProduct',async (payload, thunkAPI) => {
     axios.post("/product").then(res =>{
         if(res.status === 200){
             console.log(res)
             console.log("done /product")
+            // thunkAPI.dispatch(productStore.actions.setProducts(res.data))
+            // должно быть вот так
         }
     }).catch((e) => {
         console.log(e)
         console.log("error with post /product")
     })
-}
+})
 
 export function setSelectedType(selected) {
     if (!initialState.selectedType.includes(selected)) {
@@ -65,7 +67,13 @@ export function setSelectedType(selected) {
 }
 
 const productStore = createSlice({
-    name: 'products', initialState, reducers: {}
+    name: 'products', initialState, reducers: {
+        setProducts(state, action) {
+            state.products = action.payload
+        }, setSelectedType(state, action) {
+            state.selectedType = action.payload
+        }
+    }
 })
 
 export default productStore.reducer;

@@ -25,9 +25,6 @@ public class UserService {
     private UserRepository userRepository;
 
     public void register(AuthRequest authRequest) throws UserAlreadyExistsException {
-        if (userRepository.existsByUsername(authRequest.getUsername())) {
-            throw new UserAlreadyExistsException("Username is already in use.");
-        }
         if (userRepository.existsByEmail(authRequest.getEmail())){
             throw new UserAlreadyExistsException("Email is already in use.");
         }
@@ -41,9 +38,6 @@ public class UserService {
     }
 
     public void login(AuthRequest authRequest) throws UserAlreadyExistsException, WrongPasswordException {
-        if (userRepository.existsByUsername(authRequest.getUsername())) {
-            throw new UserAlreadyExistsException("Username is already in use.");
-        }
         if (userRepository.existsByEmail(authRequest.getEmail())){
             throw new UserAlreadyExistsException("Email is already in use.");
         }
