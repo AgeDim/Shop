@@ -7,17 +7,19 @@ import axios from "../axiosAPI";
 
 const AppRouter = () => {
     const state = useSelector(state => state.users);
+    let isAuth = state.isAuth;
     let isAdmin = state.isAdmin;
     let isModer = state.isModer;
-    axios.get("/checkAdmin/" + state.login).then((response)=> isAdmin = response.data)
-    axios.get("/checkModer/" + state.login).then((response)=> isModer = response.data)
+    if (isAuth) {
+        axios.get("/checkAdmin/" + state.login).then((response) => isAdmin = response.data)
+        axios.get("/checkModer/" + state.login).then((response) => isModer = response.data)
+    }
     return (<Switch>
-            {publicRoutes.map(({path, Component}) =>
-                <Route key={path} path={path} component={Component} exact/>)}
-            {isAdmin === true && adminRoutes.map(({path, Component}) =>
-                <Route key={path} path={path} component={Component} exact/>)}
-            {isModer === true && moderRoutes.map(({path, Component}) =>
-                <Route key={path} path={path} component={Component} exact/>)}
+            {publicRoutes.map(({path, Component}) => <Route key={path} path={path} component={Component} exact/>)}
+            {isAdmin === true && adminRoutes.map(({path, Component}) => <Route key={path} path={path}
+                                                                               component={Component} exact/>)}
+            {isModer === true && moderRoutes.map(({path, Component}) => <Route key={path} path={path}
+                                                                               component={Component} exact/>)}
 
             <Redirect to={SHOP_ROUTE}/>
         </Switch>

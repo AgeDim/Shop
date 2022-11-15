@@ -1,11 +1,16 @@
 import React from 'react';
 import {observer} from "mobx-react-lite";
 import ProductItem from "./ProductItem";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {getProducts} from "../store/ProductStore";
 
-// const products = getProducts()
+
 const ProductList = observer(({}) => {
+    const dispatch = useDispatch()
+    const getProduct = () => {
+        dispatch(getProducts())
+    }
+    getProduct()
     const productState = useSelector(state => state.products)
     return (<div style={{display: 'flex'}}>
         {productState.products.map(product => <ProductItem key={product.id} product={product}/>)}

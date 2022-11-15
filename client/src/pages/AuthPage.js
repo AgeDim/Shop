@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Card, Container, Form} from "react-bootstrap";
 import {REG_ROUTE} from "../utils/const";
-import {login, loginUser, register} from "../store/UserStore";
+import {login} from "../store/UserStore";
 import {useDispatch} from "react-redux";
 
 const AuthPage = () => {
