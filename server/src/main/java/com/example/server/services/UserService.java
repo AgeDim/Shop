@@ -37,11 +37,7 @@ public class UserService {
                 authRequest.getUsername(),
                 false,
                 false);
-        try{
         userRepository.save(user);
-    }catch (Exception e){
-            e.printStackTrace();
-        }
     }
 
     public void login(AuthRequest authRequest) throws UserAlreadyExistsException, WrongPasswordException {

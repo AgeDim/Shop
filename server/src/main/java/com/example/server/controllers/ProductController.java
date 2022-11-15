@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.*;
 public class ProductController {
 
     @PostMapping("/product")
-    public ResponseEntity<?> getProducts() throws Exception {
+    public ResponseEntity<?> getProducts(){
         try {
-            return ResponseEntity.ok("HUY");
+            return ResponseEntity.ok("ok");
         }catch (Exception e){
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Ошибка.");

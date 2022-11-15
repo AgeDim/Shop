@@ -188,6 +188,7 @@ CREATE TABLE "user"(
                        id           serial primary key,
                        login        varchar(20) NOT NULL,
                        password     varchar(20) NOT NULL,
+                       email        varchar(255),
                        admin_rights bool,
                        moder_rights bool
 );
