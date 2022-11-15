@@ -27,7 +27,7 @@ public class UserController {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e){
             e.printStackTrace();
-            return ResponseEntity.badRequest().body("Ошибка.");
+            return ResponseEntity.badRequest().body("An error occurred on the server");
         }
     }
 

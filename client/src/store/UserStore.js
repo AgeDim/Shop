@@ -54,12 +54,12 @@ export const login = createAsyncThunk('login', async (payload, thunkAPI) => {
                 thunkAPI.dispatch(usersSlice.actions.setPassword(document.getElementById("log_pass").value))
                 thunkAPI.dispatch(usersSlice.actions.setPassword(res.data.username))
                 thunkAPI.dispatch(usersSlice.actions.setIsAuth(true))
-                // window.location.href = SHOP_ROUTE
+                window.location.href = SHOP_ROUTE
             } else {
                 document.getElementById("log_err_msg").textContent = 'Wrong email or password!'
             }
-        }).catch(() => {
-            document.getElementById("log_err_msg").textContent = "An error occurred on the server"
+        }).catch((e) => {
+            document.getElementById("log_err_msg").textContent = e.response.data
         })
     }
 })
@@ -91,9 +91,11 @@ export const register = createAsyncThunk('register', async (payload, thunkAPI) =
                 thunkAPI.dispatch(usersSlice.actions.setLogin(document.getElementById("reg_email").value))
                 thunkAPI.dispatch(usersSlice.actions.setPassword(document.getElementById("reg_pass").value))
             }
+            if(res.data === "exists"){
+                document.getElementById("reg_err_msg").textContent = "User with this email already exists!"
+            }
         }).catch((e) => {
-            console.log(e)
-            document.getElementById("reg_err_msg").textContent = "An error occurred on the server"
+            document.getElementById("reg_err_msg").textContent = e.response.data
         })
     }
 })
