@@ -28,7 +28,6 @@ public class UserService {
         if (userRepository.existsByEmail(authRequest.getEmail())){
             throw new UserAlreadyExistsException("Email is already in use.");
         }
-
         UserEntity user = new UserEntity(authRequest.getEmail(),
                 passwordEncoder().encode(authRequest.getPassword()+salt),
                 authRequest.getUsername(),
@@ -38,8 +37,8 @@ public class UserService {
     }
 
     public void login(AuthRequest authRequest) throws UserAlreadyExistsException, WrongPasswordException {
-        if (userRepository.existsByEmail(authRequest.getEmail())){
-            throw new UserAlreadyExistsException("Email is already in use.");
+        if (!userRepository.existsByEmail(authRequest.getEmail())){
+            throw new UserAlreadyExistsException("Email not found.");
         }
         UserEntity entity = userRepository.findByEmail(authRequest.getEmail());
         if (!passwordEncoder().matches(authRequest.getPassword()+salt, entity.getPassword())){

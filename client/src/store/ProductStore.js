@@ -44,7 +44,7 @@ const initialState = {
 }
 
 export const getProducts = createAsyncThunk('getProduct',async (payload, thunkAPI) => {
-    axios.post("/product").then(res =>{
+    axios.get("/product").then(res =>{
         if(res.status === 200){
             console.log(res)
             console.log("done /product")
