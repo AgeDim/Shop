@@ -8,10 +8,11 @@ import userReducer from "./store/UserStore"
 import axios from "axios";
 import productReducer from "./store/ProductStore";
 import reportWebVitals from "./reportWebVitals";
+import basketStore from "./store/BasketStore";
 
 const store = configureStore({
     reducer: {
-        users: userReducer, products: productReducer
+        users: userReducer, products: productReducer, basket: basketStore
     }
 })
 

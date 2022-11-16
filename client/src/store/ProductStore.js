@@ -1,6 +1,7 @@
 import React from 'react';
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "../axiosAPI";
+import {addProduct} from "./BasketStore";
 
 const initialState = {
     types: [{id: 1, name: 'Удилища'}, {id: 2, name: 'Катушки'}, {id: 3, name: 'Леска'}, {id: 4, name: 'Крючки'}, {
@@ -56,6 +57,7 @@ export const getProducts = createAsyncThunk('getProduct',async (payload, thunkAP
         console.log("error with post /product")
     })
 })
+
 
 export function setSelectedType(selected) {
     if (!initialState.selectedType.includes(selected)) {
