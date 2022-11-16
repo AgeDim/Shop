@@ -24,6 +24,7 @@ CREATE TYPE coil_type AS ENUM
 CREATE TABLE rod
 (
     serial_id     SERIAL PRIMARY KEY,
+    name varchar(255) NOT NULL,
     rod_type      rod_type NOT NULL,
     action        action   NOT NULL,
     hardness      int,
@@ -45,6 +46,7 @@ CREATE TABLE rod
 CREATE TABLE hook
 (
     serial_id     serial PRIMARY KEY,
+    name varchar(255) NOT NULL,
     hook_type     hooks_type NOT NULL,
     size          varchar(5),
     weight        REAL,
@@ -213,6 +215,7 @@ CREATE TABLE favorite(
 );
 CREATE TABLE fishing_line (
                               serial_id SERIAL PRIMARY KEY,
+                              name varchar(255) NOT NULL,
                               fishing_line_type fishing_line_type NOT NULL,
                               color color NOT NULL,
                               length REAL NOT NULL,
@@ -227,14 +230,17 @@ CREATE TABLE fishing_line (
 
 CREATE TABLE coil (
                       serial_id SERIAL PRIMARY KEY,
+                      name varchar(255) NOT NULL,
                       coil_type coil_type NOT NULL,
                       size INT NOT NULL,
                       gear_ratio REAL NOT NULL,
                       friction_brake_force REAL NOT NULL,
                       capacity INT NOT NULL,
+                      line_diameter REAL NOT NULL,
                       default_price money NOT NULL,
                       CHECK (default_price::numeric > 0),
                       CHECK (capacity > 0),
+                      CHECK (line_diameter > 0),
                       CHECK (friction_brake_force >= 1),
                       CHECK (gear_ratio >= 1),
                       CHECK ((size % 1000) = 0)
@@ -263,6 +269,7 @@ CREATE TABLE flavoring(
 
 CREATE TABLE sinker (
                         serial_id SERIAL PRIMARY KEY,
+                        name varchar(255) NOT NULL,
                         sinker_type sinker_type NOT NULL,
                         color color NOT NULL,
                         bracing bracing NOT NULL,
@@ -278,7 +285,7 @@ CREATE TABLE bait (
                       bait_size size_bait NOT NULL,
                       weight REAL NOT NULL,
                       length REAL NOT NULL,
-                      deepening REAL NOT NULL,
+                      deepening REAL,
                       default_price money NOT NULL,
                       CHECK (default_price::numeric > 0),
                       CHECK (deepening > 0),
@@ -342,3 +349,16 @@ CREATE TABLE "order"
     FOREIGN KEY (product_match) REFERENCES rod(serial_id) ON DELETE CASCADE,
     FOREIGN KEY (product_match) REFERENCES sinker(serial_id) ON DELETE CASCADE
 );
+
+ALTER SEQUENCE additive_id_seq RESTART WITH 1001;
+ALTER SEQUENCE bait_serial_id_seq RESTART WITH 2001;
+ALTER SEQUENCE base_id_seq RESTART WITH 3001;
+ALTER SEQUENCE coil_serial_id_seq RESTART WITH 4001;
+ALTER SEQUENCE feeder_serial_id_seq RESTART WITH 5001;
+ALTER SEQUENCE fishing_line_serial_id_seq RESTART WITH 6001;
+ALTER SEQUENCE flavoring_id_seq RESTART WITH 7001;
+ALTER SEQUENCE hook_serial_id_seq RESTART WITH 8001;
+ALTER SEQUENCE leashes_serial_id_seq RESTART WITH 9001;
+ALTER SEQUENCE lure_serial_id_seq RESTART WITH 10001;
+ALTER SEQUENCE rod_serial_id_seq RESTART WITH 11001;
+ALTER SEQUENCE sinker_serial_id_seq RESTART WITH 12001;

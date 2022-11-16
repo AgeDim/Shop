@@ -25,9 +25,10 @@ public class ProductController {
     @GetMapping("/product/{id}")
     public ResponseEntity<?> getProductById(@PathVariable String id){
         try {
-            productService.getProductById(Long.valueOf(id));
-            return ResponseEntity.ok("ok");
-        }catch (Exception e){
+            return ResponseEntity.ok(productService.getProductById(Long.valueOf(id)));
+        }catch (NumberFormatException e){
+            return ResponseEntity.badRequest().body("Неверный формат id.");
+        } catch (Exception e){
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Ошибка.");
         }
