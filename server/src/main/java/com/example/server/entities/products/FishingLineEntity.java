@@ -1,5 +1,6 @@
 package com.example.server.entities.products;
 
+import com.example.server.entities.products.enumsForProducts.FishingLineType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,8 +19,9 @@ public class FishingLineEntity {
     @Column(name="name", columnDefinition = "varchar(255) NOT NULL")
     private String name;
 
+    @Enumerated(EnumType.STRING)
     @Column(name="fishing_line_type", columnDefinition = "fishing_line_type NOT NULL")
-    private String fishingLineType;
+    private FishingLineType fishingLineType;
 
     @Column(name="color", columnDefinition = "color NOT NULL")
     private String color;
@@ -36,7 +38,7 @@ public class FishingLineEntity {
     @Column(name="default_price", columnDefinition = "money NOT NULL")
     private Double defaultPrice;
 
-    public FishingLineEntity(Long serialId, String name, String fishingLineType, String color, Double length,
+    public FishingLineEntity(Long serialId, String name, FishingLineType fishingLineType, String color, Double length,
                              Double diameter, Double strength, Double defaultPrice){
         this.serialId = serialId;
         this.name = name;

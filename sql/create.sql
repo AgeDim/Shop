@@ -5,11 +5,11 @@ CREATE TYPE power AS ENUM ('ultra_hard', 'hard', 'medium','lite','ultra_lite');
 CREATE TYPE fishing_line_type AS ENUM ('neylon', 'f_carbon', 'cord');
 CREATE TYPE color AS ENUM ('clear', 'lite_green', 'grey','white','lite_blue','green','brown','dark_green','emerald','pink','yellow','orange');
 CREATE TYPE material_of_leashes AS ENUM ('neylon', 'f_carbon', 'cord','metalic');
-CREATE TYPE leashes_type AS ENUM ('default', 'feeder', 'hinged leashes','leadcore');
-CREATE TYPE sinker_type AS ENUM ('bottom_classic', 'bottom_inline', 'jig','jig weight bullets','marker');
+CREATE TYPE leashes_type AS ENUM ('default', 'feeder', 'hinged_leashes','leadcore');
+CREATE TYPE sinker_type AS ENUM ('bottom_classic', 'bottom_inline', 'jig','jig_weight_bullets','marker');
 CREATE TYPE lure_type AS ENUM ('worm', 'larva', 'natural','insects','crayfish','sinking_boilies','pop-up_boilies','pellts','artifical_corn','dips');
 CREATE TYPE size_bait AS ENUM ('small', 'medium', 'huge');
-CREATE TYPE bait_type AS ENUM ('spinner', 'snaker', 'wobbler','topwobbler','jackbaiter','soft lures','wacky worms');
+CREATE TYPE bait_type AS ENUM ('spinner', 'snaker', 'wobbler','topwobbler','jackbaiter','soft_lures','wacky_worms');
 CREATE TYPE feeder_type AS ENUM ('classic', 'inline', 'method');
 CREATE TYPE bracing AS ENUM ('swivel', 'inline');
 CREATE TYPE base AS ENUM ('ground_crackers', 'semolina', 'ground_barley','sunflower_seed','wheat_bran','ground_corn','cereals','hemp_seeds','rye_bran','ground_peas','flax_seed','rape_seeds');
@@ -27,14 +27,14 @@ CREATE TABLE rod
     name varchar(255) NOT NULL,
     rod_type      rod_type NOT NULL,
     action        action   NOT NULL,
-    hardness      int,
+    hardness      int NOT NULL,
     power         power    NOT NULL,
-    test_max      int,
-    test_min      int,
-    length        numeric,
-    strength      numeric,
-    weight        numeric,
-    default_price money,
+    test_max      int NOT NULL,
+    test_min      int NOT NULL,
+    length        numeric NOT NULL,
+    strength      numeric NOT NULL,
+    weight        numeric NOT NULL,
+    default_price money NOT NULL,
     check (hardness >= 0 AND hardness <= 10),
     check (test_min >= 1),
     check (length >= 0),
@@ -51,7 +51,7 @@ CREATE TABLE hook
     size          varchar(5),
     weight        REAL,
     color         color      Not NULL,
-    default_price money,
+    default_price money NOT NULL,
     CHECK (default_price::numeric >= 0)
 );
 
@@ -60,10 +60,10 @@ CREATE TABLE leashes
     serial_id     serial PRIMARY KEY,
     leashes_type  leashes_type        NOT NULL,
     material      material_of_leashes NOT NULL,
-    length        REAL,
-    diameter      REAL,
-    strength      REAL,
-    default_price money,
+    length        REAL NOT NULL,
+    diameter      REAL NOT NULL,
+    strength      REAL NOT NULL,
+    default_price money NOT NULL,
     CHECK ( length >= 0 ),
     CHECK ( diameter >= 0 ),
     CHECK ( strength >= 0 )
@@ -85,10 +85,10 @@ CREATE TABLE lure
 (
     serial_id     serial primary key,
     lure_type     lure_type NOT NULL,
-    weight        REAL,
-    buoyancy      REAL,
-    amount        REAL,
-    default_price money,
+    weight        REAL NOT NULL,
+    buoyancy      REAL NOT NULL,
+    amount        REAL NOT NULL,
+    default_price money NOT NULL,
     CHECK ( default_price::numeric >= 0),
     check ( weight >= 0 ),
     CHECK ( buoyancy >= 0 ),

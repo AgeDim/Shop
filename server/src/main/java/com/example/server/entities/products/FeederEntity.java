@@ -1,5 +1,7 @@
 package com.example.server.entities.products;
 
+import com.example.server.entities.products.enumsForProducts.Bracing;
+import com.example.server.entities.products.enumsForProducts.FeederType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,11 +17,13 @@ public class FeederEntity {
     @Column(name="serial_id", columnDefinition = "serial primary key")
     private Long serialId;
 
+    @Enumerated(EnumType.STRING)
     @Column(name="feeder_type", columnDefinition = "feeder_type NOT NULL")
-    private String feederType;
+    private FeederType feederType;
 
+    @Enumerated(EnumType.STRING)
     @Column(name="bracing", columnDefinition = "bracing NOT NULL")
-    private String bracing;
+    private Bracing bracing;
 
     @Column(name="weight", columnDefinition = "REAL")
     private Double weight;
@@ -30,7 +34,7 @@ public class FeederEntity {
     @Column(name="default_price", columnDefinition = "money NOT NULL")
     private Double defaultPrice;
 
-    public FeederEntity(Long serialId, String feederType, String bracing, Double weight,
+    public FeederEntity(Long serialId, FeederType feederType, Bracing bracing, Double weight,
                         Integer capacity, Double defaultPrice){
         this.serialId = serialId;
         this.feederType = feederType;

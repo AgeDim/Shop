@@ -1,5 +1,6 @@
 package com.example.server.entities.products;
 
+import com.example.server.entities.products.enumsForProducts.CoilType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,8 +19,9 @@ public class CoilEntity {
     @Column(name="name", columnDefinition = "varchar(255) NOT NULL")
     private String name;
 
+    @Enumerated(EnumType.STRING)
     @Column(name="coil_type", columnDefinition = "coil_type NOT NULL")
-    private String coilType;
+    private CoilType coilType;
 
     @Column(name="size", columnDefinition = "INT NOT NULL")
     private Integer size;
@@ -39,7 +41,7 @@ public class CoilEntity {
     @Column(name="default_price", columnDefinition = "money NOT NULL")
     private Double defaultPrice;
 
-    public CoilEntity(Long serialId, String name, String coilType, Integer size, Double gearRatio,
+    public CoilEntity(Long serialId, String name, CoilType coilType, Integer size, Double gearRatio,
                       Double frictionBrakeForce, Integer capacity, Double lineDiameter, Double defaultPrice){
         this.serialId = serialId;
         this.name = name;

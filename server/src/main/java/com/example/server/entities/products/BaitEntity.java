@@ -1,5 +1,7 @@
 package com.example.server.entities.products;
 
+import com.example.server.entities.products.enumsForProducts.BaitSize;
+import com.example.server.entities.products.enumsForProducts.BaitType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,11 +17,13 @@ public class BaitEntity {
     @Column(name="serial_id", columnDefinition = "serial primary key")
     private Long serialId;
 
+    @Enumerated(EnumType.STRING)
     @Column(name="bait_type", columnDefinition = "bait_type NOT NULL")
-    private String baitType;
+    private BaitType baitType;
 
+    @Enumerated(EnumType.STRING)
     @Column(name="bait_size", columnDefinition = "size_bait NOT NULL")
-    private String baitSize;
+    private BaitSize baitSize;
 
     @Column(name="weight", columnDefinition = "REAL NOT NULL")
     private Double weight;
@@ -33,7 +37,7 @@ public class BaitEntity {
     @Column(name="default_price", columnDefinition = "money NOT NULL")
     private Double defaultPrice;
 
-    public BaitEntity(Long serialId, String baitType, String baitSize, Double weight, Double length,
+    public BaitEntity(Long serialId, BaitType baitType, BaitSize baitSize, Double weight, Double length,
                       Double deepening, Double defaultPrice){
         this.serialId = serialId;
         this.baitType = baitType;
