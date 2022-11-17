@@ -12,6 +12,7 @@
     "react": "^17.0.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.0.0",
+    "react-icons": "^4.6.0",
     "react-native-sha1": "^1.2.3",
     "react-router-dom": "^5.2.0",
     "react-yandex-maps": "^4.6.0"

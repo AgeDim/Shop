@@ -4,6 +4,7 @@ import App from './App';
 import "./input.css"
 import UserStore from "./store/UserStore";
 import ProductStore from "./store/ProductStore";
+import BasketStore from "./store/BasketStore";
 
 export const Context = createContext(null)
 
@@ -12,6 +13,7 @@ root.render(
     <Context.Provider value={{
         user: new UserStore(),
         product: new ProductStore(),
+        basket: new BasketStore()
     }}>
         <App/>
     </Context.Provider>

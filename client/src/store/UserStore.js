@@ -1,9 +1,4 @@
 import {makeAutoObservable} from "mobx";
-import axios from "../axiosAPI";
-import {SHOP_ROUTE} from "../utils/const";
-import {sha512} from "crypto-hash";
-import {getSalt} from "../Salt";
-import validator from "validator/es";
 
 export default class UserStore {
     constructor() {

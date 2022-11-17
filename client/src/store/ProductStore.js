@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from "../axiosAPI";
 import {makeAutoObservable} from "mobx";
 
 export default class ProductStore {
