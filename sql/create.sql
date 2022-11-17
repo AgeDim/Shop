@@ -5,11 +5,11 @@ CREATE TYPE power AS ENUM ('ultra_hard', 'hard', 'medium','lite','ultra_lite');
 CREATE TYPE fishing_line_type AS ENUM ('neylon', 'f_carbon', 'cord');
 CREATE TYPE color AS ENUM ('clear', 'lite_green', 'grey','white','lite_blue','green','brown','dark_green','emerald','pink','yellow','orange');
 CREATE TYPE material_of_leashes AS ENUM ('neylon', 'f_carbon', 'cord','metalic');
-CREATE TYPE leashes_type AS ENUM ('default', 'feeder', 'hinged leashes','leadcore');
-CREATE TYPE sinker_type AS ENUM ('bottom_classic', 'bottom_inline', 'jig','jig weight bullets','marker');
+CREATE TYPE leashes_type AS ENUM ('default', 'feeder', 'hinged_leashes','leadcore');
+CREATE TYPE sinker_type AS ENUM ('bottom_classic', 'bottom_inline', 'jig','jig_weight_bullets','marker');
 CREATE TYPE lure_type AS ENUM ('worm', 'larva', 'natural','insects','crayfish','sinking_boilies','pop-up_boilies','pellts','artifical_corn','dips');
 CREATE TYPE size_bait AS ENUM ('small', 'medium', 'huge');
-CREATE TYPE bait_type AS ENUM ('spinner', 'snaker', 'wobbler','topwobbler','jackbaiter','soft lures','wacky worms');
+CREATE TYPE bait_type AS ENUM ('spinner', 'snaker', 'wobbler','topwobbler','jackbaiter','soft_lures','wacky_worms');
 CREATE TYPE feeder_type AS ENUM ('classic', 'inline', 'method');
 CREATE TYPE bracing AS ENUM ('swivel', 'inline');
 CREATE TYPE base AS ENUM ('ground_crackers', 'semolina', 'ground_barley','sunflower_seed','wheat_bran','ground_corn','cereals','hemp_seeds','rye_bran','ground_peas','flax_seed','rape_seeds');
@@ -24,16 +24,17 @@ CREATE TYPE coil_type AS ENUM
 CREATE TABLE rod
 (
     serial_id     SERIAL PRIMARY KEY,
+    name varchar(255) NOT NULL,
     rod_type      rod_type NOT NULL,
     action        action   NOT NULL,
-    hardness      int,
+    hardness      int NOT NULL,
     power         power    NOT NULL,
-    test_max      int,
-    test_min      int,
-    length        numeric,
-    strength      numeric,
-    weight        numeric,
-    default_price money,
+    test_max      int NOT NULL,
+    test_min      int NOT NULL,
+    length        numeric NOT NULL,
+    strength      numeric NOT NULL,
+    weight        numeric NOT NULL,
+    default_price money NOT NULL,
     check (hardness >= 0 AND hardness <= 10),
     check (test_min >= 1),
     check (length >= 0),
@@ -45,11 +46,12 @@ CREATE TABLE rod
 CREATE TABLE hook
 (
     serial_id     serial PRIMARY KEY,
+    name varchar(255) NOT NULL,
     hook_type     hooks_type NOT NULL,
     size          varchar(5),
     weight        REAL,
     color         color      Not NULL,
-    default_price money,
+    default_price money NOT NULL,
     CHECK (default_price::numeric >= 0)
 );
 
@@ -58,10 +60,10 @@ CREATE TABLE leashes
     serial_id     serial PRIMARY KEY,
     leashes_type  leashes_type        NOT NULL,
     material      material_of_leashes NOT NULL,
-    length        REAL,
-    diameter      REAL,
-    strength      REAL,
-    default_price money,
+    length        REAL NOT NULL,
+    diameter      REAL NOT NULL,
+    strength      REAL NOT NULL,
+    default_price money NOT NULL,
     CHECK ( length >= 0 ),
     CHECK ( diameter >= 0 ),
     CHECK ( strength >= 0 )
@@ -83,10 +85,10 @@ CREATE TABLE lure
 (
     serial_id     serial primary key,
     lure_type     lure_type NOT NULL,
-    weight        REAL,
-    buoyancy      REAL,
-    amount        REAL,
-    default_price money,
+    weight        REAL NOT NULL,
+    buoyancy      REAL NOT NULL,
+    amount        REAL NOT NULL,
+    default_price money NOT NULL,
     CHECK ( default_price::numeric >= 0),
     check ( weight >= 0 ),
     CHECK ( buoyancy >= 0 ),
@@ -213,6 +215,7 @@ CREATE TABLE favorite(
 );
 CREATE TABLE fishing_line (
                               serial_id SERIAL PRIMARY KEY,
+                              name varchar(255) NOT NULL,
                               fishing_line_type fishing_line_type NOT NULL,
                               color color NOT NULL,
                               length REAL NOT NULL,
@@ -227,14 +230,17 @@ CREATE TABLE fishing_line (
 
 CREATE TABLE coil (
                       serial_id SERIAL PRIMARY KEY,
+                      name varchar(255) NOT NULL,
                       coil_type coil_type NOT NULL,
                       size INT NOT NULL,
                       gear_ratio REAL NOT NULL,
                       friction_brake_force REAL NOT NULL,
                       capacity INT NOT NULL,
+                      line_diameter REAL NOT NULL,
                       default_price money NOT NULL,
                       CHECK (default_price::numeric > 0),
                       CHECK (capacity > 0),
+                      CHECK (line_diameter > 0),
                       CHECK (friction_brake_force >= 1),
                       CHECK (gear_ratio >= 1),
                       CHECK ((size % 1000) = 0)
@@ -263,6 +269,7 @@ CREATE TABLE flavoring(
 
 CREATE TABLE sinker (
                         serial_id SERIAL PRIMARY KEY,
+                        name varchar(255) NOT NULL,
                         sinker_type sinker_type NOT NULL,
                         color color NOT NULL,
                         bracing bracing NOT NULL,
@@ -278,7 +285,7 @@ CREATE TABLE bait (
                       bait_size size_bait NOT NULL,
                       weight REAL NOT NULL,
                       length REAL NOT NULL,
-                      deepening REAL NOT NULL,
+                      deepening REAL,
                       default_price money NOT NULL,
                       CHECK (default_price::numeric > 0),
                       CHECK (deepening > 0),
@@ -342,3 +349,16 @@ CREATE TABLE "order"
     FOREIGN KEY (product_match) REFERENCES rod(serial_id) ON DELETE CASCADE,
     FOREIGN KEY (product_match) REFERENCES sinker(serial_id) ON DELETE CASCADE
 );
+
+ALTER SEQUENCE additive_id_seq RESTART WITH 1001;
+ALTER SEQUENCE bait_serial_id_seq RESTART WITH 2001;
+ALTER SEQUENCE base_id_seq RESTART WITH 3001;
+ALTER SEQUENCE coil_serial_id_seq RESTART WITH 4001;
+ALTER SEQUENCE feeder_serial_id_seq RESTART WITH 5001;
+ALTER SEQUENCE fishing_line_serial_id_seq RESTART WITH 6001;
+ALTER SEQUENCE flavoring_id_seq RESTART WITH 7001;
+ALTER SEQUENCE hook_serial_id_seq RESTART WITH 8001;
+ALTER SEQUENCE leashes_serial_id_seq RESTART WITH 9001;
+ALTER SEQUENCE lure_serial_id_seq RESTART WITH 10001;
+ALTER SEQUENCE rod_serial_id_seq RESTART WITH 11001;
+ALTER SEQUENCE sinker_serial_id_seq RESTART WITH 12001;
