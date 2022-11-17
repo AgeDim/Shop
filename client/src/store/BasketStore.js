@@ -3,10 +3,15 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
     userEmail: "",
-    prod: [{id: 1, amount: 3}],
+    prod: [],
     genPrice: 0
 }
-
+ export const addProducts = (id, amount)=>{
+     let pr = {id:id,amount:amount}
+     console.log(pr)
+     // tmp.push(pr)
+     addProduct(pr)
+ }
 
 // export const getGenPrice = () => {
 //     let price = 0
@@ -25,10 +30,12 @@ const initialState = {
 const basketStore = createSlice({
     name: "basket", initialState, reducers: {
         addProduct(state, action) {
-            state.prod += action.payload
+            state.prod.push(action.payload)
+            console.log(state.prod)
         }, setEmail(state, action) {
             state.userEmail = action.payload
         }
     }
 })
+export const { addProduct,setEmail} = basketStore.actions
 export default basketStore.reducer;
