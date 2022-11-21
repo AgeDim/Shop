@@ -9,7 +9,6 @@ import {Row} from "react-bootstrap";
 const ProductList = observer(({}) => {
     const {product} = useContext(Context)
     let type = product.selectedType
-    console.log(type.id)
     const getProducts = () => {
         axios.get("/product/" + type.id).then(res => {
             if (res.status === 200) {

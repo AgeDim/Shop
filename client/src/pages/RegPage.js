@@ -1,18 +1,21 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
-import reg from "../assets/active.png"
-import {LOGIN_ROUTE} from "../utils/const";
-import {register} from "../store/UserStore";
+import regImg from "../assets/active.png"
+import {LOGIN_ROUTE, SHOP_ROUTE} from "../utils/const";
 import {Context} from "../index";
+import {observer} from "mobx-react-lite";
+import {useHistory} from "react-router-dom";
+import {reg} from "../http/userAPI";
 import validator from "validator/es";
-import {sha512} from "crypto-hash";
-import {getSalt} from "../Salt";
-import axios from "../axiosAPI";
 
 
-const RegPage = () => {
+const RegPage = observer(() => {
     const {user} = useContext(Context)
-    const register = async () => {
+    const history = useHistory()
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    const click = async () => {
         let checkBox = document.getElementById('reg_check')
         if (!validator.isEmail(document.getElementById("reg_email").value)) {
             document.getElementById("reg_err_msg").textContent = 'Uncorrect email!'
@@ -25,44 +28,28 @@ const RegPage = () => {
         } else if (!checkBox.checked) {
             document.getElementById("reg_err_msg").textContent = 'You need to accept personal data processing policies!'
         } else {
-            let result = await sha512(document.getElementById("reg_pass").value)
-            result += getSalt()
-            await axios.post('/reg', {
-                username: document.getElementById("reg_name").value,
-                email: document.getElementById("reg_email").value,
-                password: result
-            }).then(res => {
-                console.log(res)
-                if (res.data === true) {
-                    const curr = {
-                        username: document.getElementById("reg_name").value,
-                        email: document.getElementById("reg_email").value,
-                        password: result
-                    }
-                    user.setUser(curr)
-                    user.setIsAuth(true)
-                    console.log(user)
-                }
-                if (res.data === "exists") {
-                    document.getElementById("reg_err_msg").textContent = "User with this email already exists!"
-                }
-            })
+            try {
+                let data;
+                data = await reg(email, password);
+                user.setUser(user)
+                user.setIsAuth(true)
+                history.push(SHOP_ROUTE)
+            } catch (e) {
+                alert(e.response.data.message)
+            }
         }
     }
     return (<Container className="d-flex justify-content-center align-items-center"
                        style={{height: window.innerHeight - 200}}>
-        <Card style={{width: 500}} className="p-5">
+        <Card style={{width: 500, marginTop: 80}} className="p-5">
             <h2 className="m-auto">Регистрация</h2>
             <Form className="d-flex flex-column">
-                <h5 className="mt-1">Имя</h5>
-                <Form.Control className="mb-3" id="reg_name" placeholder="Введите ваше имя..."
-                              type="email"></Form.Control>
                 <h5 className="mt-0">E-mail</h5>
                 <Form.Control className="mb-3" id="reg_email" placeholder="Введите ваш e-mail..."
-                              type="email"></Form.Control>
+                              type="email" onChange={e => setEmail(e.target.value)}></Form.Control>
                 <h5>Придумайте пароль</h5>
                 <Form.Control className="mb-3" id="reg_pass" placeholder="Введите ваш пароль..."
-                              type="password"></Form.Control>
+                              type="password" onChange={e => setPassword(e.target.value)}></Form.Control>
                 <h5>Повторите пароль</h5>
                 <Form.Control className="mb-3" id="reg_pass1" placeholder="Повторите ваш пароль..."
                               type="password"></Form.Control>
@@ -72,12 +59,14 @@ const RegPage = () => {
                     style={{color: "lightblue"}}>политикой обработки персональных
                     данных</a></h6></Col></Row>
                 <Button style={{background: "rgba(0, 0, 0, 0)", borderColor: "rgba(0, 0, 0, 0)"}}
-                        onClick={register}><img src={reg} alt={""}/></Button>
+                        onClick={() => {
+                            click()
+                        }}><img src={regImg} alt={""}/></Button>
                 <a href={LOGIN_ROUTE} className="align-self-center mt-3 mb-3"
                    style={{fontSize: 18, color: "black", textDecoration: "none"}}>У меня есть аккаунт</a>
             </Form>
         </Card>
     </Container>);
-};
+});
 
 export default RegPage;

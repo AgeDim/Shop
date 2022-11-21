@@ -1,50 +1,51 @@
-import React, {useContext} from 'react';
-import {Button, Col, Nav, Navbar, NavItem, Row} from "react-bootstrap";
+import React, {useContext, useEffect} from 'react';
+import {Button, Col, Container, Image, Nav, Navbar, NavItem, Row} from "react-bootstrap";
 import {
     BASKET_ROUTE, CONTACTS_ROUTE, DELIVERY_ROUTE, LOGIN_ROUTE, ORDER_ROUTE, SHOP_ROUTE
 } from "../utils/const";
-import {NavLink} from "react-router-dom";
+import {NavLink, useHistory} from "react-router-dom";
 import NavbarImg from "../assets/NavBarImg.webp"
 import {Context} from "../index";
 import {BsFillCartFill} from "react-icons/bs"
+import {observer} from "mobx-react-lite";
 
-const NavBar = () => {
+const NavBar = observer(() => {
     const {user} = useContext(Context)
+    const history = useHistory()
+
     const logout = () => {
-        user.setIsAuth(false)
         user.setUser({})
-        user.setIsModer(false)
-        user.setIsAdmin(false)
+        user.setIsAuth(false)
     }
-    return (<Navbar bg="light" id="nav_bar" className="d-flex justify-content-lg-center">
-            <NavLink to={SHOP_ROUTE} className='me-auto' style={{margin: 10}}><img className='NavbarImg'
-                                                                                   src={NavbarImg}
-                                                                                   alt="example"/></NavLink>
-            <Nav className="justify-content-lg-center me-auto">
-                <NavItem><Nav.Link href={SHOP_ROUTE}>Магазин</Nav.Link></NavItem>
-                <NavItem><Nav.Link href={DELIVERY_ROUTE}>Доставка</Nav.Link></NavItem>
-                <NavItem><Nav.Link href={ORDER_ROUTE}>Мои заказы</Nav.Link></NavItem>
-                <NavItem><Nav.Link href={CONTACTS_ROUTE}>Контакты</Nav.Link></NavItem>
+    return (<Navbar bg="light" variant="light">
+            <NavLink style={{color: 'white'}} to={SHOP_ROUTE}><Image src={NavbarImg}/></NavLink>
+            <Nav className="justify-content-center me-auto" style={{marginLeft: 15}}>
+                <NavItem><Button variant="secondary" onClick={() => {
+                history.push(SHOP_ROUTE)}} style={{marginRight: 10}}>Магазин</Button></NavItem>
+                <NavItem><Button variant="secondary" style={{marginRight: 10}} onClick={() => {
+                    history.push(DELIVERY_ROUTE)
+                }}>Доставка</Button></NavItem>
+                <NavItem><Button variant="secondary" style={{marginRight: 10}}
+                                 onClick={() => history.push(ORDER_ROUTE)}>Мои заказы</Button></NavItem>
+                <NavItem><Button variant="secondary" onClick={() => {
+                    history.push(CONTACTS_ROUTE)
+                }}>Контакты</Button></NavItem>
             </Nav>
             <Nav className="flex-column me-3">
                 {!user.isAuth &&
-                    <a href={LOGIN_ROUTE} className="align-self-center"><Button variant="secondary"
-                                                                                style={{width: 80}}>Вход</Button></a>}
-                {user.isAuth && <div><a className="align-self-center" href={BASKET_ROUTE}
-                                         style={{textDecoration: "none", color: "black"}}><BsFillCartFill
-                    size={45}/></a><Button style={{marginLeft: 10}} onClick={logout}>Выход</Button></div>}
-                <Row>
-                    <Col><a href="" style={{fontSize: 12, color: "black", textDecoration: "none"}}>РУС</a></Col>
-                    <Col><h5>/</h5></Col>
-                    <Col><a href="" className="me-2"
-                            style={{fontSize: 12, color: "black", textDecoration: "none"}}>ENG</a></Col>
-                    {/*Добавить ссылки на русскую и английскую версию сайта*/}
-                </Row>
+                    <Button variant="secondary" onClick={() => {
+                        history.push(LOGIN_ROUTE)
+                    }}
+                            style={{width: 80}}>Вход</Button>}
+                {user.isAuth && <div><BsFillCartFill
+                    size={45} onClick={() => {
+                    history.push(BASKET_ROUTE)
+                }}style={{cursor:"pointer"}}/><Button variant="secondary" style={{marginLeft: 10}} onClick={() => {
+                    logout()
+                }}>Выход</Button></div>}
             </Nav>
-
         </Navbar>
-
     );
-};
+});
 
 export default NavBar;

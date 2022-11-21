@@ -4,9 +4,10 @@ import left from "../assets/left.png"
 import right from "../assets/right.png"
 import "./css/counter.css"
 import {useSelector} from "react-redux";
+import {observer} from "mobx-react-lite";
 
 
-const Counter = ({product}) => {
+const Counter = observer(({product}) => {
     const [counter, setCounter] = useState(1);
     //increase counter
     const increase = () => {
@@ -42,6 +43,6 @@ const Counter = ({product}) => {
             </Row>
 
         </div>);
-};
+});
 
 export default Counter;
