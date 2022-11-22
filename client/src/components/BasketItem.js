@@ -6,7 +6,7 @@ import {observer} from "mobx-react-lite";
 import holder from "../assets/holder.png"
 
 const BasketItem = observer(({basketItem, deleteFromBasket}) => {
-    const {product, basket} = useContext(Context)
+    const {product} = useContext(Context)
     const prod = product.products.find(produc => produc.id == basketItem.id)
     return (<Card style={{marginLeft: 40, marginTop: 10, height: 170, paddingTop: 5, paddingBottom: 5}}>
         <Row className="flex-fill">

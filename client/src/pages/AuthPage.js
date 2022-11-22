@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Button, Card, Container, Form} from "react-bootstrap";
 import {REG_ROUTE, SHOP_ROUTE} from "../utils/const";
 import {Context} from "../index";
@@ -39,12 +39,20 @@ const AuthPage = observer(() => {
                     <h5 className="mt-4">Пароль</h5>
                     <Form.Control id="log_pass" className="mb-4" placeholder="Введите ваш пароль...."
                                   type="password" onChange={e => setPassword(e.target.value)}></Form.Control>
-                    <a onClick={()=>{history.push(SHOP_ROUTE)}} className="align-self-lg-end"
-                       style={{fontSize: 17, color: "black", textDecoration: "none", cursor: "pointer"}}>Забыли пароль?</a>
+                    <a onClick={() => {
+                        history.push(SHOP_ROUTE)
+                    }} className="align-self-lg-end"
+                       style={{fontSize: 17, color: "black", textDecoration: "none", cursor: "pointer"}}>Забыли
+                        пароль?</a>
                     <Button className="w-20 align-self-center" variant="secondary" color="gray"
-                            onClick={() => {click()}}>Вход</Button>
-                    <a onClick={() => {history.push(REG_ROUTE)}} className="align-self-center mt-3 mb-3"
-                       style={{fontSize: 17, color: "black", textDecoration: "none", cursor: "pointer"}}>У меня нету аккаунта</a>
+                            onClick={() => {
+                                click()
+                            }}>Вход</Button>
+                    <a onClick={() => {
+                        history.push(REG_ROUTE)
+                    }} className="align-self-center mt-3 mb-3"
+                       style={{fontSize: 17, color: "black", textDecoration: "none", cursor: "pointer"}}>У меня нету
+                        аккаунта</a>
                 </Form>
             </Card>
         </Container>);

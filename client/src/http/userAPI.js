@@ -1,20 +1,21 @@
 import jwt_decode from "jwt-decode";
-import axios from "../axiosAPI";
+import axios, {$host} from "../axiosAPI";
 
-export const reg = async (email, password, username) => {
-    const {data} = await axios.post('/reg', {email, password})
+
+export const reg = async (email, password) => {
+    const {data} = await $host.post('/reg', {email, password})
     localStorage.setItem('token', data.token)
     return jwt_decode(data.token)
 }
 
 export const login = async (email, password) => {
-    const {data} = await axios.post('/login', {email, password})
+    const {data} = await $host.post('/login', {email, password})
     localStorage.setItem('token', data.token)
     return jwt_decode(data.token)
 }
 
 export const check = async () => {
-    const {data} = await axios.get('/check')
+    const {data} = await axios.get('/check/')
     localStorage.setItem('token', data.token)
     return jwt_decode(data.token)
 }

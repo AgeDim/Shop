@@ -3,7 +3,6 @@ import {Col, Image, Row} from "react-bootstrap";
 import left from "../assets/left.png"
 import right from "../assets/right.png"
 import "./css/counter.css"
-import {useSelector} from "react-redux";
 import {observer} from "mobx-react-lite";
 
 

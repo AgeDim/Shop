@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
 import regImg from "../assets/active.png"
 import {LOGIN_ROUTE, SHOP_ROUTE} from "../utils/const";
@@ -29,11 +29,14 @@ const RegPage = observer(() => {
             document.getElementById("reg_err_msg").textContent = 'You need to accept personal data processing policies!'
         } else {
             try {
-                let data;
-                data = await reg(email, password);
-                user.setUser(user)
-                user.setIsAuth(true)
-                history.push(SHOP_ROUTE)
+                await reg(email, password).then((data) => {
+                    console.log(data)
+                    user.setUser(user)
+                    user.setIsAuth(true)
+                    history.push(SHOP_ROUTE)
+                }).catch(e => {
+                    console.log(e)
+                })
             } catch (e) {
                 alert(e.response.data.message)
             }
