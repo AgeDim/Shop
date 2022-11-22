@@ -14,6 +14,7 @@ const AppRouter = observer(() => {
         axios.get("/checkAdmin/" + user.user.email).then((response) => isAdmin = response.data)
         axios.get("/checkModer/" + user.user.email).then((response) => isModer = response.data)
     }
+
     return (<Switch>
             {publicRoutes.map(({path, Component}) => <Route key={path} path={path} component={Component} exact/>)}
             {isAdmin === true && adminRoutes.map(({path, Component}) => <Route key={path} path={path}
