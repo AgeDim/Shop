@@ -11,25 +11,12 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
-
     @GetMapping("/product")
-    public ResponseEntity<?> getProducts(){
+    public ResponseEntity<?> getProduct(){
         try {
-            return ResponseEntity.ok("ok");
-        }catch (Exception e){
-            e.printStackTrace();
-            return ResponseEntity.badRequest().body("Ошибка.");
-        }
-    }
-
-    @GetMapping("/product/{id}")
-    public ResponseEntity<?> getProductById(@PathVariable String id){
-        try {
-            return ResponseEntity.ok(productService.getProductById(Long.valueOf(id)));
-        }catch (NumberFormatException e){
-            return ResponseEntity.badRequest().body("Неверный формат id.");
+            return ResponseEntity.ok(productService.getTopProducts());
         } catch (Exception e){
-            e.printStackTrace();
+            System.err.println(e.getMessage());
             return ResponseEntity.badRequest().body("Ошибка.");
         }
     }

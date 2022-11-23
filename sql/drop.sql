@@ -1,11 +1,13 @@
-/* Удаление енамов */
+DROP TYPE product_type;
 
-DROP TYPE IF EXISTS action, bait_type, bracing, coil_type, color, feeder_type, fishing_line_type, hooks_type,
-    leashes_type, lure_type, material_of_leashes, pack_type, power, rod_type, sinker_type, size_bait;
+DROP TABLE product_shop_match cascade;
+DROP TABLE product_storage_match cascade;
+DROP TABLE product_fish_match cascade;
+DROP TABLE "order" cascade;
+DROP TABLE favorite cascade;
 
-/* Удаление таблиц */
-
-DROP TABLE IF EXISTS additive, bait, base, coil, favorite, feeder, fish, fish_product_match, fishing_line, flavoring,
-    hook, leashes, lure, lure_complex, "order", pack, product_shop_match, product_storage_match, rod, shop, sinker,
-    storage, "user";
-
+DROP TABLE fish;
+DROP TABLE product;
+DROP TABLE shop;
+DROP TABLE storage;
+DROP TABLE "user";
