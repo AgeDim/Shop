@@ -1,6 +1,14 @@
 import {
     ADMIN_ROUTE,
-    BASKET_ROUTE, CONTACTS_ROUTE, DELIVERY_ROUTE, LOGIN_ROUTE, MODER_ROUTE, PRODUCT_ROUTE, REG_ROUTE, SHOP_ROUTE
+    BASKET_ROUTE,
+    CONTACTS_ROUTE,
+    DELIVERY_ROUTE,
+    LOGIN_ROUTE,
+    MODER_ROUTE,
+    ORDER_ROUTE,
+    PRODUCT_ROUTE,
+    REG_ROUTE,
+    SHOP_ROUTE
 } from "./utils/const";
 import AuthPage from "./pages/AuthPage";
 import ProductPage from "./pages/ProductPage";
@@ -11,6 +19,7 @@ import RegPage from "./pages/RegPage";
 import shopPage from "./pages/ShopPage";
 import AdminPannel from "./pages/AdminPannel";
 import ModerPannel from "./pages/ModerPannel";
+import OrderPage from "./pages/OrderPage";
 
 
 export const publicRoutes = [// this array routes for user who not authenticate in web-site
@@ -28,7 +37,9 @@ export const publicRoutes = [// this array routes for user who not authenticate 
         path: BASKET_ROUTE, Component: BasketPage
     }, {
         path: CONTACTS_ROUTE, Component: ContactPage
-    },]
+    },{
+    path: ORDER_ROUTE, Component: OrderPage
+    }]
 export const adminRoutes = [{
     path: LOGIN_ROUTE, Component: AuthPage
 }, {
@@ -45,6 +56,8 @@ export const adminRoutes = [{
     path: CONTACTS_ROUTE, Component: ContactPage
 },{
     path: ADMIN_ROUTE, Component: AdminPannel
+},{
+    path: ORDER_ROUTE, Component: OrderPage
 }]
 export const moderRoutes = [{
     path: LOGIN_ROUTE, Component: AuthPage
@@ -62,4 +75,6 @@ export const moderRoutes = [{
     path: CONTACTS_ROUTE, Component: ContactPage
 },{
     path: MODER_ROUTE, Component: ModerPannel
+},{
+    path: ORDER_ROUTE, Component: OrderPage
 }]

@@ -24,16 +24,13 @@ public class UserEntity {
 
     @Column(name="moder_rights", columnDefinition = "boolean")
     private boolean moderRights;
-    @Column(name="username", columnDefinition = "varchar(30) NOT NULL")
-    private String username;
 
     @Column(name="email", columnDefinition = "varchar(255)")
     private String email;
 
-    public UserEntity(String email, String password, String username, boolean adminRights, boolean moderRights){
+    public UserEntity(String email, String password, boolean adminRights, boolean moderRights){
         this.email = email;
         this.password = password;
-        this.username = username;
         this.adminRights = adminRights;
         this.moderRights = moderRights;
     }

@@ -1,20 +1,20 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {observer} from "mobx-react-lite";
 import ProductItem from "./ProductItem";
-import {useDispatch, useSelector} from "react-redux";
-import {getProducts} from "../store/ProductStore";
+import {Context} from "../index";
+import {Row} from "react-bootstrap";
+import {getProductByType} from "../http/productAPI";
 
 
 const ProductList = observer(({}) => {
-    const dispatch = useDispatch()
-    const getProduct = () => {
-        dispatch(getProducts())
+    const {product} = useContext(Context)
+    let type = product.selectedType
+    const getProducts = () => {
+        getProductByType(product, type.name)
     }
-    getProduct()
-    const productState = useSelector(state => state.products)
-    return (<div style={{display: 'flex'}}>
-        {productState.products.map(product => <ProductItem key={product.id} product={product}/>)}
-    </div>);
+    return (<Row className="me-auto" style={{display: 'flex'}}>
+        {product.products.map(product => <ProductItem key={product.id} product={product}/>)}
+    </Row>);
 });
 
 export default ProductList;

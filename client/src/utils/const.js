@@ -7,5 +7,6 @@ export const BASKET_ROUTE = '/basket'
 export const CONTACTS_ROUTE = '/contacts'
 export const ADMIN_ROUTE = '/adminPannel'
 export const MODER_ROUTE = '/moderPannel'
+export const ORDER_ROUTE = '/orders'
 
 

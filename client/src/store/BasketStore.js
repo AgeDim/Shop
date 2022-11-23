@@ -1,34 +1,46 @@
-import React from 'react';
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {makeAutoObservable} from "mobx";
 
-const initialState = {
-    userEmail: "",
-    prod: [{id: 1, amount: 3}],
-    genPrice: 0
-}
-
-
-// export const getGenPrice = () => {
-//     let price = 0
-//     if (initialState.prod.length === 0) {
-//         return 0;
-//     } else {
-//         initialState.prod.map(pr => {
-//             let pro = selectProduct(pr.id)
-//             price += (pr.amount * pro.price)
-//         })
-//         return price
-//     }
-// }
-
-
-const basketStore = createSlice({
-    name: "basket", initialState, reducers: {
-        addProduct(state, action) {
-            state.prod += action.payload
-        }, setEmail(state, action) {
-            state.userEmail = action.payload
-        }
+export default class BasketStore {
+    constructor() {
+        this._userEmail = ""
+        this._prod =  [{id:2, amount: 3, price: 1500},{id: 5, amount: 4, price: 500},{id: 4, amount: 2, price: 2000},{id: 3, amount: 1, price: 1000}]
+        this._genPrice = 0
+        makeAutoObservable(this)
     }
-})
-export default basketStore.reducer;
+    get userEmail() {
+        return this._userEmail;
+    }
+
+    setUserEmail(value) {
+        this._userEmail = value;
+    }
+
+    get prod() {
+        return this._prod;
+    }
+
+    setProdukt(value){
+        this._prod = value
+    }
+
+    addProducts(value) {
+        this._prod.push(value);
+    }
+
+    get genPrice() {
+        return this._genPrice;
+    }
+
+    setGenPrice(value) {
+        this._genPrice = value;
+    }
+
+    calcGenPrice(){
+        let res = 0
+        this.prod.map(product => {
+            res += product.amount * product.price
+        })
+        return res
+    }
+
+}

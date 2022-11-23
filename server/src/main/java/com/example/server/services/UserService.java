@@ -6,21 +6,12 @@ import com.example.server.exceptions.NotHavePermissionException;
 import com.example.server.exceptions.UserAlreadyExistsException;
 import com.example.server.exceptions.WrongPasswordException;
 import com.example.server.repositories.UserRepository;
+import com.example.server.security.Hasher;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-    @Value("${salt_for_db}")
-    private String salt;
-    @Bean
-    private PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
     @Autowired
     private UserRepository userRepository;
 
@@ -29,8 +20,7 @@ public class UserService {
             throw new UserAlreadyExistsException("Email is already in use.");
         }
         UserEntity user = new UserEntity(authRequest.getEmail(),
-                passwordEncoder().encode(authRequest.getPassword()+salt),
-                authRequest.getUsername(),
+                Hasher.encryptMD5(authRequest.getPassword()),
                 false,
                 false);
         userRepository.save(user);
@@ -41,7 +31,7 @@ public class UserService {
             throw new UserAlreadyExistsException("Email not found.");
         }
         UserEntity entity = userRepository.findByEmail(authRequest.getEmail());
-        if (!passwordEncoder().matches(authRequest.getPassword()+salt, entity.getPassword())){
+        if (!Hasher.encryptMD5(authRequest.getPassword()).equals(entity.getPassword())){
             throw new WrongPasswordException(authRequest.getEmail());
         }
     }

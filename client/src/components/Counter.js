@@ -3,8 +3,10 @@ import {Col, Image, Row} from "react-bootstrap";
 import left from "../assets/left.png"
 import right from "../assets/right.png"
 import "./css/counter.css"
+import {observer} from "mobx-react-lite";
 
-const Counter = ({product}) => {
+
+const Counter = observer(({product}) => {
     const [counter, setCounter] = useState(1);
     //increase counter
     const increase = () => {
@@ -19,6 +21,7 @@ const Counter = ({product}) => {
             setCounter(count => count - 1);
         }
     };
+
     return (
 
         <div className="counter" id="counter_div">
@@ -29,7 +32,7 @@ const Counter = ({product}) => {
                 </Col>
                 <Col style={{padding: 0, width: 40, marginRight: 15, marginBottom: 3, height: 43, fontSize: 35}} md={1}
                      className="justify-content-center">
-                    <span className="d-flex justify-content-center">{counter}</span>
+                    <span id="counterVal" className="d-flex justify-content-center">{counter}</span>
                 </Col>
                 <Col style={{padding: 0, width: 30, height: 50, paddingTop: 12}} md={1}>
                     <button className="control__btn_1"><Image style={{width: 22, height: 25}}
@@ -39,6 +42,6 @@ const Counter = ({product}) => {
             </Row>
 
         </div>);
-};
+});
 
 export default Counter;
