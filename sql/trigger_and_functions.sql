@@ -1,14 +1,15 @@
 /* Триггер №1 - при доабвлении продукта продукт добавляется на склад */
 CREATE OR REPLACE FUNCTION add_product_in_storage()
-RETURNS TRIGGER AS $$
-    declare
-        storage_ids INT[] := (SELECT id FROM storage);
-    begin
-        for i in storage_ids LOOP
+    RETURNS TRIGGER AS $$
+declare
+    storage_ids INT[] := (SELECT id FROM storage);
+    i int;
+begin
+    foreach i in array storage_ids LOOP
             INSERT INTO product_storage_match(product_id, storage_id, product_amount)
             VALUES (new.id, i, 0);
         END LOOP;
-    end;
+end;
 $$ language 'plpgsql';
 
 CREATE TRIGGER push_product_to_storage AFTER INSERT ON product
@@ -50,26 +51,29 @@ end;
 $$ language 'plpgsql';
 
 /* Триггер №3 - Проверка соответствующего количества товара в наличии */
-CREATE OR REPLACE FUNCTION check_product_amount(product_ids INT[], amount INT[])
-RETURNS TRIGGER AS $$
-    declare
-        product_to_add_amount INT := array_length(product_ids, 1);
-        sums INT[] := 0;
-    begin
-        for i in 0..product_to_add_amount-1 LOOP
-            sums[i] = sums[i] + get_amount_of_object_from_shop(product_ids[i])
-                          + get_amount_of_object_from_storage(product_ids[i]);
+CREATE OR REPLACE FUNCTION check_product_amount()
+    RETURNS TRIGGER AS $$
+declare
+    product_ids INT[] = NEW.products_id;
+    amount INT[] = NEW.amounts;
+    product_to_add_amount INT := array_length(product_ids, 1);
+    sums INT[] := 0;
+begin
+    for i in 0..product_to_add_amount-1 LOOP
+            sums[i] = sums[i] + get_amount_of_object_from_shop(product_ids[i]::int)
+                + get_amount_of_object_from_storage(product_ids[i]::int);
         end loop;
-        for i in 0..product_to_add_amount-1 LOOP
-            if (amount[i] > sums[i]) then
-                RAISE EXCEPTION 'Недостаточно товара с id: %', product_ids[i];
+    for i in 0..product_to_add_amount-1 LOOP
+            if (amount[i]::int > sums[i]::int) then
+                RAISE EXCEPTION 'Недостаточно товара с id: %', product_ids[i]::int;
             end if;
         end loop;
-    end;
+end;
 $$ language 'plpgsql';
 
-CREATE TRIGGER handle_order BEFORE INSERT ON "order"
-EXECUTE PROCEDURE check_product_amount(new.products_id, new.amounts);
+
+CREATE OR REPLACE TRIGGER handle_order BEFORE INSERT ON "order"
+EXECUTE PROCEDURE check_product_amount();
 
 /* Функция для определения объектов для топа по их количеству */
 CREATE OR REPLACE FUNCTION get_top_objects()
@@ -86,3 +90,6 @@ begin
     return (select id FROM "order" where user_id = id_user);
 end;
 $$ language 'plpgsql';
+
+/* Индекс для более быстрого поиска по избранному */
+CREATE INDEX hash_user_id ON favorite USING HASH (user_id);

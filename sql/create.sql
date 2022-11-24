@@ -23,13 +23,18 @@ CREATE TABLE shop(
 CREATE TABLE fish
 (
     id         serial primary key,
+    name varchar(255) NOT NULL,
     length_max REAL,
     length_min REAL,
     weight_max REAL,
     weight_min REAL,
     habitat    varchar(255),
     CHECK ( weight_min >= 0 ),
-    CHECK ( length_min >= 0 )
+    CHECK ( length_min >= 0 ),
+    CHECK ( length_max > length_min ),
+    CHECK ( length_max >= 0 ),
+    Check ( weight_max >= 0 ),
+    CHECK ( weight_max > weight_min )
 );
 
 CREATE TABLE storage

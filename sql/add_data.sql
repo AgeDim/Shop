@@ -68,3 +68,101 @@ INSERT INTO product(name, product_type, default_price, description, amount, pict
 VALUES ('Westhill Masked mesh 20', 'feeder', 650,
         json_object('{type, classic, bracing, swivel, weight, 20, capacity, 1}'),
         0, 'C:\Downloads\westhill_masked_mash_20.png');
+
+/* Рандомный адрес для магазина или склада */
+CREATE OR REPLACE FUNCTION get_address()
+    returns varchar(100) as $$
+declare
+    temp int := trunc(random()*38)::integer+1;
+begin
+    return (select substring('abcdefghij, klmnopqrstuvwxyz, 0123456789' from temp));
+end;
+$$ language 'plpgsql';
+
+/* Рандомное время работы магазина*/
+CREATE OR REPLACE FUNCTION get_time()
+    returns time as $$
+begin
+    return (SELECT ('00:00:00'::time + random()*24*interval'1 hour'
+        + random()*60*interval'1 minute'
+        + random()*60*interval'1 second')::time);
+end;
+$$ language 'plpgsql';
+
+/* Функция для создания рандомного коэффициента цены в магазине*/
+CREATE OR REPLACE FUNCTION get_coefficient()
+    returns real as $$
+    begin
+        return (SELECT random()*3);
+    end;
+$$ language 'plpgsql';
+
+/* Функция для создания рандомной длины рыбы */
+CREATE OR REPLACE FUNCTION get_length()
+    returns real as $$
+begin
+    return (SELECT random()*7);
+end;
+$$ language 'plpgsql';
+
+/* Функция для создания рандомного веса рыбы */
+CREATE OR REPLACE FUNCTION get_weight()
+    returns real as $$
+begin
+    return (SELECT random()*255);
+end;
+$$ language 'plpgsql';
+
+/* Функция создания имени рыбы*/
+CREATE OR REPLACE FUNCTION get_fish_name()
+    returns varchar(255) as $$
+declare
+    temp int := trunc(random()*20)::integer+1;
+begin
+    return (select substring('abcdefghijklmnopqrstuvwxyzjklmnopqrvwxyzbcdefghia' from temp));
+end;
+$$ language 'plpgsql';
+
+
+/* Функция создания среды обитания рыбы*/
+CREATE OR REPLACE FUNCTION get_fish_habitat()
+    returns varchar(255) as $$
+declare
+    temp int := trunc(random()*50)::integer+1;
+begin
+    return (select substring('abcdefghi jklmnopqrst uvwxyzjklmnopq rvwxyzbcdefghia, klmnopqrs tuvwxyz' from temp));
+end;
+$$ language 'plpgsql';
+
+/* Заполнение магазинами */
+CREATE OR REPLACE FUNCTION fill_random_20_shops()
+    returns void as $$
+begin
+    for i in 0..20 LOOP
+            INSERT INTO shop (address, coefficient, time_open, time_close)
+            VALUES (get_address(), get_coefficient(), get_time(), get_time());
+        end loop;
+end;
+$$ language 'plpgsql';
+
+/* Заполнение складами */
+CREATE OR REPLACE FUNCTION fill_random_20_storages()
+    returns void as $$
+begin
+    for i in 0..20 LOOP
+            INSERT INTO storage (address)
+            VALUES (get_address());
+        end loop;
+end;
+$$ language 'plpgsql';
+
+/* Заполнение рыбами */
+CREATE OR REPLACE FUNCTION fill_random_6_fishes()
+    returns void as $$
+begin
+    for i in 0..6 LOOP
+            INSERT INTO fish(name, length_max, length_min, weight_max, weight_min, habitat)
+            VALUES (get_fish_name(), get_length(), get_length(), get_weight(), get_weight(), get_fish_habitat());
+        end loop;
+end;
+$$ language 'plpgsql';
