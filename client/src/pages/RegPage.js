@@ -5,12 +5,12 @@ import {LOGIN_ROUTE, SHOP_ROUTE} from "../utils/const";
 import {Context} from "../index";
 import {observer} from "mobx-react-lite";
 import {useHistory} from "react-router-dom";
-import {reg} from "../http/userAPI";
+import {login, reg} from "../http/userAPI";
 import validator from "validator/es";
 
 
 const RegPage = observer(() => {
-    const {user} = useContext(Context)
+    const {user, orders, basket} = useContext(Context)
     const history = useHistory()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -28,15 +28,15 @@ const RegPage = observer(() => {
         } else if (!checkBox.checked) {
             document.getElementById("reg_err_msg").textContent = 'You need to accept personal data processing policies!'
         } else {
-            try {
-                await reg(email, password).then((data) => {
-                    console.log(data)
-                    user.setUser(user)
-                    user.setIsAuth(true)
-                    history.push(SHOP_ROUTE)
-                }).catch(e => {
-                    console.log(e)
-                })
+            try{
+                let data;
+                data = await reg(email, password);
+                const user1 = {email: email, password: password}
+                user.setUser(user1)
+                user.setIsAuth(true)
+                basket.setUserEmail(email)
+                orders.setUserEmail(email)
+                history.push(SHOP_ROUTE)
             } catch (e) {
                 alert(e.response.data.message)
             }

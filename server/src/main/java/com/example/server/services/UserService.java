@@ -21,7 +21,6 @@ public class UserService {
         }
         UserEntity user = new UserEntity(authRequest.getEmail(),
                 Hasher.encryptMD5(authRequest.getPassword()),
-                false,
                 false);
         userRepository.save(user);
     }
@@ -36,17 +35,11 @@ public class UserService {
         }
     }
 
-    public void checkModerRights(String email) throws NotHavePermissionException{
-        UserEntity entity = userRepository.findByEmail(email);
-        if (!entity.isModerRights()){
-            throw new NotHavePermissionException(email, "moderator");
-        }
-    }
-
-    public void checkAdminRights(String email) throws NotHavePermissionException{
+    public boolean checkAdminRights(String email){
         UserEntity entity = userRepository.findByEmail(email);
         if (!entity.isAdminRights()){
-            throw new NotHavePermissionException(email, "admin");
+            return false;
         }
+        return true;
     }
 }

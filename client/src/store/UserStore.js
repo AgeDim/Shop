@@ -2,10 +2,9 @@ import {makeAutoObservable} from "mobx";
 
 export default class UserStore {
     constructor() {
-        this._isAuth = true
+        this._isAuth = false
         this._isAdmin = false
-        this._isModer = false
-        this._user = {username: '', email: '', password: ''}
+        this._user = {email: '', password: ''}
         makeAutoObservable(this)
     }
 
@@ -17,20 +16,12 @@ export default class UserStore {
         this._isAdmin = bool
     }
 
-    setIsModer(bool) {
-        this._isModer = bool
-    }
-
     setUser(user) {
         this._user = user
     }
 
     get isAuth() {
         return this._isAuth
-    }
-
-    get isModer() {
-        return this._isModer
     }
 
     get isAdmin() {
