@@ -75,6 +75,29 @@ $$ language 'plpgsql';
 CREATE OR REPLACE TRIGGER handle_order BEFORE INSERT ON "order"
 EXECUTE PROCEDURE check_product_amount();
 
+/* Триггер №4 - уменьшение количества товара после выполнения заказа */
+CREATE OR REPLACE FUNCTION update_product_amount()
+    RETURNS TRIGGER AS $$
+begin
+    if (new.status = 'done') then
+        if (new.shop_id IS NOT NULL) then
+            for i in 0..array_length(new.products_id)-1 LOOP
+                    UPDATE product SET amount = amount - new.amounts[i] WHERE id = new.products_id[i];
+                    UPDATE product_shop_match SET product_amount = product_amount - new.amounts[i] WHERE product_id = new.products_id[i];
+                end loop;
+        else
+            for i in 0..array_length(new.products_id)-1 LOOP
+                    UPDATE product SET amount = amount - new.amounts[i] WHERE id = new.products_id[i];
+                    UPDATE product_storage_match SET product_amount = product_amount - new.amounts[i] WHERE product_id = new.products_id[i];
+                end loop;
+        end if;
+    end if;
+end;
+$$ language 'plpgsql';
+
+CREATE OR REPLACE TRIGGER handle_product_amount BEFORE UPDATE on "order"
+EXECUTE PROCEDURE update_product_amount();
+
 /* Функция для определения объектов для топа по их количеству */
 CREATE OR REPLACE FUNCTION get_top_objects()
 RETURNS INT[] as $$
@@ -89,6 +112,14 @@ CREATE OR REPLACE FUNCTION get_orders_by_user_id(id_user int)
 begin
     return (select id FROM "order" where user_id = id_user);
 end;
+$$ language 'plpgsql';
+
+/* Функция для выбора всех рыб, соответствующих определенному продукту */
+CREATE OR REPLACE FUNCTION get_fishes_by_product_id(prod_id int)
+    returns INT[] as $$
+    begin
+        return (select fish_id FROM product_fish_match where product_id = prod_id);
+    end;
 $$ language 'plpgsql';
 
 /* Индекс для более быстрого поиска по избранному */

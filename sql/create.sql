@@ -1,6 +1,8 @@
 CREATE TYPE product_type AS ENUM ('rod', 'coil', 'fishing_line', 'hook', 'lure', 'bait', 'leash', 'sinker',
     'feeder', 'pack', 'feeding_up', 'base', 'additive', 'flavoring');
 
+CREATE TYPE order_status AS ENUM ('in_process', 'done', 'fail');
+
 CREATE TABLE product (
     id SERIAL primary key,
     name varchar(255) NOT NULL,
@@ -45,7 +47,6 @@ CREATE TABLE storage
 
 CREATE TABLE "user"(
                        id           serial primary key,
-                       login        varchar(255) NOT NULL,
                        password     varchar(255) NOT NULL,
                        email        varchar(255),
                        admin_rights bool,
@@ -76,6 +77,11 @@ CREATE TABLE "order"(
     products_id INT[] NOT NULL,
     order_time timestamp,
     amounts INT[],
+    shop_id SERIAL,
+    storage_id SERIAL,
+    status order_status NOT NULL,
+    FOREIGN KEY (shop_id) REFERENCES shop(id) ON DELETE CASCADE,
+    FOREIGN KEY (storage_id) REFERENCES storage(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES "user"(id) ON DELETE CASCADE
 );
 
