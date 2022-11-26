@@ -9,7 +9,9 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name="user", schema = "s313304")
+@Table(name="user", schema = "s313304", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "email")
+})
 public class UserEntity {
 
     @Id

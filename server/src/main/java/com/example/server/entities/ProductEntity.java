@@ -20,11 +20,11 @@ public class ProductEntity {
     @Column(name="name", columnDefinition = "varchar(255) NOT NULL")
     private String name;
 
-    @Enumerated(EnumType.STRING)
+//    @Enumerated(EnumType.ORDINAL)
     @Column(name="product_type", columnDefinition = "product_type NOT NULL")
-    private ProductType productType;
+    private String productType;
 
-    @Column(name="default_price", columnDefinition = "meoney NOT NULL")
+    @Column(name="default_price", columnDefinition = "numeric NOT NULL")
     private Double defaultPrice;
 
     @Column(name="description", columnDefinition = "json NOT NULL")
@@ -39,7 +39,7 @@ public class ProductEntity {
     public ProductEntity(String name, ProductType productType, Double defaultPrice, String description,
                          Integer amount, String picturePath){
         this.name = name;
-        this.productType = productType;
+        this.productType = String.valueOf(productType);
         this.defaultPrice = defaultPrice;
         this.description = description;
         this.amount = amount;
