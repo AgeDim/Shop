@@ -4,7 +4,6 @@ import {
     CONTACTS_ROUTE,
     DELIVERY_ROUTE,
     LOGIN_ROUTE,
-    MODER_ROUTE,
     ORDER_ROUTE,
     PRODUCT_ROUTE,
     REG_ROUTE,
@@ -18,7 +17,6 @@ import ContactPage from "./pages/ContactPage";
 import RegPage from "./pages/RegPage";
 import shopPage from "./pages/ShopPage";
 import AdminPannel from "./pages/AdminPannel";
-import ModerPannel from "./pages/ModerPannel";
 import OrderPage from "./pages/OrderPage";
 
 
@@ -56,25 +54,6 @@ export const adminRoutes = [{
     path: CONTACTS_ROUTE, Component: ContactPage
 },{
     path: ADMIN_ROUTE, Component: AdminPannel
-},{
-    path: ORDER_ROUTE, Component: OrderPage
-}]
-export const moderRoutes = [{
-    path: LOGIN_ROUTE, Component: AuthPage
-}, {
-    path: REG_ROUTE, Component: RegPage
-}, {
-    path: SHOP_ROUTE, Component: shopPage
-}, {
-    path: PRODUCT_ROUTE + '/:id', Component: ProductPage
-}, {
-    path: DELIVERY_ROUTE, Component: DeliveryPage
-}, {
-    path: BASKET_ROUTE, Component: BasketPage
-}, {
-    path: CONTACTS_ROUTE, Component: ContactPage
-},{
-    path: MODER_ROUTE, Component: ModerPannel
 },{
     path: ORDER_ROUTE, Component: OrderPage
 }]

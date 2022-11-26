@@ -13,18 +13,33 @@ const ProductPage = observer(() => {
     const history = useHistory()
     const id = window.location.pathname[window.location.pathname.length - 1]
     const {product} = useContext(Context)
-    const prod = product.products.find(product => product.id == id)
+    const prod1 = product.products.find(product => product.id == id)
     const {basket} = useContext(Context)
     const {user} = useContext(Context)
+    function compare() {
+        for (let i = 0; i < basket.prod.length; i++) {
+            if (basket.prod[i].id === prod1.id) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     const addProductToBasket = () => {
         if (user.isAuth) {
-            basket.addProducts({
-                id: prod.id,
-                amount: document.getElementById("counterVal").innerText,
-                price: prod.price
-            })
-            alert("Продукт добавлен в корзину!")
+            if (!compare()) {
+                console.log(!compare())
+                basket.addProducts({
+                    id: prod1.id,
+                    amount: document.getElementById("counterVal").innerText,
+                    price: prod1.price
+                })
+                alert("Продукт добавлен в корзину!")
+            }else{
+                alert("Продукт уже есть в корзине!")
+            }
+
+
         } else {
             alert("Вы не можете добавлять продукты в корзину, зарегистрируйтесь!")
         }
@@ -45,13 +60,13 @@ const ProductPage = observer(() => {
             <Col md={4} className="d-flex">
                 <Col id="123">
                     <Row>
-                        <h2>{prod.name}</h2>
+                        <h2>{prod1.name}</h2>
                     </Row>
                     <Row>
-                        <h3>{prod.price} РУБ</h3>
-                        <h5 style={{paddingBottom: 100}}>{prod.description}</h5>
+                        <h3>{prod1.price} РУБ</h3>
+                        <h5 style={{paddingBottom: 100}}>{prod1.description}</h5>
                     </Row>
-                    <Row><Counter product={prod}/></Row>
+                    <Row><Counter product={prod1}/></Row>
                     <Row style={{paddingTop: 50}}>
                         <Button className="p-2" onClick={addProductToBasket} style={{
                             background: "rgba(0, 0, 0, 0)", borderColor: "rgba(0, 0, 0, 0)", width: 240

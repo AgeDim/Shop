@@ -12,9 +12,13 @@ const App = () => {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        check().then(data => {
-            user.setUser(true)
-            user.setIsAuth(true)
+        check(user.user.email).then(data => {
+            if (data === 0) {
+
+            } else {
+                user.setIsAuth(true)
+            }
+
         }).finally(() => setLoading(false))
     }, [])
 

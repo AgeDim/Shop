@@ -45,30 +45,23 @@ public class UserController {
         }
     }
 
-    @GetMapping("/checkModer/{email}")
-    public ResponseEntity<?> checkModerRights(@PathVariable String email) {
-        try {
-            userService.checkModerRights(email);
-            return ResponseEntity.ok("Права доступа верны.");
-        } catch (NotHavePermissionException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
     @GetMapping("/checkAdmin/{email}")
     public ResponseEntity<?> checkAdminRights(@PathVariable String email) {
-        try {
-            userService.checkAdminRights(email);
-            return ResponseEntity.ok("Права доступа верны.");
-        } catch (NotHavePermissionException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+        boolean rights = userService.checkAdminRights(email);
+        if (rights) {
+            return ResponseEntity.ok(true);
+        } else {
+            return ResponseEntity.ok(false);
         }
     }
 
     //Я не понимаю
-    @GetMapping("/check")
-    public ResponseEntity<?> check(@PathVariable String email){
-        return ResponseEntity.ok(jwtUtils.generateToken(email));
+    @GetMapping("/check/{email}")
+    public ResponseEntity<?> check(@PathVariable String email) {
+        if (!email.equals("")) {
+            return ResponseEntity.ok(jwtUtils.generateToken(email));
+        }
+        return ResponseEntity.ok(0);
     }
 
 }

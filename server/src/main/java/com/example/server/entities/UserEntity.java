@@ -19,20 +19,17 @@ public class UserEntity {
 
     @Column(name="password", columnDefinition = "varchar(255) NOT NULL")
     private String password;
+    @Column(name="email", columnDefinition = "varchar(255)")
+    private String email;
     @Column(name="admin_rights", columnDefinition = "boolean")
     private boolean adminRights;
 
-    @Column(name="moder_rights", columnDefinition = "boolean")
-    private boolean moderRights;
 
-    @Column(name="email", columnDefinition = "varchar(255)")
-    private String email;
 
-    public UserEntity(String email, String password, boolean adminRights, boolean moderRights){
+    public UserEntity(String email, String password, boolean adminRights){
         this.email = email;
         this.password = password;
         this.adminRights = adminRights;
-        this.moderRights = moderRights;
     }
 
     public UserEntity() {

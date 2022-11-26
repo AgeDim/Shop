@@ -8,7 +8,7 @@ import {login} from "../http/userAPI";
 
 
 const AuthPage = observer(() => {
-    const {user} = useContext(Context)
+    const {user, basket, orders} = useContext(Context)
     const history = useHistory()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -17,8 +17,11 @@ const AuthPage = observer(() => {
         try {
             let data;
             data = await login(email, password);
-            user.setUser(user)
+            const user1 = {email:email, password:password}
+            user.setUser(user1)
             user.setIsAuth(true)
+            basket.setUserEmail(email)
+            orders.setUserEmail(email)
             history.push(SHOP_ROUTE)
         } catch (e) {
             alert(e.response.data.message)
