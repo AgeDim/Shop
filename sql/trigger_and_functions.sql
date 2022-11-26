@@ -54,25 +54,28 @@ $$ language 'plpgsql';
 CREATE OR REPLACE FUNCTION check_product_amount()
     RETURNS TRIGGER AS $$
 declare
-    product_ids INT[] = NEW.products_id;
-    amount INT[] = NEW.amounts;
-    product_to_add_amount INT := array_length(product_ids, 1);
-    sums INT[] := 0;
+    product_to_add_amount INT := array_length(new.products_id, 1);
+    sums INT[] = new.amounts;
 begin
-    for i in 0..product_to_add_amount-1 LOOP
-            sums[i] = sums[i] + get_amount_of_object_from_shop(product_ids[i]::int)
-                + get_amount_of_object_from_storage(product_ids[i]::int);
+    for i in 1..product_to_add_amount LOOP
+        sums[i] = 0;
+    end loop;
+    for i in 1..product_to_add_amount LOOP
+            sums[i] = sums[i] + get_amount_of_object_from_shop(new.products_id[i]::int)
+                + get_amount_of_object_from_storage(new.products_id[i]::int);
         end loop;
-    for i in 0..product_to_add_amount-1 LOOP
-            if (amount[i]::int > sums[i]::int) then
-                RAISE EXCEPTION 'Недостаточно товара с id: %', product_ids[i]::int;
+    for i in 1..product_to_add_amount LOOP
+            if (new.amounts[i]::int > sums[i]::int) then
+                RAISE EXCEPTION 'Недостаточно товара с id: %', new.products_id[i]::int;
             end if;
         end loop;
+    return;
 end;
 $$ language 'plpgsql';
 
 
 CREATE OR REPLACE TRIGGER handle_order BEFORE INSERT ON "order"
+    FOR EACH ROW
 EXECUTE PROCEDURE check_product_amount();
 
 /* Триггер №4 - уменьшение количества товара после выполнения заказа */
@@ -98,14 +101,6 @@ $$ language 'plpgsql';
 CREATE OR REPLACE TRIGGER handle_product_amount BEFORE UPDATE on "order"
 EXECUTE PROCEDURE update_product_amount();
 
-/* Функция для определения объектов для топа по их количеству */
-CREATE OR REPLACE FUNCTION get_top_objects()
-RETURNS INT[] as $$
-    begin
-        return (SELECT id FROM product ORDER BY amount desc LIMIT 10);
-    end;
-$$ language 'plpgsql';
-
 /* Функция для выбора заказов по id юзера */
 CREATE OR REPLACE FUNCTION get_orders_by_user_id(id_user int)
     returns INT[] as $$
@@ -124,3 +119,9 @@ $$ language 'plpgsql';
 
 /* Индекс для более быстрого поиска по избранному */
 CREATE INDEX hash_user_id ON favorite USING HASH (user_id);
+
+/* Индекс для более */
+CREATE INDEX hash_user_id ON "order" USING HASH (user_id);
+
+/* Индекс для amount */
+CREATE INDEX hash_amount ON product USING btree (amount);
