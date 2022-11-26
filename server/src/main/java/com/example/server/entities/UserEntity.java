@@ -24,8 +24,6 @@ public class UserEntity {
     @Column(name="admin_rights", columnDefinition = "boolean")
     private boolean adminRights;
 
-
-
     public UserEntity(String email, String password, boolean adminRights){
         this.email = email;
         this.password = password;

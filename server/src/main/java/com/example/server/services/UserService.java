@@ -37,9 +37,6 @@ public class UserService {
 
     public boolean checkAdminRights(String email){
         UserEntity entity = userRepository.findByEmail(email);
-        if (!entity.isAdminRights()){
-            return false;
-        }
-        return true;
+        return entity.isAdminRights();
     }
 }

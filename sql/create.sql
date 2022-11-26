@@ -48,9 +48,8 @@ CREATE TABLE storage
 CREATE TABLE "user"(
                        id           serial primary key,
                        password     varchar(255) NOT NULL,
-                       email        varchar(255),
-                       admin_rights bool,
-                       moder_rights bool
+                       email        varchar(255) NOT NULL,
+                       admin_rights bool
 );
 
 CREATE TABLE product_storage_match(
