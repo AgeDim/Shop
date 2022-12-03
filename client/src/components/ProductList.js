@@ -6,14 +6,9 @@ import {Row} from "react-bootstrap";
 import {getProductByType} from "../http/productAPI";
 
 
-const ProductList = observer(({}) => {
-    const {product} = useContext(Context)
-    let type = product.selectedType
-    const getProducts = () => {
-        getProductByType(product, type.name)
-    }
+const ProductList = observer(({product}) => {
     return (<Row className="me-auto" style={{display: 'flex'}}>
-        {product.products.map(product => <ProductItem key={product.id} product={product}/>)}
+        {product.map(product => <ProductItem key={product.id} product={product}/>)}
     </Row>);
 });
 

@@ -3,19 +3,21 @@ import {Button, Card, Col, Image, Row} from "react-bootstrap";
 import back from "../assets/back.png";
 import pik from "../assets/row1.jpg";
 import backet from "../assets/backetBtn.png";
-import {useHistory} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import Counter from "../components/Counter";
 import "./css/productPage.css"
 import {Context} from "../index";
 import {observer} from "mobx-react-lite";
+import typeOf from "validator/es/lib/util/typeOf";
 
 const ProductPage = observer(() => {
     const history = useHistory()
-    const id = window.location.pathname[window.location.pathname.length - 1]
+    const {id} = useParams()
     const {product} = useContext(Context)
     const prod1 = product.products.find(product => product.id == id)
     const {basket} = useContext(Context)
     const {user} = useContext(Context)
+    const keys = prod1.description.replaceAll('"', '').replaceAll('{','').replaceAll('}','').split(',')
     function compare() {
         for (let i = 0; i < basket.prod.length; i++) {
             if (basket.prod[i].id === prod1.id) {
@@ -32,7 +34,7 @@ const ProductPage = observer(() => {
                 basket.addProducts({
                     id: prod1.id,
                     amount: document.getElementById("counterVal").innerText,
-                    price: prod1.price
+                    price: prod1.defaultPrice
                 })
                 alert("Продукт добавлен в корзину!")
             }else{
@@ -63,8 +65,9 @@ const ProductPage = observer(() => {
                         <h2>{prod1.name}</h2>
                     </Row>
                     <Row>
-                        <h3>{prod1.price} РУБ</h3>
-                        <h5 style={{paddingBottom: 100}}>{prod1.description}</h5>
+                        <h3>{prod1.defaultPrice} РУБ</h3>
+                        <h3>Характеристики:</h3>
+                        {keys.map(element => <h5>{element}</h5>)}
                     </Row>
                     <Row><Counter product={prod1}/></Row>
                     <Row style={{paddingTop: 50}}>

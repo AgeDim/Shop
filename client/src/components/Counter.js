@@ -38,7 +38,7 @@ const Counter = observer(({product}) => {
                     <button className="control__btn_1"><Image style={{width: 22, height: 25}}
                                                               src={right} onClick={increase}></Image></button>
                 </Col>
-                <Col style={{paddingTop: 10}}><h3>Итог:{product.price * counter} РУБ </h3></Col>
+                <Col style={{paddingTop: 10}}><h3>Итог:{product.defaultPrice * counter} РУБ </h3></Col>
             </Row>
 
         </div>);

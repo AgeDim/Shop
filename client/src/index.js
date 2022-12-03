@@ -6,6 +6,7 @@ import UserStore from "./store/UserStore";
 import ProductStore from "./store/ProductStore";
 import BasketStore from "./store/BasketStore";
 import OrderStore from "./store/OrderStore";
+import FavoriteStore from "./store/FavoriteStore";
 
 export const Context = createContext(null)
 
@@ -15,7 +16,8 @@ root.render(
         user: new UserStore(),
         product: new ProductStore(),
         basket: new BasketStore(),
-        orders: new OrderStore()
+        orders: new OrderStore(),
+        favorite: new FavoriteStore()
     }}>
         <App/>
     </Context.Provider>
