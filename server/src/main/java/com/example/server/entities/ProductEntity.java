@@ -20,9 +20,8 @@ public class ProductEntity {
     @Column(name="name", columnDefinition = "varchar(255) NOT NULL")
     private String name;
 
-//    @Enumerated(EnumType.ORDINAL)
-    @Column(name="product_type", columnDefinition = "product_type NOT NULL")
-    private String productType;
+    @Column(name="product_type", columnDefinition = "INT NOT NULL")
+    private Integer productType;
 
     @Column(name="default_price", columnDefinition = "numeric NOT NULL")
     private Double defaultPrice;
@@ -39,7 +38,7 @@ public class ProductEntity {
     public ProductEntity(String name, ProductType productType, Double defaultPrice, String description,
                          Integer amount, String picturePath){
         this.name = name;
-        this.productType = String.valueOf(productType);
+        this.productType = productType.getCode();
         this.defaultPrice = defaultPrice;
         this.description = description;
         this.amount = amount;

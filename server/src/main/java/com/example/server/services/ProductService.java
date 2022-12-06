@@ -19,6 +19,6 @@ public class ProductService {
     }
 
     public List<ProductEntity> getProductByType(String type) throws IllegalArgumentException{
-        return productRepository.getProductEntitiesByProductType(ProductType.valueOf(type));
+        return productRepository.getProductEntitiesByProductType(ProductType.valueOf(type).getCode());
     }
 }
