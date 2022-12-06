@@ -19,12 +19,11 @@ const BasketPage = observer(() => {
         basket.setGenPrice(res)
     }
     const submit = async () => {
-        const prod = product.products.filter(function(v) {
+        const prod = product.allProd.filter(function(v) {
             return basket.prod.some(function(v2) {
                 return v.id === v2.id;
             })
         });
-        console.log(prod)
         try {
             const data = await submitOrder(user.user.email, prod)
             basket.setProdukt([])
