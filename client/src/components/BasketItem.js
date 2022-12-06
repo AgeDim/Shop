@@ -7,7 +7,8 @@ import holder from "../assets/holder.png"
 
 const BasketItem = observer(({basketItem, deleteFromBasket}) => {
     const {product} = useContext(Context)
-    const prod = product.products.find(produc => produc.id == basketItem.id)
+    const arr = product.allProd
+    const prod = arr.find(produc => produc.id === basketItem.id)
     return (<Card style={{marginLeft: 40, marginTop: 10, height: 170, paddingTop: 5, paddingBottom: 5}}>
         <Row className="flex-fill">
             <Col md={1} className="align-self-center">

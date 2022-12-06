@@ -30,7 +30,6 @@ const ProductPage = observer(() => {
     const addProductToBasket = () => {
         if (user.isAuth) {
             if (!compare()) {
-                console.log(!compare())
                 basket.addProducts({
                     id: prod1.id,
                     amount: document.getElementById("counterVal").innerText,
