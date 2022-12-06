@@ -11,6 +11,7 @@ const BasketPage = observer(() => {
     const {user} = useContext(Context)
     const {product} = useContext(Context)
     let res = 0;
+    console.log(basket.prod)
     const calcPrice = () => {
         res = 0;
         basket.prod.map(product => {
