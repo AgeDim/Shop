@@ -6,7 +6,7 @@ CREATE TYPE order_status AS ENUM ('in_process', 'done', 'fail');
 CREATE TABLE product (
     id SERIAL primary key,
     name varchar(255) NOT NULL,
-    product_type product_type NOT NULL,
+    product_type INT NOT NULL,
     default_price money NOT NULL,
     description json NOT NULL,
     amount INT NOT NULL,
@@ -78,7 +78,7 @@ CREATE TABLE "order"(
     amounts INT[],
     shop_id SERIAL,
     storage_id SERIAL,
-    status order_status NOT NULL,
+    status INT NOT NULL,
     FOREIGN KEY (shop_id) REFERENCES shop(id) ON DELETE CASCADE,
     FOREIGN KEY (storage_id) REFERENCES storage(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES "user"(id) ON DELETE CASCADE

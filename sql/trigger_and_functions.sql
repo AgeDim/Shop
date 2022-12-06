@@ -106,6 +106,22 @@ $$ language 'plpgsql';
 CREATE OR REPLACE TRIGGER handle_product_amount BEFORE UPDATE on "order"
 EXECUTE PROCEDURE update_product_amount();
 
+/* Триггер №5 - триггер на обновление суммы всех продуктов при обновлении количества продукта в магазине*/
+CREATE OR REPLACE FUNCTION update_product_sum()
+    RETURNS TRIGGER AS $$
+    declare
+        sum INT := 0;
+    begin
+        sum = (SELECT sum(product_amount) FROM product_shop_match
+                                                                WHERE product_id = NEW.product_id);
+        sum = sum + (SELECT sum(product_amount) FROM product_storage_match WHERE product_id = NEW.product_id);
+        UPDATE product SET amount = sum WHERE id = new.product_id;
+    end;
+$$ language 'plpgsql';
+
+CREATE OR REPLACE TRIGGER handle_product_sum AFTER UPDATE on product_shop_match
+EXECUTE PROCEDURE update_product_sum();
+
 /* Функция для выбора заказов по id юзера */
 CREATE OR REPLACE FUNCTION get_orders_by_user_id(id_user int)
     returns INT[] as $$
