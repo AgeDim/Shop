@@ -2,7 +2,7 @@ import {
     ADMIN_ROUTE,
     BASKET_ROUTE,
     CONTACTS_ROUTE,
-    DELIVERY_ROUTE,
+    DELIVERY_ROUTE, FAVORITE_ROUTE,
     LOGIN_ROUTE,
     ORDER_ROUTE,
     PRODUCT_ROUTE,
@@ -18,6 +18,7 @@ import RegPage from "./pages/RegPage";
 import shopPage from "./pages/ShopPage";
 import AdminPannel from "./pages/AdminPannel";
 import OrderPage from "./pages/OrderPage";
+import FavoritePage from "./pages/FavoritePage";
 
 
 export const publicRoutes = [// this array routes for user who not authenticate in web-site
@@ -35,8 +36,10 @@ export const publicRoutes = [// this array routes for user who not authenticate 
         path: BASKET_ROUTE, Component: BasketPage
     }, {
         path: CONTACTS_ROUTE, Component: ContactPage
-    },{
-    path: ORDER_ROUTE, Component: OrderPage
+    }, {
+        path: ORDER_ROUTE, Component: OrderPage
+    }, {
+        path: FAVORITE_ROUTE, Component: FavoritePage
     }]
 export const adminRoutes = [{
     path: LOGIN_ROUTE, Component: AuthPage
@@ -52,8 +55,10 @@ export const adminRoutes = [{
     path: BASKET_ROUTE, Component: BasketPage
 }, {
     path: CONTACTS_ROUTE, Component: ContactPage
-},{
+}, {
     path: ADMIN_ROUTE, Component: AdminPannel
-},{
+}, {
     path: ORDER_ROUTE, Component: OrderPage
+}, {
+    path: FAVORITE_ROUTE, Component: FavoritePage
 }]

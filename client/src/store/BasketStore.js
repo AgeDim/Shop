@@ -3,7 +3,7 @@ import {makeAutoObservable} from "mobx";
 export default class BasketStore {
     constructor() {
         this._userEmail = ""
-        this._prod =  [{id:2, amount: 3, price: 1500},{id: 5, amount: 4, price: 500},{id: 4, amount: 2, price: 2000},{id: 3, amount: 1, price: 1000}]
+        this._prod =  []
         this._genPrice = 0
         makeAutoObservable(this)
     }

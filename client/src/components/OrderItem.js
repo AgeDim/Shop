@@ -32,7 +32,7 @@ const OrderItem = ({order}) => {
                 </Col>
                 <Col md={3}>
                     {prod.map(product => order.products.map(prod => {
-                        if (product.id === prod.id){<h2>{product.name} x {prod.amount}</h2>}}))}
+                        {product.id === prod.id && <h2>{product.name} x {prod.amount}</h2>}}))}
                 </Col>
                 <Col md={2} className="d-flex">
                     <h4>Дата заказа: {order.time}</h4>

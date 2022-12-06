@@ -17,14 +17,14 @@ export default class ProductStore {
             type: 'Удилища',
             name: 'Fortuna Carp',
             rating: '5',
-            price: 1500,
+            defaultPrice: 1500,
             description: "Серия максимально надежных маховых удилищ для ловли в очень широком спектре условий ловли. Удилища данной серии разработаны специально для ловли крупной рыбы в береговой зоне, поэтому их длина ограничивается шестью метрами."
-        }, {id: 3, type: 'Леска', name: 'Миша', rating: 'маловат', price: 1500, description: "asdfghj", href: ""}, {
+        }, {id: 3, type: 'Леска', name: 'Миша', rating: 'маловат', defaultPrice: 1500, description: "asdfghj", href: ""}, {
             id: 2,
             type: 'Катушки',
             name: 'Самая быстрая рука',
             rating: 'Крутит шо пиздец',
-            price: 1500,
+            defaultPrice: 1500,
             description: "sdfghjk",
             href: ""
         }, {
@@ -32,7 +32,7 @@ export default class ProductStore {
             type: 'Катушки',
             name: 'Самая быстрая рука',
             rating: 'Крутит шо пиздец',
-            price: 1500,
+            defaultPrice: 1500,
             description: "zxcvbnm,ljhgf",
             href: ""
         }, {
@@ -40,7 +40,7 @@ export default class ProductStore {
             type: 'Катушки',
             name: 'Самая быстрая рука',
             rating: 'Крутит шо пиздец',
-            price: 1500,
+            defaultPrice: 1500,
             description: "sertyuklkmnbvcdfrtgh",
             href: ""
         }, {
@@ -48,21 +48,21 @@ export default class ProductStore {
             type: 'Удилища',
             name: 'Fortuna Carp',
             rating: '5',
-            price: 1500,
+            defaultPrice: 1500,
             description: "Серия максимально надежных маховых удилищ для ловли в очень широком спектре условий ловли. Удилища данной серии разработаны специально для ловли крупной рыбы в береговой зоне, поэтому их длина ограничивается шестью метрами."
         }, {
             id: 7,
             type: 'Удилища',
             name: 'Fortuna Carp',
             rating: '5',
-            price: 1500,
+            defaultPrice: 1500,
             description: "Серия максимально надежных маховых удилищ для ловли в очень широком спектре условий ловли. Удилища данной серии разработаны специально для ловли крупной рыбы в береговой зоне, поэтому их длина ограничивается шестью метрами."
         }, {
             id: 8,
             type: 'Удилища',
             name: 'Fortuna Carp',
             rating: '5',
-            price: 1500,
+            defaultPrice: 1500,
             description: "Серия максимально надежных маховых удилищ для ловли в очень широком спектре условий ловли. Удилища данной серии разработаны специально для ловли крупной рыбы в береговой зоне, поэтому их длина ограничивается шестью метрами."
         }]
         makeAutoObservable(this)

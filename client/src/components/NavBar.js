@@ -1,7 +1,8 @@
 import React, {useContext, useEffect} from 'react';
 import {Button, Col, Container, Image, Nav, Navbar, NavItem, Row} from "react-bootstrap";
 import {
-    BASKET_ROUTE, CONTACTS_ROUTE, DELIVERY_ROUTE, LOGIN_ROUTE, ORDER_ROUTE, SHOP_ROUTE
+    ADMIN_ROUTE,
+    BASKET_ROUTE, CONTACTS_ROUTE, DELIVERY_ROUTE, FAVORITE_ROUTE, LOGIN_ROUTE, ORDER_ROUTE, SHOP_ROUTE
 } from "../utils/const";
 import {NavLink, useHistory} from "react-router-dom";
 import NavbarImg from "../assets/NavBarImg.webp"
@@ -30,9 +31,13 @@ const NavBar = observer(() => {
                 }}>Доставка</Button></NavItem>
                 <NavItem><Button variant="secondary" style={{marginRight: 10}}
                                  onClick={() => history.push(ORDER_ROUTE)}>Мои заказы</Button></NavItem>
-                <NavItem><Button variant="secondary" onClick={() => {
+                <NavItem><Button variant="secondary" style={{marginRight: 10}} onClick={() => {
                     history.push(CONTACTS_ROUTE)
                 }}>Контакты</Button></NavItem>
+                <NavItem><Button variant="secondary" style={{marginRight: 10}} onClick={() => {history.push(FAVORITE_ROUTE)}}>Избранное</Button></NavItem>
+                {user.isAuth && user.isAdmin && <NavItem><Button variant="secondary" onClick={() => {
+                    history.push(ADMIN_ROUTE)
+                }}>Админ панель</Button></NavItem>}
             </Nav>
             <Nav className="flex-column me-3">
                 {!user.isAuth &&
