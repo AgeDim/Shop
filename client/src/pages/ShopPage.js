@@ -24,8 +24,6 @@ const ShopPage = observer(() => {
     const lastPostIndex = currentPage * postsPerPage
     const firstPostIndex = lastPostIndex - postsPerPage
     const currentPosts = product.products.slice(firstPostIndex, lastPostIndex)
-
-
     return (<Row className="g-0">
         <Col md={1} className="mt-2" style={{width: 250}}>
             <TypeBar/>

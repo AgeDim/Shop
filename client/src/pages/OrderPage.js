@@ -7,7 +7,7 @@ import {Row} from "react-bootstrap";
 const OrderPage = () => {
     const {user, orders} = useContext(Context)
     useEffect(() => {
-        if(user.isAuth){getOrders(user.email)}
+        if(user.isAuth){getOrders(user.user.email)}
 
     }, [])
     return (

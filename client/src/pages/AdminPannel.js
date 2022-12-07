@@ -16,14 +16,14 @@ const AdminPannel = () => {
             </Button>
             <CreateProduct show={productVisible} onHide={() => setProductVisible(false)}/>
 
-            <Button
-                variant="secondary"
-                className="mt-4 p-2"
-                onClick={() => setCountVisible(true)}
-            >
-                Изменить колличество товара
-            </Button>
-            <EditProductCount show={countVisible} onHide={() => setCountVisible(false)}/>
+            {/*<Button*/}
+            {/*    variant="secondary"*/}
+            {/*    className="mt-4 p-2"*/}
+            {/*    onClick={() => setCountVisible(true)}*/}
+            {/*>*/}
+            {/*    Изменить колличество товара*/}
+            {/*</Button>*/}
+            {/*<EditProductCount show={countVisible} onHide={() => setCountVisible(false)}/>*/}
         </Container>
     );
 };

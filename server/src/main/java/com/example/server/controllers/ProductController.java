@@ -29,8 +29,8 @@ public class ProductController {
         }
     }
 
-    @PostMapping("/product/add")
-    public ResponseEntity<?> addNewProduct(@RequestBody ProductRequest product){
+    @PostMapping(value = "/product/add", consumes = {"multipart/form-data"})
+    public ResponseEntity<?> addNewProduct(@ModelAttribute ProductRequest product){
         try {
             return ResponseEntity.ok(productService.addProduct(product));
         } catch (IOException exception){
