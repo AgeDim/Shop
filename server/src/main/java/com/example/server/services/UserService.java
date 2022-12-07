@@ -4,6 +4,7 @@ import com.example.server.POJO.AuthRequest;
 import com.example.server.entities.UserEntity;
 import com.example.server.exceptions.NotHavePermissionException;
 import com.example.server.exceptions.UserAlreadyExistsException;
+import com.example.server.exceptions.UserNotFoundException;
 import com.example.server.exceptions.WrongPasswordException;
 import com.example.server.repositories.UserRepository;
 import com.example.server.security.Hasher;
@@ -25,9 +26,9 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void login(AuthRequest authRequest) throws UserAlreadyExistsException, WrongPasswordException {
+    public void login(AuthRequest authRequest) throws UserNotFoundException, WrongPasswordException {
         if (!userRepository.existsByEmail(authRequest.getEmail())){
-            throw new UserAlreadyExistsException("Email not found.");
+            throw new UserNotFoundException(authRequest.getEmail());
         }
         UserEntity entity = userRepository.findByEmail(authRequest.getEmail());
         if (!Hasher.encryptMD5(authRequest.getPassword()).equals(entity.getPassword())){

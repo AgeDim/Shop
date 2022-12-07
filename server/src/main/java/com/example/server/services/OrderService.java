@@ -2,13 +2,16 @@ package com.example.server.services;
 
 import com.example.server.POJO.OrderRequest;
 import com.example.server.entities.OrderEntity;
+import com.example.server.entities.UserEntity;
 import com.example.server.entities.enums.OrderStatus;
+import com.example.server.exceptions.UserNotFoundException;
 import com.example.server.repositories.OrderRepository;
 import com.example.server.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class OrderService {
@@ -23,6 +26,15 @@ public class OrderService {
         return orderRepository.save(convertOrderRequestToEntity(order));
     }
 
+    public List<OrderEntity> getOrdersByEmail(String email) throws UserNotFoundException{
+        UserEntity user = null;
+        user = userRepository.findByEmail(email);
+        if (user != null) {
+            return orderRepository.getOrderEntitiesByUserId(user.getId());
+        } else {
+            throw new UserNotFoundException(email);
+        }
+    }
     private OrderEntity convertOrderRequestToEntity(OrderRequest request){
         OrderEntity result = new OrderEntity();
         result.setUserId(userRepository.findByEmail(request.getEmail()).getId());

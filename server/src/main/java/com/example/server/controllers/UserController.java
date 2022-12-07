@@ -3,6 +3,7 @@ package com.example.server.controllers;
 import com.example.server.POJO.AuthRequest;
 import com.example.server.exceptions.NotHavePermissionException;
 import com.example.server.exceptions.UserAlreadyExistsException;
+import com.example.server.exceptions.UserNotFoundException;
 import com.example.server.exceptions.WrongPasswordException;
 import com.example.server.security.JwtUtils;
 import com.example.server.services.UserService;
@@ -40,7 +41,7 @@ public class UserController {
         try {
             userService.login(user);
             return ResponseEntity.ok(jwtUtils.generateToken(user.getEmail()));
-        } catch (UserAlreadyExistsException | WrongPasswordException e) {
+        } catch (UserNotFoundException | WrongPasswordException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
