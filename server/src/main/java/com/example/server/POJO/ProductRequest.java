@@ -1,8 +1,10 @@
 package com.example.server.POJO;
 
-import java.io.File;
+import org.springframework.web.multipart.MultipartFile;
 
-public class ProductRequest {
+import java.io.Serializable;
+
+public class ProductRequest implements Serializable {
 
     private String name;
 
@@ -10,9 +12,9 @@ public class ProductRequest {
 
     private String type;
 
-    private File description;
+    private MultipartFile description;
 
-    private File img;
+    private MultipartFile img;
 
 
     public String getName() {
@@ -39,19 +41,19 @@ public class ProductRequest {
         this.type = type;
     }
 
-    public File getDescription() {
+    public MultipartFile getDescription() {
         return description;
     }
 
-    public void setDescription(File description) {
+    public void setDescription(MultipartFile description) {
         this.description = description;
     }
 
-    public File getImg() {
+    public MultipartFile getImg() {
         return img;
     }
 
-    public void setImg(File img) {
+    public void setImg(MultipartFile img) {
         this.img = img;
     }
 }

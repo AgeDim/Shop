@@ -3,6 +3,7 @@ package com.example.server.entities;
 import com.example.server.entities.enums.ProductType;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
@@ -26,6 +27,7 @@ public class ProductEntity {
     @Column(name="default_price", columnDefinition = "numeric NOT NULL")
     private Double defaultPrice;
 
+    @Type(type = "json")
     @Column(name="description", columnDefinition = "json NOT NULL")
     private String description;
 

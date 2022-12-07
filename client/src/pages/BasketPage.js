@@ -20,13 +20,9 @@ const BasketPage = observer(() => {
         basket.setGenPrice(res)
     }
     const submit = async () => {
-        const prod = product.allProd.filter(function(v) {
-            return basket.prod.some(function(v2) {
-                return v.id === v2.id;
-            })
-        });
+        const prod = basket.prod.map(product => {delete product['price']})
         try {
-            const data = await submitOrder(user.user.email, prod)
+            const data = await submitOrder(user.user.email, basket.prod)
             basket.setProdukt([])
         } catch (e) {
             alert(e.response.data.message)

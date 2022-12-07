@@ -24,6 +24,6 @@ export const getProductByType = async (type) => {
     return data
 }
 export const createDevice = async (product) => {
-    const {data} = await axios.post('/product/add', product)
+    const {data} = await $host.post('/product/add', product)
     return data
 }

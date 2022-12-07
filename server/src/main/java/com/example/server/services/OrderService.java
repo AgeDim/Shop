@@ -38,9 +38,9 @@ public class OrderService {
     private OrderEntity convertOrderRequestToEntity(OrderRequest request){
         OrderEntity result = new OrderEntity();
         result.setUserId(userRepository.findByEmail(request.getEmail()).getId());
-        result.setProductsId(request.getProductsId());
+        result.setProductsId(request.getProductsId().toArray(new Integer[0]));
         result.setOrderTime(LocalDateTime.now());
-        result.setAmounts(request.getAmounts());
+        result.setAmounts(request.getAmounts().toArray(new Integer[0]));
         if (request.getShopId() != null){
             result.setShopId(request.getShopId());
             result.setStorageId(null);
