@@ -27,8 +27,7 @@ public class ProductEntity {
     @Column(name="default_price", columnDefinition = "numeric NOT NULL")
     private Double defaultPrice;
 
-    @Type(type = "json")
-    @Column(name="description", columnDefinition = "json NOT NULL")
+    @Column(name="description", columnDefinition = "varchar(512) NOT NULL")
     private String description;
 
     @Column(name="amount", columnDefinition = "INT NOT NULL")
