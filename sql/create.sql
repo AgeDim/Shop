@@ -17,8 +17,8 @@ CREATE TABLE product (
 CREATE TABLE shop(
                      id SERIAL PRIMARY KEY,
                      address varchar(100) NOT NULL,
-                     time_open timestamp NOT NULL,
-                     time_close timestamp NOT NULL,
+                     time_open time NOT NULL,
+                     time_close time NOT NULL,
                      coefficient REAL NOT NULL
 );
 
