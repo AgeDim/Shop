@@ -1,9 +1,12 @@
 package com.example.server.controllers;
 
+import com.example.server.POJO.ProductRequest;
 import com.example.server.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -27,7 +30,11 @@ public class ProductController {
     }
 
     @PostMapping("/product/add")
-    public ResponseEntity<?> addNewProduct(){
-        return ResponseEntity.ok("");
+    public ResponseEntity<?> addNewProduct(@RequestBody ProductRequest product){
+        try {
+            return ResponseEntity.ok(productService.addProduct(product));
+        } catch (IOException exception){
+            return ResponseEntity.badRequest().body("Troubles with received files.");
+        }
     }
 }

@@ -30,7 +30,7 @@ public class OrderEntity {
     @Column(name = "order_time", columnDefinition = "timestamp")
     private LocalDateTime orderTime;
 
-    @Type(type= "list-array")
+    @Type(type="list-array")
     @Column(name="amounts", columnDefinition = "INT[]")
     private List<Integer> amounts;
 

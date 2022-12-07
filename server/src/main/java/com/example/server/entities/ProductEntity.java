@@ -32,17 +32,21 @@ public class ProductEntity {
     @Column(name="amount", columnDefinition = "INT NOT NULL")
     private Integer amount;
 
-    @Column(name="picture_path", columnDefinition = "varchar(255) NOT NULL")
-    private String picturePath;
+    @Column(name="img_name", columnDefinition = "varchar(255) NOT NULL")
+    private String imgName;
+
+    @Column(name="img", columnDefinition = "bytea")
+    private byte[] img;
 
     public ProductEntity(String name, ProductType productType, Double defaultPrice, String description,
-                         Integer amount, String picturePath){
+                         Integer amount, String imgName, byte[] img){
         this.name = name;
         this.productType = productType.getCode();
         this.defaultPrice = defaultPrice;
         this.description = description;
         this.amount = amount;
-        this.picturePath = picturePath;
+        this.imgName = imgName;
+        this.img = img;
     }
 
     public ProductEntity(){}
