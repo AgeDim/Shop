@@ -19,12 +19,12 @@ public class ProductResponse {
 
     private String imgName;
 
-    private File img;
+    private byte[] img;
 
     public ProductResponse(){}
 
     public ProductResponse(Long id, String name, Integer productType, Double defaultPrice, String description,
-                           String imgName, File img){
+                           String imgName, byte[] img){
         this.id = id;
         this.name = name;
         this.productType = ProductType.values()[productType];
@@ -82,11 +82,11 @@ public class ProductResponse {
         this.imgName = imgName;
     }
 
-    public File getImg() {
+    public byte[] getImg() {
         return img;
     }
 
-    public void setImg(File img) {
+    public void setImg(byte[] img) {
         this.img = img;
     }
 }

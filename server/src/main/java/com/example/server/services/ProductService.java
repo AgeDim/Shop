@@ -69,23 +69,11 @@ public class ProductService {
         return result;
     }
 
-    private File convertBytesToFile(byte[] fileInBytes) throws IOException {
-        File result = new File("./file");
-        try (FileOutputStream outputStream = new FileOutputStream(result)) {
-            outputStream.write(fileInBytes);
-        }
-        return result;
-    }
-
     private void convertEntityToResponse(List<ProductEntity> entityList, List<ProductResponse> responseList) {
-        entityList.forEach(o -> {
-            try {
+        entityList.forEach(o ->
                 responseList.add(new ProductResponse(o.getId(), o.getName(), o.getProductType(),
                         o.getDefaultPrice(), o.getDescription(), o.getImgName(),
-                        convertBytesToFile(o.getImg())));
-            } catch (IOException e) {
-                System.err.println(e.getMessage());
-            }
-        });
+                        o.getImg()))
+        );
     }
 }
