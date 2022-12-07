@@ -7,7 +7,6 @@ import com.example.server.entities.enums.ProductType;
 import com.example.server.repositories.ProductRepository;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -70,13 +69,23 @@ public class ProductService {
         return result;
     }
 
-    private MultipartFile convertBytesToMultipartFile(byte[] fileInBytes, String name){
-        return new MockMultipartFile(name, name, "image/jpeg", fileInBytes);
+    private File convertBytesToFile(byte[] fileInBytes) throws IOException {
+        File result = new File("./file");
+        try (FileOutputStream outputStream = new FileOutputStream(result)) {
+            outputStream.write(fileInBytes);
+        }
+        return result;
     }
 
-    private void convertEntityToResponse(List<ProductEntity> entityList, List<ProductResponse> responseList){
-        entityList.forEach(o -> responseList.add(new ProductResponse(o.getId(), o.getName(), o.getProductType(),
-                o.getDefaultPrice(), o.getDescription(), o.getImgName(),
-                convertBytesToMultipartFile(o.getImg(), o.getImgName()))));
+    private void convertEntityToResponse(List<ProductEntity> entityList, List<ProductResponse> responseList) {
+        entityList.forEach(o -> {
+            try {
+                responseList.add(new ProductResponse(o.getId(), o.getName(), o.getProductType(),
+                        o.getDefaultPrice(), o.getDescription(), o.getImgName(),
+                        convertBytesToFile(o.getImg())));
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
+        });
     }
 }
