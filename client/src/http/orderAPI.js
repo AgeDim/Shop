@@ -1,11 +1,10 @@
 import {$host} from "../axiosAPI";
 
-export const submitOrder = (userEmail, products) => {
-    const date = Date.now()
-    const {data} = $host.post('/submitOrder', {userEmail, products, date})
+export const submitOrder = async (userEmail, products) => {
+    const {data} = await $host.post('/submitOrder', {userEmail, products})
     return data
 }
-export const getOrders = (userEmail) => {
-    const {data} = $host.get('/orders'+ userEmail)
+export const getOrders = async (userEmail) => {
+    const {data} = await $host.get('/orders/'+ userEmail)
     return data
 }
