@@ -3,8 +3,12 @@ package com.example.server.services;
 import com.example.server.POJO.ProductRequest;
 import com.example.server.POJO.ProductResponse;
 import com.example.server.entities.ProductEntity;
+import com.example.server.entities.ProductShopMatchEntity;
+import com.example.server.entities.ProductStorageMatchEntity;
 import com.example.server.entities.enums.ProductType;
 import com.example.server.repositories.ProductRepository;
+import com.example.server.repositories.ProductShopMatchRepository;
+import com.example.server.repositories.ProductStorageMatchRepository;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +30,12 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private ProductShopMatchRepository productShopMatchRepository;
+
+    @Autowired
+    private ProductStorageMatchRepository productStorageMatchRepository;
+
     public List<ProductResponse> getProductTop(){
         List<ProductEntity> temp = productRepository.getTopProducts();
         List<ProductResponse> result = new ArrayList<>();
@@ -43,6 +53,23 @@ public class ProductService {
     public ProductEntity addProduct(ProductRequest request) throws IOException {
         return productRepository.save(convertRequestToEntity(request));
     }
+
+    public List<ProductResponse> getProductsFromStorage(Long storageId){
+        List<ProductStorageMatchEntity> list =
+                productStorageMatchRepository.getProductStorageMatchEntitiesByStorageId(storageId);
+        List<ProductResponse> result = new ArrayList<>();
+        list.forEach(o -> result.add(new ProductResponse(o.getProductId(), o.getProductAmount())));
+        return result;
+    }
+
+    public List<ProductResponse> getProductsFromShop(Long shopId){
+        List<ProductShopMatchEntity> list =
+                productShopMatchRepository.getProductShopMatchEntitiesByShopId(shopId);
+        List<ProductResponse> result = new ArrayList<>();
+        list.forEach(o -> result.add(new ProductResponse(o.getProductId(), o.getProductAmount())));
+        return result;
+    }
+
 
     private ProductEntity convertRequestToEntity(ProductRequest request) throws IOException{
         ProductEntity result = new ProductEntity();

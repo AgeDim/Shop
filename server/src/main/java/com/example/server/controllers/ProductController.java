@@ -37,4 +37,17 @@ public class ProductController {
             return ResponseEntity.badRequest().body("Troubles with received files.");
         }
     }
+    @GetMapping("/product/{place}/{placeId}")
+    public ResponseEntity<?> getProductFromShopOrStorage(@PathVariable String place, @PathVariable String placeId){
+        try {
+            Long id = Long.parseLong(placeId);
+            if (place.equals("shop")) {
+                return ResponseEntity.ok(productService.getProductsFromShop(id));
+            } else {
+                return ResponseEntity.ok(productService.getProductsFromStorage(id));
+            }
+        } catch (NumberFormatException exception){
+            return ResponseEntity.badRequest().body("Place id is incorrect.");
+        }
+    }
 }

@@ -1,9 +1,6 @@
 package com.example.server.POJO;
 
 import com.example.server.entities.enums.ProductType;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
 
 public class ProductResponse {
 
@@ -21,8 +18,14 @@ public class ProductResponse {
 
     private byte[] img;
 
+    private Integer amount;
+
     public ProductResponse(){}
 
+    public ProductResponse(Long id, Integer amount){
+        this.id = id;
+        this.amount = amount;
+    }
     public ProductResponse(Long id, String name, Integer productType, Double defaultPrice, String description,
                            String imgName, byte[] img){
         this.id = id;
@@ -88,5 +91,13 @@ public class ProductResponse {
 
     public void setImg(byte[] img) {
         this.img = img;
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
     }
 }
