@@ -23,12 +23,14 @@ public class OrderEntity {
     @Column(name = "user_id", columnDefinition = "serial NOT NULL")
     private Long userId;
 
+    @Type(type="com.example.server.entities.typeConverters.CustomIntArrayType")
     @Column(name = "products_id", columnDefinition = "INT[] NOT NULL")
     private Integer[] productsId;
 
     @Column(name = "order_time", columnDefinition = "timestamp")
     private LocalDateTime orderTime;
 
+    @Type(type="com.example.server.entities.typeConverters.CustomIntArrayType")
     @Column(name = "amounts", columnDefinition = "INT[]")
     private Integer[] amounts;
 

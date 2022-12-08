@@ -1,5 +1,4 @@
 import {$host} from "../axiosAPI";
-import axios from "axios";
 
 const map = new Map();
 map.set('Топ', 'top')

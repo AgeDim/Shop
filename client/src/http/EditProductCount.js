@@ -1,8 +1,8 @@
 import {$host} from "../axiosAPI";
 
-export const getSoS = async (index) => {
-    const {data} = await $host.get('/getSos/'+ index)
-    return data
+export const getSoS = async (index, setData) => {
+    const {data} = await $host.get('/' + index)
+    setData(data);
 }
 
 export const getProductFromSos = async (index, id) => {

@@ -17,6 +17,6 @@ public class StorageController {
 
     @GetMapping("/storage")
     public ResponseEntity<?> getStoragesIdList(){
-        return ResponseEntity.ok(storageService.getShopsIdList());
+        return ResponseEntity.ok(storageService.getShopsIdList().toArray());
     }
 }

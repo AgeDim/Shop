@@ -16,6 +16,7 @@ public class OrderController {
 
     @PostMapping("/order/submit")
     public ResponseEntity<?> submitOrder(@RequestBody OrderRequest order){
+        System.out.println(order.getEmail());
         return ResponseEntity.ok(orderService.addOrder(order));
     }
     @GetMapping("/order/{email}")

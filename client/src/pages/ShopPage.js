@@ -20,7 +20,6 @@ const ShopPage = observer(() => {
             product.setAllProduct(global.concat(data))
         })
     }, [product.selectedType])
-    console.log(product.products)
     const lastPostIndex = currentPage * postsPerPage
     const firstPostIndex = lastPostIndex - postsPerPage
     const currentPosts = product.products.slice(firstPostIndex, lastPostIndex)
