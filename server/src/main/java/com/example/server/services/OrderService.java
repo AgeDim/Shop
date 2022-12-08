@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class OrderService {
         OrderEntity result = new OrderEntity();
         result.setUserId(userRepository.findByEmail(request.getEmail()).getId());
         result.setProductsId(request.getProductsId().toArray(new Integer[0]));
+        System.out.println(result.getProductsId());
         result.setOrderTime(LocalDateTime.now());
         result.setAmounts(request.getAmounts().toArray(new Integer[0]));
         if (request.getShopId() != null){

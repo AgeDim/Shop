@@ -8,25 +8,31 @@ import {getProductFromSos, getSoS, setNewAmount} from "../../http/EditProductCou
 const EditProductCount = observer(({show, onHide}) => {
     const [checked, setChecked] = useState('Shop');
     const [selectedSos, setSelectedSos] = React.useState('');
-    const [selectedProd, setSelectedProd] = React.useState('');
-    const [sos, setSos] = useState(getSoS(checked))
-    const [product, setProduct] = useState('')
+    const [selectedProd, setSelectedProd] = React.useState([]);
+    const [sos, setSos] = useState([])
+    const [product, setProduct] = useState([])
     const [amount, setAmount] = useState()
 
     const submit = () => {
         let prod = selectedProd
         prod.amount = amount
         setSelectedProd(prod)
-        setNewAmount(selectedProd).then(data => onHide())
+        setNewAmount(checked, selectedSos.currentKey, selectedProd.currentKey, amount).then(data => onHide())
     }
 
     useEffect(() => {
-        setProduct(getProductFromSos(checked, selectedSos))
+        console.log(selectedSos)
+        getProductFromSos(checked, selectedSos.currentKey, setProduct)
     }, [selectedSos])
 
     useEffect(() => {
-        setSos(getSoS(checked))
+        getSoS(checked, setSos)
     }, [checked])
+    useEffect(()=>{
+        product.map(prod => {if(prod.id == selectedProd.currentKey){setAmount(prod.amount)}})
+        console.log(amount)
+    },[selectedProd])
+    console.log(selectedProd)
     return (
         <Modal
             show={show}
@@ -47,7 +53,7 @@ const EditProductCount = observer(({show, onHide}) => {
                     </Radio.Group>
                     <Dropdown>
                         <Dropdown.Button color={"primary"} shadow>
-                            {checked} номер
+                            {checked} {selectedSos}
                         </Dropdown.Button>
                         <Dropdown.Menu
                             aria-label="Single selection actions"
@@ -57,14 +63,14 @@ const EditProductCount = observer(({show, onHide}) => {
                             selectedKeys={selectedSos}
                             onSelectionChange={setSelectedSos}
                         >
-                            {sos.map(build => {
-                                <Dropdown.Item key={build.id}>{checked} {build.id}</Dropdown.Item>
-                            })}
+                            {sos.map(build => (
+                                <Dropdown.Item key={build}>{checked} {build}</Dropdown.Item>
+                            ))}
                         </Dropdown.Menu>
                     </Dropdown>
                     <Dropdown>
                         <Dropdown.Button color={"primary"} shadow>
-                            Номер продукта
+                            ID {selectedProd}
                         </Dropdown.Button>
                         <Dropdown.Menu
                             aria-label="Single selection actions"
@@ -74,23 +80,23 @@ const EditProductCount = observer(({show, onHide}) => {
                             selectedKeys={selectedProd}
                             onSelectionChange={setSelectedProd}
                         >
-                            {product.map(prod => {
+                            {product.map(prod => (
                                 <Dropdown.Item key={prod.id}>Продукт №{prod.id}</Dropdown.Item>
-                            })}
+                            ))}
                         </Dropdown.Menu>
                     </Dropdown>
                     <Form.Control
-                        value={selectedProd.amount}
+                        value={amount}
                         onChange={e => setAmount(Number(e.target.value))}
                         className="mt-3"
-                        placeholder="Введите Кол-во продукта"
+                        placeholder={amount}
                         type="number"
                     />
                 </Form>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="outline-danger" onClick={onHide}>Закрыть</Button>
-                <Button variant="outline-success" onClick={submit()}>Обновить</Button>
+                <Button variant="outline-success" onClick={() => submit()}>Обновить</Button>
             </Modal.Footer>
         </Modal>
     );

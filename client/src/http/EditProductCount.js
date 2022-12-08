@@ -1,16 +1,16 @@
 import {$host} from "../axiosAPI";
 
 export const getSoS = async (index, setData) => {
-    const {data} = await $host.get('/' + index)
+    const {data} = await $host.get('/' + index.toLowerCase())
     setData(data);
 }
 
-export const getProductFromSos = async (index, id) => {
-    const {data} = await $host.get('/getProductFromSos/'+index+'/'+id)
-    return data
+export const getProductFromSos = async (index, id, setProduct) => {
+    const {data} = await $host.get('/product/' + index.toLowerCase() + '/' + id)
+    setProduct(data)
 }
 
-export const setNewAmount = async (product) => {
-    const {data} = await $host.post('/setAmount', {product})
+export const setNewAmount = async (place, placeId, productId, amount) => {
+    const {data} = await $host.post('/product/update/' + place.toLowerCase(), {placeId, productId, amount})
     return data
 }

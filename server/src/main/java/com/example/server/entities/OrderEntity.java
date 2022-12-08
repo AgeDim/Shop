@@ -1,18 +1,23 @@
 package com.example.server.entities;
 
 import com.example.server.entities.enums.OrderStatus;
+import com.vladmihalcea.hibernate.type.array.IntArrayType;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "order", schema = "s313304")
+@TypeDef(name = "int-array", typeClass = IntArrayType.class)
 public class OrderEntity {
 
     @Id
@@ -23,14 +28,14 @@ public class OrderEntity {
     @Column(name = "user_id", columnDefinition = "serial NOT NULL")
     private Long userId;
 
-    @Type(type="com.example.server.entities.typeConverters.CustomIntArrayType")
+    @Type(type="int-array")
     @Column(name = "products_id", columnDefinition = "INT[] NOT NULL")
     private Integer[] productsId;
 
     @Column(name = "order_time", columnDefinition = "timestamp")
     private LocalDateTime orderTime;
 
-    @Type(type="com.example.server.entities.typeConverters.CustomIntArrayType")
+    @Type(type="int-array")
     @Column(name = "amounts", columnDefinition = "INT[]")
     private Integer[] amounts;
 

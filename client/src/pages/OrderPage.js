@@ -5,10 +5,13 @@ import OrderItem from "../components/OrderItem";
 import {Row} from "react-bootstrap";
 
 const OrderPage = () => {
-    const {user, orders} = useContext(Context)
+    const {user} = useContext(Context)
+    const {orders} = useContext(Context)
     useEffect(() => {
-        if(user.isAuth){getOrders(user.user.email)}
-
+        if (user.isAuth) {
+            orders.setOrders(getOrders(user.user.email))
+            console.log(orders.orders)
+        }
     }, [])
     return (
         <Row className="g-0">
