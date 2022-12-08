@@ -1,6 +1,7 @@
 package com.example.server.controllers;
 
 import com.example.server.POJO.ProductRequest;
+import com.example.server.POJO.UpdateProductRequest;
 import com.example.server.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,16 @@ public class ProductController {
             return ResponseEntity.ok(productService.addProduct(product));
         } catch (IOException exception){
             return ResponseEntity.badRequest().body("Troubles with received files.");
+        }
+    }
+
+    @PostMapping("/product/update/{place}")
+    public ResponseEntity<?> updateProductAmountInPlace(@PathVariable String place,
+                                                        @RequestBody UpdateProductRequest request){
+        if (place.equals("shop")){
+            return ResponseEntity.ok(productService.updateProductsAmountInShop(request));
+        } else{
+            return ResponseEntity.ok(productService.updateProductsAmountInStorage(request));
         }
     }
     @GetMapping("/product/{place}/{placeId}")

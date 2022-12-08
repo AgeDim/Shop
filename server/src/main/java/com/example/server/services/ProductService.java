@@ -2,6 +2,7 @@ package com.example.server.services;
 
 import com.example.server.POJO.ProductRequest;
 import com.example.server.POJO.ProductResponse;
+import com.example.server.POJO.UpdateProductRequest;
 import com.example.server.entities.ProductEntity;
 import com.example.server.entities.ProductShopMatchEntity;
 import com.example.server.entities.ProductStorageMatchEntity;
@@ -70,6 +71,19 @@ public class ProductService {
         return result;
     }
 
+    public ProductShopMatchEntity updateProductsAmountInShop(UpdateProductRequest request){
+        ProductShopMatchEntity entity = productShopMatchRepository
+                .getProductShopMatchEntityByShopIdAndProductId(request.getPlaceId(), request.getProductId());
+        entity.setProductAmount(request.getAmount());
+        return productShopMatchRepository.save(entity);
+    }
+
+    public ProductStorageMatchEntity updateProductsAmountInStorage(UpdateProductRequest request){
+        ProductStorageMatchEntity entity = productStorageMatchRepository
+                .getProductStorageMatchEntityByStorageIdAndProductId(request.getPlaceId(), request.getProductId());
+        entity.setProductAmount(request.getAmount());
+        return productStorageMatchRepository.save(entity);
+    }
 
     private ProductEntity convertRequestToEntity(ProductRequest request) throws IOException{
         ProductEntity result = new ProductEntity();

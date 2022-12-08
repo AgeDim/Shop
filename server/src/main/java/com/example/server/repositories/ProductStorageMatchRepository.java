@@ -8,4 +8,6 @@ import java.util.List;
 public interface ProductStorageMatchRepository extends JpaRepository<ProductStorageMatchEntity, Long> {
 
     List<ProductStorageMatchEntity> getProductStorageMatchEntitiesByStorageId(Long storageId);
+
+    ProductStorageMatchEntity getProductStorageMatchEntityByStorageIdAndProductId(Long storageId, Long productId);
 }

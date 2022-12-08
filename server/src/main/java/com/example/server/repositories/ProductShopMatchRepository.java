@@ -8,4 +8,6 @@ import java.util.List;
 public interface ProductShopMatchRepository extends JpaRepository<ProductShopMatchEntity, Long> {
 
     List<ProductShopMatchEntity> getProductShopMatchEntitiesByShopId(Long shopId);
+
+    ProductShopMatchEntity getProductShopMatchEntityByShopIdAndProductId(Long shopId, Long productId);
 }
