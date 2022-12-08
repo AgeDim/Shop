@@ -30,12 +30,12 @@ const CreateProduct = observer(({show, onHide}) => {
 
 
     const selectInfo = e => {
-        console.log(e.target.files[0])
         setInfo(e.target.files[0])
 
     }
 
     const selectFile = e => {
+        console.log(e.target.files[0])
         setFile(e.target.files[0])
     }
 

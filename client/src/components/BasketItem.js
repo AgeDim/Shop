@@ -17,7 +17,7 @@ const BasketItem = observer(({basketItem, deleteFromBasket}) => {
                 }} style={{cursor: "pointer", color: "red"}} size={30}/>
             </Col>
             <Col className="d-flex justify-content-start">
-                <Row><Image src={holder}/></Row>
+                <Row><Image style={{width:150, height:150}} src={`data:image/jpeg;base64,${prod.img}`}/></Row>
                 <Row><h2>{basketItem.price} руб.</h2>
                     <h2>{prod.name}</h2>
                     <h2>Кол-во: {basketItem.amount}</h2></Row>

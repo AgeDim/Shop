@@ -18,6 +18,7 @@ const ProductPage = observer(() => {
     const {basket} = useContext(Context)
     const {user} = useContext(Context)
     const keys = prod1.description.replaceAll('"', '').replaceAll('{','').replaceAll('}','').split(',')
+    console.log(keys)
     function compare() {
         for (let i = 0; i < basket.prod.length; i++) {
             if (basket.prod[i].id === prod1.id) {
@@ -45,6 +46,11 @@ const ProductPage = observer(() => {
             alert("Вы не можете добавлять продукты в корзину, зарегистрируйтесь!")
         }
     }
+    const list = []
+
+    for (let i=0;i<keys.length;i+=2) {
+        list.push(<h5>{keys[i]}: {keys[i+1]}</h5>)
+    }
     return (<Card className="align-self-center" style={{height: 590, marginTop: 10, marginRight: 20, marginLeft: 20}}>
         <Row className="align-content-start"><Button id="btn" className="p-2" variant="outline-light" style={{
             background: "rgba(0, 0, 0, 0)", borderColor: "rgba(0, 0, 0, 0)", width: 240, marginLeft: 5
@@ -52,7 +58,7 @@ const ProductPage = observer(() => {
             src={back}/></Button></Row>
 
         <Row>
-            <Col md={7} className="d-flex justify-content-center"><Image src={pik} width={450} height={450}
+            <Col md={7} className="d-flex justify-content-center"><Image src={`data:image/jpeg;base64,${prod1.img}`} width={450} height={450}
                                                                          style={{
                                                                              marginLeft: 50,
                                                                              marginTop: 20,
@@ -66,10 +72,10 @@ const ProductPage = observer(() => {
                     <Row>
                         <h3>{prod1.defaultPrice} РУБ</h3>
                         <h3>Характеристики:</h3>
-                        {keys.map(element => <h5>{element}</h5>)}
+                        {list}
                     </Row>
                     <Row><Counter product={prod1}/></Row>
-                    <Row style={{paddingTop: 50}}>
+                    <Row style={{paddingTop: 10}}>
                         <Button className="p-2" onClick={addProductToBasket} style={{
                             background: "rgba(0, 0, 0, 0)", borderColor: "rgba(0, 0, 0, 0)", width: 240
                         }}><img

@@ -14,7 +14,6 @@ const ProductItem = observer(({product}) => {
     const history = useHistory()
     const {favorite} = useContext(Context)
     const [isActive, setIsActive] = useState(false)
-
     function compare() {
         for (let i = 0; i < favorite.prod.length; i++) {
             if (favorite.prod[i].id === product.id) {
@@ -48,7 +47,7 @@ const ProductItem = observer(({product}) => {
                         onClick={() => {
                             handleClick()
                         }}/></div>
-                    <Image style={{cursor: "pointer"}} src={placeHolder}
+                    <Image className="align-self-center" style={{cursor: "pointer", width:270, height:220, borderRadius: 10}} src={`data:image/jpeg;base64,${product.img}`}
                            onClick={() => history.push(PRODUCT_ROUTE + '/' + product.id)}/>
 
                 </Card>

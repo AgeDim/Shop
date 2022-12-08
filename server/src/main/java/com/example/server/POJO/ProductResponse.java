@@ -27,7 +27,7 @@ public class ProductResponse {
                            String imgName, byte[] img){
         this.id = id;
         this.name = name;
-        this.productType = ProductType.values()[productType];
+        this.productType = ProductType.values()[productType-1];
         this.defaultPrice = defaultPrice;
         this.description = description;
         this.imgName = imgName;
