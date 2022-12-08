@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
+
 @RestController
 @CrossOrigin("http://localhost:3000")
 public class OrderController {
@@ -16,8 +18,11 @@ public class OrderController {
 
     @PostMapping("/order/submit")
     public ResponseEntity<?> submitOrder(@RequestBody OrderRequest order){
-        System.out.println(order.getProductsId());
-        return ResponseEntity.ok(orderService.addOrder(order));
+        try {
+            return ResponseEntity.ok(orderService.addOrder(order));
+        } catch (SQLException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
     @GetMapping("/order/{email}")
     public ResponseEntity<?> getOrdersByEmail(@PathVariable String email){

@@ -116,6 +116,7 @@ CREATE OR REPLACE FUNCTION update_product_sum()
                                                                 WHERE product_id = NEW.product_id);
         sum = sum + (SELECT sum(product_amount) FROM product_storage_match WHERE product_id = NEW.product_id);
         UPDATE product SET amount = sum WHERE id = new.product_id;
+        RETURN new;
     end;
 $$ language 'plpgsql';
 
