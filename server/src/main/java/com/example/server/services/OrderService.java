@@ -68,6 +68,8 @@ public class OrderService {
         }
         response.setProdNameToAmount(prodMap);
         response.setCost(cost);
+        response.setId(entity.getId());
+        response.setTime(entity.getOrderTime());
         return response;
     }
     private OrderEntity convertOrderRequestToEntity(OrderRequest request){
