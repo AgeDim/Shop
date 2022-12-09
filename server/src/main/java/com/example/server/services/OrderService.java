@@ -64,13 +64,13 @@ public class OrderService {
         Double cost = 0d;
         for (int i = 0; i < entity.getProductsId().length; i++){
             ProductEntity product = productRepository
-                    .getProductEntityById(entity.getProductsId()[0].longValue());
+                    .getProductEntityById(entity.getProductsId()[i].longValue());
             prodMap.put(product.getName(), entity.getAmounts()[i]);
             if (entity.getShopId() == null){
                 cost += product.getDefaultPrice()*entity.getAmounts()[i];
             } else{
                 cost += productShopMatchRepository
-                        .getProductPriceByProductAndShopIds(entity.getProductsId()[0].longValue(), entity.getShopId());
+                        .getProductPriceByProductAndShopIds(entity.getProductsId()[i].longValue(), entity.getShopId());
             }
         }
         response.setProdNameToAmount(prodMap);

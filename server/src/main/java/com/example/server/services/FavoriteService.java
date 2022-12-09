@@ -28,12 +28,12 @@ public class FavoriteService {
 
     public String addFavoriteToUser(FavoriteSaveRequest request) throws UserNotFoundException {
         UserEntity user = null;
-        user = userRepository.findByEmail(request.getUserEmail());
+        user = userRepository.findByEmail(request.getEmail());
         if (user != null) {
             UserEntity finalUser = user;
             request.getProductIds().forEach(o -> favoriteRepository.save(new FavoriteEntity(finalUser.getId(), o.longValue())));
         } else {
-            throw new UserNotFoundException(request.getUserEmail());
+            throw new UserNotFoundException(request.getEmail());
         }
         return "Favorite added";
     }

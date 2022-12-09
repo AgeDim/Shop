@@ -3,41 +3,22 @@ import {Card, Col, Row} from "react-bootstrap";
 import {Context} from "../index";
 
 const OrderItem = ({order}) => {
-    const {product} = useContext(Context)
-    const prod = product.products.filter(function (v) {
-        return order.products.some(function (v2) {
-            return v.id === v2.id;
-        })
-    });
-    const getGenPrice = () => {
-        let res = 0
-        prod.map(product => {
-            order.products.map(prod => {
-                if (product.id === prod.id) {
-                    res += prod.amount * product.price
-                }
-            })
-        })
-        return res
-    }
-
+    const res = Object.entries(order.prodNameToAmount)
+    const map = new Map();
+    map.set(1, 'inProcess')
+    map.set(2, 'done')
+    map.set(3, 'fail')
     return (
-        <Card className="d-flex">
-            <Row className="g-0">
-                <Col md={2} style={{marginLeft: 5}} className="d-flex">
-                    <h3>Id заказа:</h3><h4 style={{marginTop: 5}} className="start-0">{order.id}</h4>
-                </Col>
-                <Col md={3} style={{ paddingLeft: 10}} className="d-flex">
-                    <h3 className="d-flex">Сумма заказа: {getGenPrice()}</h3>
-                </Col>
-                <Col md={3}>
-                    {prod.map(product => order.products.map(prod => {
-                        {product.id === prod.id && <h2>{product.name} x {prod.amount}</h2>}}))}
-                </Col>
-                <Col md={2} className="d-flex">
-                    <h4>Дата заказа: {order.time}</h4>
-                </Col>
-            </Row>
+        <Card className="d-flex g-0" style={{marginTop:2,marginButton: 2}}>
+            <Col className="d-flex">
+                    <h3 style={{marginRight:15}}>Id заказа: {order.id}</h3>
+                    <h3 style={{marginRight:15}}>Сумма заказа: {Math.round(order.cost)}</h3>
+                    <h4 style={{marginRight:15}}>Дата заказа: {order.time.split('T')[0]}</h4>
+                <Row md={1} style={{width:460, marginLeft:10}}>
+                    {res.map((key, value) => (<h4>{key[0]}x{key[1]}</h4>))}
+                </Row>
+                    <h4>Status: {map.get(order.status)}</h4>
+            </Col>
         </Card>
     );
 };

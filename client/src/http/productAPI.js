@@ -18,11 +18,14 @@ map.set('Добавки', 'additive')
 map.set('Ароматизаторы', 'flavoring')
 
 export const getProductByType = async (type) => {
-    console.log(map.get(type.name))
     const {data} = await $host.get("/product/" + map.get(type.name))
     return data
 }
 export const createDevice = async (product) => {
     const {data} = await $host.post('/product/add', product)
+    return data
+}
+export const getProductById = async (id) => {
+    const {data} = await $host.get('/give/' + id)
     return data
 }

@@ -2,7 +2,7 @@ import React, {useContext, useEffect} from 'react';
 import {Button, Col, Container, Image, Nav, Navbar, NavItem, Row} from "react-bootstrap";
 import {
     ADMIN_ROUTE,
-    BASKET_ROUTE, CONTACTS_ROUTE, DELIVERY_ROUTE, FAVORITE_ROUTE, LOGIN_ROUTE, ORDER_ROUTE, SHOP_ROUTE
+    BASKET_ROUTE, CONTACTS_ROUTE, DELIVERY_ROUTE, FAVORITE_ROUTE, FISH_ROUTE, LOGIN_ROUTE, ORDER_ROUTE, SHOP_ROUTE
 } from "../utils/const";
 import {NavLink, useHistory} from "react-router-dom";
 import NavbarImg from "../assets/NavBarImg.webp"
@@ -10,13 +10,18 @@ import {Context} from "../index";
 import {BsFillCartFill} from "react-icons/bs"
 import {observer} from "mobx-react-lite";
 import {Badge} from "@nextui-org/react";
+import {setFavorite} from "../http/userAPI";
 
 const NavBar = observer(() => {
     const {user} = useContext(Context)
     const history = useHistory()
     const {basket} = useContext(Context)
+    const {favorite} = useContext(Context)
+    const res = []
+    favorite.prod.map(product => {res.push(product.id)})
 
     const logout = () => {
+        setFavorite(user.user.email, res)
         user.setUser({})
         user.setIsAuth(false)
     }
@@ -35,6 +40,7 @@ const NavBar = observer(() => {
                     history.push(CONTACTS_ROUTE)
                 }}>Контакты</Button></NavItem>
                 <NavItem><Button variant="secondary" style={{marginRight: 10}} onClick={() => {history.push(FAVORITE_ROUTE)}}>Избранное</Button></NavItem>
+                <NavItem><Button variant="secondary" style={{marginRight: 10}} onClick={() => {history.push(FISH_ROUTE)}}>Рыба</Button></NavItem>
                 {user.isAuth && user.isAdmin && <NavItem><Button variant="secondary" onClick={() => {
                     history.push(ADMIN_ROUTE)
                 }}>Админ панель</Button></NavItem>}

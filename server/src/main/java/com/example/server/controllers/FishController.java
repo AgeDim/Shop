@@ -23,7 +23,7 @@ public class FishController {
     }
 
     @PostMapping("/fish/add")
-    public ResponseEntity<?> addFish(FishRequest request){
+    public ResponseEntity<?> addFish(@RequestBody FishRequest request){
         return ResponseEntity.ok(fishService.addFish(request));
     }
 

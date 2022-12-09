@@ -7,6 +7,7 @@ import ProductStore from "./store/ProductStore";
 import BasketStore from "./store/BasketStore";
 import OrderStore from "./store/OrderStore";
 import FavoriteStore from "./store/FavoriteStore";
+import FishStore from "./store/FishStore";
 
 export const Context = createContext(null)
 
@@ -17,7 +18,8 @@ root.render(
         product: new ProductStore(),
         basket: new BasketStore(),
         orders: new OrderStore(),
-        favorite: new FavoriteStore()
+        favorite: new FavoriteStore(),
+        fish: new FishStore()
     }}>
         <App/>
     </Context.Provider>

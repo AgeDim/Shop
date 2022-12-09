@@ -11,11 +11,11 @@ import {getSoS} from "../http/EditProductCount";
 const BasketPage = observer(() => {
     const {basket} = useContext(Context)
     const {user} = useContext(Context)
-    const {product} = useContext(Context)
     let res = 0;
     const [selected, setSelected] = useState('Выберите пункт покупки');
     const [data1, setData1] = useState([])
     const [data2, setData2] = useState([])
+    const [error, setError] = useState(' ')
     useEffect(() => {
         getSoS('shop', setData1)
         getSoS('storage', setData2)
@@ -37,8 +37,16 @@ const BasketPage = observer(() => {
             const data = await submitOrder(user.user.email, basket.prod, selected)
             basket.setProdukt([])
         } catch (e) {
-            alert(e.response.data.message)
+            const err = e.response.data
+            setError(e.response.data)
         }
+    }
+
+    const getError = (err) => {
+        let res = err.split(';\\')
+        res = res[0]
+        const result = res.replace('ERROR: ', '')
+        return result
     }
 
     useEffect(() => {
@@ -82,6 +90,7 @@ const BasketPage = observer(() => {
                     </Dropdown.Menu>
                 </Dropdown>
             </Row>
+            <h3 className="align-self-center" style={{marginTop:10, marginBottom:10}}>{getError(error)}</h3>
             <Button style={{height: 100, width: 300}} className="align-self-center" onClick={() => {
                 submit(selected)
             }} variant="outline-light"><img src={orderBtn} alt=""/></Button>

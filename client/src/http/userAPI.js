@@ -25,3 +25,11 @@ export const checkAdmin = async (email) => {
     localStorage.setItem('adminRights', data.adminRight)
     return jwt_decode(data.adminRight)
 }
+export const getFavorite = async (email, setFavorite) => {
+    const {data} = await $host.get('/favorite/' + email)
+    setFavorite(data)
+}
+export const setFavorite = async (email, productIds) => {
+    const {data} = await $host.post('/favorite/add/', {email, productIds})
+    return data
+}

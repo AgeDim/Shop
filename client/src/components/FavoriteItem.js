@@ -16,6 +16,7 @@ const FavoriteItem = observer(({favoriteItem, deleteFromFavorite}) => {
             <Col md={11} className="d-flex justify-content-start">
                 <Row><Image style={{width:150, height:150}} src={`data:image/jpeg;base64,${favoriteItem.img}`}/></Row>
                 <Row><h2>{favoriteItem.name}</h2></Row>
+                <Row style={{marginLeft:40}}><h2>Цена: {favoriteItem.defaultPrice} РУБ.</h2></Row>
             </Col>
         </Row>
     </Card>);

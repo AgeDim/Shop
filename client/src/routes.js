@@ -2,7 +2,7 @@ import {
     ADMIN_ROUTE,
     BASKET_ROUTE,
     CONTACTS_ROUTE,
-    DELIVERY_ROUTE, FAVORITE_ROUTE,
+    DELIVERY_ROUTE, FAVORITE_ROUTE, FISH_ROUTE,
     LOGIN_ROUTE,
     ORDER_ROUTE,
     PRODUCT_ROUTE,
@@ -19,6 +19,7 @@ import shopPage from "./pages/ShopPage";
 import AdminPannel from "./pages/AdminPannel";
 import OrderPage from "./pages/OrderPage";
 import FavoritePage from "./pages/FavoritePage";
+import FishPage from "./pages/FishPage";
 
 
 export const publicRoutes = [// this array routes for user who not authenticate in web-site
@@ -40,6 +41,8 @@ export const publicRoutes = [// this array routes for user who not authenticate 
         path: ORDER_ROUTE, Component: OrderPage
     }, {
         path: FAVORITE_ROUTE, Component: FavoritePage
+    }, {
+        path: FISH_ROUTE, Component: FishPage
     }]
 export const adminRoutes = [{
     path: LOGIN_ROUTE, Component: AuthPage
@@ -61,4 +64,6 @@ export const adminRoutes = [{
     path: ORDER_ROUTE, Component: OrderPage
 }, {
     path: FAVORITE_ROUTE, Component: FavoritePage
+}, {
+    path: FISH_ROUTE, Component: FishPage
 }]

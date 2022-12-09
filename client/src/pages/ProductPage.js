@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useLayoutEffect, useState} from 'react';
 import {Button, Card, Col, Image, Row} from "react-bootstrap";
 import back from "../assets/back.png";
 import pik from "../assets/row1.jpg";
@@ -9,16 +9,22 @@ import "./css/productPage.css"
 import {Context} from "../index";
 import {observer} from "mobx-react-lite";
 import typeOf from "validator/es/lib/util/typeOf";
+import {getProductById} from "../http/productAPI";
 
 const ProductPage = observer(() => {
     const history = useHistory()
     const {id} = useParams()
-    const {product} = useContext(Context)
-    const prod1 = product.products.find(product => product.id == id)
+    const [prod1, setProd1] = useState({id: '',
+        type: '',
+        name: '',
+        price: 0,
+        description:''})
     const {basket} = useContext(Context)
     const {user} = useContext(Context)
     const keys = prod1.description.replaceAll('"', '').replaceAll('{','').replaceAll('}','').split(',')
-    console.log(keys)
+    useLayoutEffect(() => {
+        getProductById(id).then(data => setProd1(data))
+    }, [])
     function compare() {
         for (let i = 0; i < basket.prod.length; i++) {
             if (basket.prod[i].id === prod1.id) {

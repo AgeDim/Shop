@@ -8,11 +8,11 @@ public class FavoriteSaveRequest {
 
     private List<Integer> productIds;
 
-    public String getUserEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setUserEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
