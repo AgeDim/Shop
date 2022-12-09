@@ -77,6 +77,7 @@ public class OrderService {
         response.setCost(cost);
         response.setId(entity.getId());
         response.setTime(entity.getOrderTime());
+        response.setStatus(entity.getStatus());
         return response;
     }
     private OrderEntity convertOrderRequestToEntity(OrderRequest request){

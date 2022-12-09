@@ -12,12 +12,15 @@ public class OrderResponse {
 
     private LocalDateTime time;
 
+    private Integer status;
+
     public OrderResponse(){}
-    public OrderResponse(Long id, Map<String, Integer> prodNameToAmount, Double cost, LocalDateTime time){
+    public OrderResponse(Long id, Map<String, Integer> prodNameToAmount, Double cost, LocalDateTime time, Integer status){
         this.id = id;
         this.prodNameToAmount = prodNameToAmount;
         this.cost = cost;
         this.time = time;
+        this.status = status;
     }
 
 
@@ -51,5 +54,13 @@ public class OrderResponse {
 
     public void setTime(LocalDateTime time) {
         this.time = time;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }
