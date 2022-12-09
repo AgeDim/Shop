@@ -144,6 +144,7 @@ CREATE OR REPLACE FUNCTION create_product_fish_match()
         VALUES(new.id, prod2);
         INSERT INTO product_fish_match(fish_id, product_id)
         VALUES(new.id, prod3);
+        return new;
     end;
 $$ language 'plpgsql';
 
