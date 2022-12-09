@@ -61,4 +61,13 @@ public class ProductController {
             return ResponseEntity.badRequest().body("Place id is incorrect.");
         }
     }
+
+    @GetMapping("/product/{id}")
+    public ResponseEntity<?> getProductById(@PathVariable String id){
+        try {
+            return ResponseEntity.ok(productService.getProductById(Long.valueOf(id)));
+        } catch (NumberFormatException exception){
+            return ResponseEntity.badRequest().body("Incorrect type of id.");
+        }
+    }
 }

@@ -125,6 +125,32 @@ CREATE OR REPLACE TRIGGER handle_product_sum AFTER UPDATE on product_shop_match
     FOR EACH ROW
 EXECUTE PROCEDURE update_product_sum();
 
+/* Триггер №6 - добалвение сопоставления рыбы с 3 случайными продуктами */
+CREATE OR REPLACE FUNCTION create_product_fish_match()
+    RETURNS TRIGGER AS $$
+    declare
+        prod1 INT := (SELECT id FROM product ORDER BY random() LIMIT 1);
+        prod2 INT := (SELECT id FROM product ORDER BY random() LIMIT 1);
+        prod3 INT := (SELECT id FROM product ORDER BY random() LIMIT 1);
+    begin
+        while (prod1 = prod2 or prod1 = prod3 or prod2 = prod3) LOOP
+                prod1 := (SELECT id FROM product ORDER BY random() LIMIT 1);
+                prod2 := (SELECT id FROM product ORDER BY random() LIMIT 1);
+                prod3 := (SELECT id FROM product ORDER BY random() LIMIT 1);
+        end loop;
+        INSERT INTO product_fish_match(fish_id, product_id)
+        VALUES(new.id, prod1);
+        INSERT INTO product_fish_match(fish_id, product_id)
+        VALUES(new.id, prod2);
+        INSERT INTO product_fish_match(fish_id, product_id)
+        VALUES(new.id, prod3);
+    end;
+$$ language 'plpgsql';
+
+CREATE OR REPLACE TRIGGER create_product_fish_match AFTER INSERT on fish
+    FOR EACH  ROW
+EXECUTE PROCEDURE create_product_fish_match();
+
 /* Функция для выбора заказов по id юзера */
 CREATE OR REPLACE FUNCTION get_orders_by_user_id(id_user int)
     returns INT[] as $$

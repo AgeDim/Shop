@@ -85,6 +85,10 @@ public class ProductService {
         return productStorageMatchRepository.save(entity);
     }
 
+    public ProductEntity getProductById(Long id){
+        return productRepository.getProductEntityById(id);
+    }
+
     private ProductEntity convertRequestToEntity(ProductRequest request) throws IOException{
         ProductEntity result = new ProductEntity();
         result.setName(request.getName());
