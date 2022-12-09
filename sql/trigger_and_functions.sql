@@ -87,7 +87,7 @@ EXECUTE PROCEDURE check_product_amount();
 CREATE OR REPLACE FUNCTION update_product_amount()
     RETURNS TRIGGER AS $$
 begin
-    if (new.status = 'done') then
+    if (new.status = 1) then
         if (new.shop_id IS NOT NULL) then
             for i in 0..array_length(new.products_id)-1 LOOP
                     UPDATE product SET amount = amount - new.amounts[i] WHERE id = new.products_id[i];
@@ -100,7 +100,8 @@ begin
                 end loop;
         end if;
     end if;
-end;
+    return new;
+end
 $$ language 'plpgsql';
 
 CREATE OR REPLACE TRIGGER handle_product_amount BEFORE UPDATE on "order"
