@@ -77,10 +77,10 @@ public class OrderService {
         result.setOrderTime(LocalDateTime.now());
         result.setAmounts(request.getAmounts().toArray(new Integer[0]));
         if (request.getShopId() != null){
-            result.setShopId(request.getShopId());
+            result.setShopId(request.getShopId().longValue());
             result.setStorageId(null);
         } else {
-            result.setStorageId(request.getStorageId());
+            result.setStorageId(request.getStorageId().longValue());
             result.setShopId(null);
         }
         result.setStatus(OrderStatus.valueOf("inProcess").getCode());
