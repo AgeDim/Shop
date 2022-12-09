@@ -71,10 +71,10 @@ begin
         end loop;
     for i in 1..product_to_add_amount LOOP
             if (new.amounts[i]::int > sums[i]::int) then
-                RAISE EXCEPTION 'Недостаточно товара с id: %', new.products_id[i]::int;
+                RAISE EXCEPTION 'Недостаточно товара с id: % ;\', new.products_id[i]::int;
             end if;
         end loop;
-    return;
+    return new;
 end;
 $$ language 'plpgsql';
 
@@ -121,6 +121,7 @@ CREATE OR REPLACE FUNCTION update_product_sum()
 $$ language 'plpgsql';
 
 CREATE OR REPLACE TRIGGER handle_product_sum AFTER UPDATE on product_shop_match
+    FOR EACH ROW
 EXECUTE PROCEDURE update_product_sum();
 
 /* Функция для выбора заказов по id юзера */
