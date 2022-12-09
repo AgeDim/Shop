@@ -10,9 +10,9 @@ public class OrderRequest {
 
     private List<Integer> amounts;
 
-    private String shopId;
+    private Long shopId;
 
-    private String storageId;
+    private Long storageId;
 
 
     public String getEmail() {
@@ -39,19 +39,19 @@ public class OrderRequest {
         this.amounts = amounts;
     }
 
-    public String getShopId() {
+    public Long getShopId() {
         return shopId;
     }
 
-    public void setShopId(String shopId) {
+    public void setShopId(Long shopId) {
         this.shopId = shopId;
     }
 
-    public String getStorageId() {
+    public Long getStorageId() {
         return storageId;
     }
 
-    public void setStorageId(String storageId) {
+    public void setStorageId(Long storageId) {
         this.storageId = storageId;
     }
 }
