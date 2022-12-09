@@ -1,6 +1,7 @@
 package com.example.server.controllers;
 
 import com.example.server.POJO.OrderRequest;
+import com.example.server.POJO.UpdateStatusRequest;
 import com.example.server.exceptions.UserNotFoundException;
 import com.example.server.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,9 @@ public class OrderController {
         } catch (UserNotFoundException exception){
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
+    }
+    @PostMapping("/order/update/status")
+    public ResponseEntity<?> updateOrderStatus(@RequestBody UpdateStatusRequest request){
+        return ResponseEntity.ok(orderService.updateOrderStatus(request));
     }
 }

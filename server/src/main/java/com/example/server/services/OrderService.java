@@ -2,6 +2,7 @@ package com.example.server.services;
 
 import com.example.server.POJO.OrderRequest;
 import com.example.server.POJO.OrderResponse;
+import com.example.server.POJO.UpdateStatusRequest;
 import com.example.server.entities.OrderEntity;
 import com.example.server.entities.ProductEntity;
 import com.example.server.entities.UserEntity;
@@ -49,6 +50,12 @@ public class OrderService {
         } else {
             throw new UserNotFoundException(email);
         }
+    }
+
+    public OrderEntity updateOrderStatus(UpdateStatusRequest request){
+        OrderEntity entity = orderRepository.getOrderEntityById(request.getOrderId().longValue());
+        entity.setStatus(request.getStatus());
+        return orderRepository.save(entity);
     }
 
     private OrderResponse convertOrderEntityToOrderResponse(OrderEntity entity){
