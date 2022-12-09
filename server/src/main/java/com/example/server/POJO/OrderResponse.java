@@ -8,6 +8,7 @@ public class OrderResponse {
 
     private Double cost;
 
+    public OrderResponse(){}
     public OrderResponse(Map<String, Integer> prodNameToAmount, Double cost){
         this.prodNameToAmount = prodNameToAmount;
         this.cost = cost;
