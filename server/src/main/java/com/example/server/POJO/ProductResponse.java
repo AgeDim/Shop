@@ -20,17 +20,18 @@ public class ProductResponse {
 
     private Integer amount;
 
-    public ProductResponse(){}
+    public ProductResponse() {
+    }
 
-    public ProductResponse(Long id, Integer amount){
+    public ProductResponse(Long id, Integer amount) {
         this.id = id;
         this.amount = amount;
     }
-    public ProductResponse(Long id, String name, Integer productType, Double defaultPrice, String description,
-                           String imgName, byte[] img){
+
+    public ProductResponse(Long id, String name, Integer productType, Double defaultPrice, String description, String imgName, byte[] img) {
         this.id = id;
         this.name = name;
-        this.productType = ProductType.values()[productType-1];
+        this.productType = ProductType.values()[productType - 1];
         this.defaultPrice = defaultPrice;
         this.description = description;
         this.imgName = imgName;

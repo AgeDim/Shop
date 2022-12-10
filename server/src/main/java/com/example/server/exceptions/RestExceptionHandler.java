@@ -11,10 +11,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
-public class RestExceptionHandler extends ResponseEntityExceptionHandler{
+public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(PSQLException.class)
-    protected ResponseEntity<Object> handlePSQLException(PSQLException exception){
+    protected ResponseEntity<Object> handlePSQLException(PSQLException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.valueOf(409));
     }
 }

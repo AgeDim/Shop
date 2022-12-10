@@ -14,8 +14,10 @@ public class OrderResponse {
 
     private Integer status;
 
-    public OrderResponse(){}
-    public OrderResponse(Long id, Map<String, Integer> prodNameToAmount, Double cost, LocalDateTime time, Integer status){
+    public OrderResponse() {
+    }
+
+    public OrderResponse(Long id, Map<String, Integer> prodNameToAmount, Double cost, LocalDateTime time, Integer status) {
         this.id = id;
         this.prodNameToAmount = prodNameToAmount;
         this.cost = cost;

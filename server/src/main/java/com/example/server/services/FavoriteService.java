@@ -44,7 +44,7 @@ public class FavoriteService {
         if (user != null) {
             List<FavoriteEntity> list = favoriteRepository.getFavoriteEntitiesByUserId(user.getId());
             List<ProductEntity> result = new ArrayList<>();
-            list.forEach(o->result.add(productRepository.getProductEntityById(o.getProductId())));
+            list.forEach(o -> result.add(productRepository.getProductEntityById(o.getProductId())));
             return result;
         } else {
             throw new UserNotFoundException(email);

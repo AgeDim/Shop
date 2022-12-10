@@ -1,19 +1,20 @@
 import React, {useState} from 'react';
 import {observer} from "mobx-react-lite";
-import {setStatus} from "../../http/orderAPI";
-import {Dropdown} from "@nextui-org/react";
 import Modal from "react-bootstrap/Modal";
 import {Button, Form} from "react-bootstrap";
 import {addFish} from "../../http/fishAPI";
 
 const AddFish = observer(({show, onHide}) => {
-    const [name,setName]= useState('')
-    const [lengthMax,setLengthMax]= useState('')
-    const [lengthMin,setLengthMin]= useState('')
-    const [weightMax,setWeightMax]= useState('')
-    const [weightMin,setWeightMin]= useState('')
-    const [habitat,setHabitat]= useState('')
-
+    const [name, setName] = useState('')
+    const [lengthMax, setLengthMax] = useState('')
+    const [lengthMin, setLengthMin] = useState('')
+    const [weightMax, setWeightMax] = useState('')
+    const [weightMin, setWeightMin] = useState('')
+    const [habitat, setHabitat] = useState('')
+    const submit = () => {
+        addFish(name, lengthMax, lengthMin, weightMax, weightMin, habitat)
+        onHide()
+    }
     return (
         <Modal
             show={show}
@@ -33,31 +34,36 @@ const AddFish = observer(({show, onHide}) => {
                         placeholder="Введите имя рыбы"
                         type="text"
                     />
-                    <hr/><Form.Control
+                    <hr/>
+                    <Form.Control
                         onChange={e => setLengthMax(e.target.value)}
                         className="mt-3"
                         placeholder="Введите максимальную длину"
                         type="number"
                     />
-                    <hr/><Form.Control
+                    <hr/>
+                    <Form.Control
                         onChange={e => setLengthMin(e.target.value)}
                         className="mt-3"
                         placeholder="Введите минимальную длину"
                         type="number"
                     />
-                    <hr/><Form.Control
+                    <hr/>
+                    <Form.Control
                         onChange={e => setWeightMax(e.target.value)}
                         className="mt-3"
                         placeholder="Введите максимальный вес"
                         type="number"
                     />
-                    <hr/><Form.Control
+                    <hr/>
+                    <Form.Control
                         onChange={e => setWeightMin(e.target.value)}
                         className="mt-3"
                         placeholder="Введите минимальный вес"
                         type="number"
                     />
-                    <hr/><Form.Control
+                    <hr/>
+                    <Form.Control
                         onChange={e => setHabitat(e.target.value)}
                         className="mt-3"
                         placeholder="Введите среду обитания"
@@ -67,7 +73,9 @@ const AddFish = observer(({show, onHide}) => {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="outline-danger" onClick={onHide}>Закрыть</Button>
-                <Button variant="outline-success" onClick={()=>{addFish(name, lengthMax,lengthMin,weightMax,weightMin,habitat)}}>Добавить</Button>
+                <Button variant="outline-success" onClick={() => {
+                    submit()
+                }}>Добавить</Button>
             </Modal.Footer>
         </Modal>
     );

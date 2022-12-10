@@ -16,10 +16,11 @@ const BasketPage = observer(() => {
     const [data1, setData1] = useState([])
     const [data2, setData2] = useState([])
     const [error, setError] = useState(' ')
+
     useEffect(() => {
         getSoS('shop', setData1)
         getSoS('storage', setData2)
-    },[])
+    }, [])
     console.log(data1)
     const calcPrice = () => {
         res = 0;
@@ -28,8 +29,9 @@ const BasketPage = observer(() => {
         })
         basket.setGenPrice(res)
     }
+
     const submit = async (selected) => {
-        const prod = basket.prod.map(product => {
+        basket.prod.map(product => {
             delete product['price']
         })
 
@@ -39,14 +41,15 @@ const BasketPage = observer(() => {
         } catch (e) {
             const err = e.response.data
             setError(e.response.data)
+            basket.setGenPrice(0)
+            basket.setProdukt([])
         }
     }
 
     const getError = (err) => {
         let res = err.split(';\\')
         res = res[0]
-        const result = res.replace('ERROR: ', '')
-        return result
+        return res.replace('ERROR: ', '')
     }
 
     useEffect(() => {
@@ -85,12 +88,13 @@ const BasketPage = observer(() => {
                         selectedKeys={selected}
                         onSelectionChange={setSelected}
                     >
-                        {data1.map(shop =>  (<Dropdown.Item key={'Магазин № ' + shop}>Магазин № {shop}</Dropdown.Item>))}
-                        {data2.map(storage => (<Dropdown.Item key={'Склад № '+storage}>Склад № {storage}</Dropdown.Item>))}
+                        {data1.map(shop => (<Dropdown.Item key={'Магазин № ' + shop}>Магазин № {shop}</Dropdown.Item>))}
+                        {data2.map(storage => (
+                            <Dropdown.Item key={'Склад № ' + storage}>Склад № {storage}</Dropdown.Item>))}
                     </Dropdown.Menu>
                 </Dropdown>
             </Row>
-            <h3 className="align-self-center" style={{marginTop:10, marginBottom:10}}>{getError(error)}</h3>
+            <h3 className="align-self-center" style={{marginTop: 10, marginBottom: 10}}>{getError(error)}</h3>
             <Button style={{height: 100, width: 300}} className="align-self-center" onClick={() => {
                 submit(selected)
             }} variant="outline-light"><img src={orderBtn} alt=""/></Button>

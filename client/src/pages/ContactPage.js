@@ -11,7 +11,7 @@ const ContactPage = () => {
             <Card className="align-self-center" style={{marginTop: 10, marginBottom: 10, width: 500}}><h2
                 className="align-self-center">Контактные данные</h2></Card></Row>
         <Row className="g-0 justify-content-center">
-            <Col md={2} style={{marginRight: 120}}  ><Card
+            <Col md={2} style={{marginRight: 120}}><Card
                 style={{width: 350, height: 535}}><Row className="justify-content-center"><img
                 className="align-self-center" src={wpp_icon} style={{height: 180, width: 180}}
                 alt=""/></Row><Row><h1 className="text-center">Напишите нам</h1></Row><Row><h2 className="text-center"

@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name="product", schema = "s313304")
+@Table(name = "product", schema = "s313304")
 public class ProductEntity {
 
     @Id
@@ -18,29 +18,28 @@ public class ProductEntity {
     @Column(name = "id", columnDefinition = "serial primary key")
     private Long id;
 
-    @Column(name="name", columnDefinition = "varchar(255) NOT NULL")
+    @Column(name = "name", columnDefinition = "varchar(255) NOT NULL")
     private String name;
 
-    @Column(name="product_type", columnDefinition = "INT NOT NULL")
+    @Column(name = "product_type", columnDefinition = "INT NOT NULL")
     private Integer productType;
 
-    @Column(name="default_price", columnDefinition = "numeric NOT NULL")
+    @Column(name = "default_price", columnDefinition = "numeric NOT NULL")
     private Double defaultPrice;
 
-    @Column(name="description", columnDefinition = "json NOT NULL")
+    @Column(name = "description", columnDefinition = "json NOT NULL")
     private String description;
 
-    @Column(name="amount", columnDefinition = "INT NOT NULL")
+    @Column(name = "amount", columnDefinition = "INT NOT NULL")
     private Integer amount;
 
-    @Column(name="img_name", columnDefinition = "varchar(255) NOT NULL")
+    @Column(name = "img_name", columnDefinition = "varchar(255) NOT NULL")
     private String imgName;
 
-    @Column(name="img", columnDefinition = "bytea")
+    @Column(name = "img", columnDefinition = "bytea")
     private byte[] img;
 
-    public ProductEntity(String name, ProductType productType, Double defaultPrice, String description,
-                         Integer amount, String imgName, byte[] img){
+    public ProductEntity(String name, ProductType productType, Double defaultPrice, String description, Integer amount, String imgName, byte[] img) {
         this.name = name;
         this.productType = productType.getCode();
         this.defaultPrice = defaultPrice;
@@ -50,5 +49,6 @@ public class ProductEntity {
         this.img = img;
     }
 
-    public ProductEntity(){}
+    public ProductEntity() {
+    }
 }

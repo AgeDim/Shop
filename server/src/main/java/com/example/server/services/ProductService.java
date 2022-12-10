@@ -37,14 +37,14 @@ public class ProductService {
     @Autowired
     private ProductStorageMatchRepository productStorageMatchRepository;
 
-    public List<ProductResponse> getProductTop(){
+    public List<ProductResponse> getProductTop() {
         List<ProductEntity> temp = productRepository.getTopProducts();
         List<ProductResponse> result = new ArrayList<>();
         convertEntityToResponse(temp, result);
         return result;
     }
 
-    public List<ProductResponse> getProductByType(String type) throws IllegalArgumentException{
+    public List<ProductResponse> getProductByType(String type) throws IllegalArgumentException {
         List<ProductEntity> temp = productRepository.getProductEntitiesByProductType(ProductType.valueOf(type).getCode());
         List<ProductResponse> result = new ArrayList<>();
         convertEntityToResponse(temp, result);
@@ -55,41 +55,37 @@ public class ProductService {
         return productRepository.save(convertRequestToEntity(request));
     }
 
-    public List<ProductResponse> getProductsFromStorage(Long storageId){
-        List<ProductStorageMatchEntity> list =
-                productStorageMatchRepository.getProductStorageMatchEntitiesByStorageId(storageId);
+    public List<ProductResponse> getProductsFromStorage(Long storageId) {
+        List<ProductStorageMatchEntity> list = productStorageMatchRepository.getProductStorageMatchEntitiesByStorageId(storageId);
         List<ProductResponse> result = new ArrayList<>();
         list.forEach(o -> result.add(new ProductResponse(o.getProductId(), o.getProductAmount())));
         return result;
     }
 
-    public List<ProductResponse> getProductsFromShop(Long shopId){
-        List<ProductShopMatchEntity> list =
-                productShopMatchRepository.getProductShopMatchEntitiesByShopId(shopId);
+    public List<ProductResponse> getProductsFromShop(Long shopId) {
+        List<ProductShopMatchEntity> list = productShopMatchRepository.getProductShopMatchEntitiesByShopId(shopId);
         List<ProductResponse> result = new ArrayList<>();
         list.forEach(o -> result.add(new ProductResponse(o.getProductId(), o.getProductAmount())));
         return result;
     }
 
-    public ProductShopMatchEntity updateProductsAmountInShop(UpdateProductRequest request){
-        ProductShopMatchEntity entity = productShopMatchRepository
-                .getProductShopMatchEntityByShopIdAndProductId(request.getPlaceId(), request.getProductId());
+    public ProductShopMatchEntity updateProductsAmountInShop(UpdateProductRequest request) {
+        ProductShopMatchEntity entity = productShopMatchRepository.getProductShopMatchEntityByShopIdAndProductId(request.getPlaceId(), request.getProductId());
         entity.setProductAmount(request.getAmount());
         return productShopMatchRepository.save(entity);
     }
 
-    public ProductStorageMatchEntity updateProductsAmountInStorage(UpdateProductRequest request){
-        ProductStorageMatchEntity entity = productStorageMatchRepository
-                .getProductStorageMatchEntityByStorageIdAndProductId(request.getPlaceId(), request.getProductId());
+    public ProductStorageMatchEntity updateProductsAmountInStorage(UpdateProductRequest request) {
+        ProductStorageMatchEntity entity = productStorageMatchRepository.getProductStorageMatchEntityByStorageIdAndProductId(request.getPlaceId(), request.getProductId());
         entity.setProductAmount(request.getAmount());
         return productStorageMatchRepository.save(entity);
     }
 
-    public ProductEntity getProductById(Long id){
+    public ProductEntity getProductById(Long id) {
         return productRepository.getProductEntityById(id);
     }
 
-    private ProductEntity convertRequestToEntity(ProductRequest request) throws IOException{
+    private ProductEntity convertRequestToEntity(ProductRequest request) throws IOException {
         ProductEntity result = new ProductEntity();
         result.setName(request.getName());
         result.setProductType(ProductType.valueOf(request.getType()).getCode());
@@ -106,7 +102,7 @@ public class ProductService {
         return result;
     }
 
-    private File convertMultiPartFileToFile(MultipartFile file) throws IOException{
+    private File convertMultiPartFileToFile(MultipartFile file) throws IOException {
         File result = new File(file.getOriginalFilename());
         FileOutputStream fos = new FileOutputStream(result);
         fos.write(file.getBytes());
@@ -115,10 +111,6 @@ public class ProductService {
     }
 
     private void convertEntityToResponse(List<ProductEntity> entityList, List<ProductResponse> responseList) {
-        entityList.forEach(o ->
-                responseList.add(new ProductResponse(o.getId(), o.getName(), o.getProductType(),
-                        o.getDefaultPrice(), o.getDescription(), o.getImgName(),
-                        o.getImg()))
-        );
+        entityList.forEach(o -> responseList.add(new ProductResponse(o.getId(), o.getName(), o.getProductType(), o.getDefaultPrice(), o.getDescription(), o.getImgName(), o.getImg())));
     }
 }

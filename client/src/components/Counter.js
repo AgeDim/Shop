@@ -8,14 +8,12 @@ import {observer} from "mobx-react-lite";
 
 const Counter = observer(({product}) => {
     const [counter, setCounter] = useState(1);
-    //increase counter
     const increase = () => {
         if (counter < 99) {
             setCounter(count => count + 1);
         }
     };
 
-    //decrease counter
     const decrease = () => {
         if (counter > 1) {
             setCounter(count => count - 1);

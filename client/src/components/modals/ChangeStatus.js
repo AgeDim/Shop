@@ -9,9 +9,9 @@ const ChangeStatus = observer(({show, onHide}) => {
     const [id, setId] = useState('')
     const [stat, setStat] = useState('Выберите статус заказа')
     const setSt = () => {
-        if(id === ''){
+        if (id === '') {
             alert("Id can't be null")
-        }else{
+        } else {
             setStatus(id, stat)
             onHide()
         }
@@ -55,7 +55,7 @@ const ChangeStatus = observer(({show, onHide}) => {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="outline-danger" onClick={onHide}>Закрыть</Button>
-                <Button variant="outline-success" onClick={()=>setSt()}>Обновить</Button>
+                <Button variant="outline-success" onClick={() => setSt()}>Обновить</Button>
             </Modal.Footer>
         </Modal>
     );

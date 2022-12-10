@@ -9,7 +9,8 @@ const FavoriteList = observer(({favorite}) => {
         favorite.setFavorite(favorite.prod.filter((product) => id !== product.id))
     }
     return (<Row>
-        {favorite.prod.map(product => <FavoriteItem key={product.id} favoriteItem={product} deleteFromFavorite={deleteFromFavorite}/>)}
+        {favorite.prod.map(product => <FavoriteItem key={product.id} favoriteItem={product}
+                                                    deleteFromFavorite={deleteFromFavorite}/>)}
     </Row>);
 });
 

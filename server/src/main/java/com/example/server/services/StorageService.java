@@ -12,7 +12,7 @@ public class StorageService {
     @Autowired
     private StorageRepository storageRepository;
 
-    public List<Long> getShopsIdList(){
+    public List<Long> getShopsIdList() {
         return storageRepository.findAllStoragesId();
     }
 }

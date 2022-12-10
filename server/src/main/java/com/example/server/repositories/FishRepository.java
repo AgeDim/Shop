@@ -8,11 +8,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface FishRepository  extends JpaRepository<FishEntity, Long> {
+public interface FishRepository extends JpaRepository<FishEntity, Long> {
 
-    @Query(value = "SELECT product_id FROM product_fish_match WHERE fish_id = :id",nativeQuery = true)
+    @Query(value = "SELECT product_id FROM product_fish_match WHERE fish_id = :id", nativeQuery = true)
     List<Long> getProductsIdByFishMatch(Long id);
 
-    @Query(value = "SELECT * FROM fish",nativeQuery = true)
+    @Query(value = "SELECT * FROM fish", nativeQuery = true)
     List<FishEntity> getAll();
 }

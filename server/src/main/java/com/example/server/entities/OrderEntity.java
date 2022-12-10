@@ -25,14 +25,14 @@ public class OrderEntity {
     @Column(name = "user_id", columnDefinition = "serial NOT NULL")
     private Long userId;
 
-    @Type(type="int-array")
+    @Type(type = "int-array")
     @Column(name = "products_id", columnDefinition = "INT[] NOT NULL")
     private Integer[] productsId;
 
     @Column(name = "order_time", columnDefinition = "timestamp")
     private LocalDateTime orderTime;
 
-    @Type(type="int-array")
+    @Type(type = "int-array")
     @Column(name = "amounts", columnDefinition = "INT[]")
     private Integer[] amounts;
 
@@ -45,8 +45,7 @@ public class OrderEntity {
     @Column(name = "status", columnDefinition = "INT NOT NULL")
     private Integer status;
 
-    public OrderEntity(Long userId, Integer[] productsId, LocalDateTime orderTime, Integer[] amounts,
-                       Long shopId, Long storageId, OrderStatus status) {
+    public OrderEntity(Long userId, Integer[] productsId, LocalDateTime orderTime, Integer[] amounts, Long shopId, Long storageId, OrderStatus status) {
         this.userId = userId;
         this.productsId = productsId;
         this.orderTime = orderTime;

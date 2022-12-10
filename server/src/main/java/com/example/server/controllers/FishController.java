@@ -14,21 +14,21 @@ public class FishController {
     private FishService fishService;
 
     @GetMapping("/fish/{id}")
-    public ResponseEntity<?> getFishById(@PathVariable String id){
+    public ResponseEntity<?> getFishById(@PathVariable String id) {
         try {
             return ResponseEntity.ok(fishService.getProductsOfFishByFishId(Long.valueOf(id)));
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             return ResponseEntity.badRequest().body("Incorrect format of id.");
         }
     }
 
     @PostMapping("/fish/add")
-    public ResponseEntity<?> addFish(@RequestBody FishRequest request){
+    public ResponseEntity<?> addFish(@RequestBody FishRequest request) {
         return ResponseEntity.ok(fishService.addFish(request));
     }
 
     @GetMapping("/fish")
-    public ResponseEntity<?> getFishes(){
+    public ResponseEntity<?> getFishes() {
         return ResponseEntity.ok(fishService.getFishes());
     }
 }

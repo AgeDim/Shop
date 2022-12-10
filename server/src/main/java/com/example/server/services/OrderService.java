@@ -39,7 +39,7 @@ public class OrderService {
         return orderRepository.save(convertOrderRequestToEntity(order));
     }
 
-    public List<OrderResponse> getOrdersByEmail(String email) throws UserNotFoundException{
+    public List<OrderResponse> getOrdersByEmail(String email) throws UserNotFoundException {
         UserEntity user = null;
         user = userRepository.findByEmail(email);
         if (user != null) {
@@ -52,25 +52,23 @@ public class OrderService {
         }
     }
 
-    public OrderEntity updateOrderStatus(UpdateStatusRequest request){
+    public OrderEntity updateOrderStatus(UpdateStatusRequest request) {
         OrderEntity entity = orderRepository.getOrderEntityById(request.getOrderId().longValue());
         entity.setStatus(request.getStatus());
         return orderRepository.save(entity);
     }
 
-    private OrderResponse convertOrderEntityToOrderResponse(OrderEntity entity){
+    private OrderResponse convertOrderEntityToOrderResponse(OrderEntity entity) {
         OrderResponse response = new OrderResponse();
         Map<String, Integer> prodMap = new HashMap<>();
         Double cost = 0d;
-        for (int i = 0; i < entity.getProductsId().length; i++){
-            ProductEntity product = productRepository
-                    .getProductEntityById(entity.getProductsId()[i].longValue());
+        for (int i = 0; i < entity.getProductsId().length; i++) {
+            ProductEntity product = productRepository.getProductEntityById(entity.getProductsId()[i].longValue());
             prodMap.put(product.getName(), entity.getAmounts()[i]);
-            if (entity.getShopId() == null){
-                cost += product.getDefaultPrice()*entity.getAmounts()[i];
-            } else{
-                cost += productShopMatchRepository
-                        .getProductPriceByProductAndShopIds(entity.getProductsId()[i].longValue(), entity.getShopId());
+            if (entity.getShopId() == null) {
+                cost += product.getDefaultPrice() * entity.getAmounts()[i];
+            } else {
+                cost += productShopMatchRepository.getProductPriceByProductAndShopIds(entity.getProductsId()[i].longValue(), entity.getShopId());
             }
         }
         response.setProdNameToAmount(prodMap);
@@ -80,13 +78,14 @@ public class OrderService {
         response.setStatus(entity.getStatus());
         return response;
     }
-    private OrderEntity convertOrderRequestToEntity(OrderRequest request){
+
+    private OrderEntity convertOrderRequestToEntity(OrderRequest request) {
         OrderEntity result = new OrderEntity();
         result.setUserId(userRepository.findByEmail(request.getEmail()).getId());
         result.setProductsId(request.getProductsId().toArray(new Integer[0]));
         result.setOrderTime(LocalDateTime.now());
         result.setAmounts(request.getAmounts().toArray(new Integer[0]));
-        if (request.getShopId() != null){
+        if (request.getShopId() != null) {
             result.setShopId(request.getShopId().longValue());
             result.setStorageId(null);
         } else {

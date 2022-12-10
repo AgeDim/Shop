@@ -2,7 +2,6 @@ import React, {useContext, useEffect, useState} from 'react';
 import {Col, Row} from "react-bootstrap";
 import TypeBar from "../components/TypeBar";
 import ProductList from "../components/ProductList";
-import {useHistory} from "react-router-dom";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
 import {getProductByType} from "../http/productAPI";
@@ -20,9 +19,11 @@ const ShopPage = observer(() => {
             product.setAllProduct(global.concat(data))
         })
     }, [product.selectedType])
+
     const lastPostIndex = currentPage * postsPerPage
     const firstPostIndex = lastPostIndex - postsPerPage
     const currentPosts = product.products.slice(firstPostIndex, lastPostIndex)
+
     return (<Row className="g-0">
         <Col md={1} className="mt-2" style={{width: 250}}>
             <TypeBar/>

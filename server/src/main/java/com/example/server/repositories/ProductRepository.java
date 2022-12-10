@@ -12,6 +12,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
     @Query(value = "SELECT * FROM product ORDER BY amount desc LIMIT 8", nativeQuery = true)
     List<ProductEntity> getTopProducts();
+
     List<ProductEntity> getProductEntitiesByProductType(Integer productType);
 
     ProductEntity getProductEntityById(Long id);

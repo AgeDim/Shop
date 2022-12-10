@@ -9,9 +9,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name="user", schema = "s313304", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "email")
-})
+@Table(name = "user", schema = "s313304", uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
 public class UserEntity {
 
     @Id
@@ -19,14 +17,14 @@ public class UserEntity {
     @Column(name = "id", columnDefinition = "serial primary key")
     private Long id;
 
-    @Column(name="password", columnDefinition = "varchar(255) NOT NULL")
+    @Column(name = "password", columnDefinition = "varchar(255) NOT NULL")
     private String password;
-    @Column(name="email", columnDefinition = "varchar(255)")
+    @Column(name = "email", columnDefinition = "varchar(255)")
     private String email;
-    @Column(name="admin_rights", columnDefinition = "boolean")
+    @Column(name = "admin_rights", columnDefinition = "boolean")
     private boolean adminRights;
 
-    public UserEntity(String email, String password, boolean adminRights){
+    public UserEntity(String email, String password, boolean adminRights) {
         this.email = email;
         this.password = password;
         this.adminRights = adminRights;

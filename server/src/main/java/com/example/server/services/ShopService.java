@@ -12,7 +12,7 @@ public class ShopService {
     @Autowired
     private ShopRepository shopRepository;
 
-    public List<Long> getShopsIdList(){
+    public List<Long> getShopsIdList() {
         return shopRepository.findAllShopsId();
     }
 }

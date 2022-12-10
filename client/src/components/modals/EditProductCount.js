@@ -28,10 +28,14 @@ const EditProductCount = observer(({show, onHide}) => {
     useEffect(() => {
         getSoS(checked, setSos)
     }, [checked])
-    useEffect(()=>{
-        product.map(prod => {if(prod.id == selectedProd.currentKey){setAmount(prod.amount)}})
+    useEffect(() => {
+        product.map(prod => {
+            if (prod.id == selectedProd.currentKey) {
+                setAmount(prod.amount)
+            }
+        })
         console.log(amount)
-    },[selectedProd])
+    }, [selectedProd])
     console.log(selectedProd)
     return (
         <Modal

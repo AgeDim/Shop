@@ -22,5 +22,4 @@ root.render(
         fish: new FishStore()
     }}>
         <App/>
-    </Context.Provider>
-);
+    </Context.Provider>);

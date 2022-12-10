@@ -11,8 +11,3 @@ export const addFish = (name, lengthMax, lengthMin, weightMax, weightMin, habita
     })
     return data
 }
-
-export const getFish = async (setFish1) => {
-    const {data} = await $host.get('/fish')
-    setFish1(data)
-}

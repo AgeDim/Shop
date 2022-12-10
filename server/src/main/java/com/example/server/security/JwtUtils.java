@@ -20,12 +20,7 @@ public class JwtUtils {
 
     public String generateToken(String email) {
         Date now = new Date();
-        return Jwts.builder()
-                .setSubject(email)
-                .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime() + jwtExpirationTime))
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
-                .compact();
+        return Jwts.builder().setSubject(email).setIssuedAt(now).setExpiration(new Date(now.getTime() + jwtExpirationTime)).signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
     }
 
     public boolean validateToken(String token) {

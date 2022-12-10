@@ -15,7 +15,7 @@ public class FavoriteController {
     private FavoriteService favoriteService;
 
     @PostMapping("/favorite/add")
-    public ResponseEntity<?> addFavoriteToUser(@RequestBody FavoriteSaveRequest request){
+    public ResponseEntity<?> addFavoriteToUser(@RequestBody FavoriteSaveRequest request) {
         try {
             return ResponseEntity.ok(favoriteService.addFavoriteToUser(request));
         } catch (UserNotFoundException e) {
@@ -24,7 +24,7 @@ public class FavoriteController {
     }
 
     @GetMapping("/favorite/{email}")
-    public ResponseEntity<?> getFavoriteByUser(@PathVariable String email){
+    public ResponseEntity<?> getFavoriteByUser(@PathVariable String email) {
         try {
             return ResponseEntity.ok(favoriteService.getFavoriteByUser(email));
         } catch (UserNotFoundException e) {

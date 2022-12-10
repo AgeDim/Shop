@@ -3,7 +3,6 @@ import {FiTrash2} from "react-icons/fi";
 import {Card, Col, Image, Row} from "react-bootstrap";
 import {Context} from "../index";
 import {observer} from "mobx-react-lite";
-import holder from "../assets/holder.png"
 
 const BasketItem = observer(({basketItem, deleteFromBasket}) => {
     const {product} = useContext(Context)
@@ -17,7 +16,7 @@ const BasketItem = observer(({basketItem, deleteFromBasket}) => {
                 }} style={{cursor: "pointer", color: "red"}} size={30}/>
             </Col>
             <Col className="d-flex justify-content-start">
-                <Row><Image style={{width:150, height:150}} src={`data:image/jpeg;base64,${prod.img}`}/></Row>
+                <Row><Image id="img_bsk" style={{width: 150, height: 150}} src={`data:image/jpeg;base64,${prod.img}`}/></Row>
                 <Row><h2>{basketItem.price} руб.</h2>
                     <h2>{prod.name}</h2>
                     <h2>Кол-во: {basketItem.amount}</h2></Row>

@@ -15,7 +15,7 @@ public class ShopController {
     private ShopService shopService;
 
     @GetMapping("/shop")
-    public ResponseEntity<?> getShopsIdList(){
+    public ResponseEntity<?> getShopsIdList() {
         return ResponseEntity.ok(shopService.getShopsIdList().toArray());
     }
 }

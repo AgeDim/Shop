@@ -12,12 +12,13 @@ const TypeBar = observer(() => {
             id="listGroup"
             color="primary"
             label="Категории" style={{height: 500}} activeKey="0">
-            {product.types.map(type =>
-                <ListGroup.Item id={type.id} style={{height: 50, paddingBottom: 5, paddingTop: 5, cursor: "pointer"}}
-                                active={type.id === product.selectedType.id}
-                                onClick={() => product.setSelectedType(type)}
-                                value={type.name}
-                                key={type.name}>{type.name}</ListGroup.Item>)}
+            {product.types.map(type => <ListGroup.Item id={type.id} style={{
+                height: 50, paddingBottom: 5, paddingTop: 5, cursor: "pointer"
+            }}
+                                                       active={type.id === product.selectedType.id}
+                                                       onClick={() => product.setSelectedType(type)}
+                                                       value={type.name}
+                                                       key={type.name}>{type.name}</ListGroup.Item>)}
 
         </ListGroup>
     </Card>);

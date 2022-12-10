@@ -3,10 +3,11 @@ import {makeAutoObservable} from "mobx";
 export default class BasketStore {
     constructor() {
         this._userEmail = ""
-        this._prod =  []
+        this._prod = []
         this._genPrice = 0
         makeAutoObservable(this)
     }
+
     get userEmail() {
         return this._userEmail;
     }
@@ -19,7 +20,7 @@ export default class BasketStore {
         return this._prod;
     }
 
-    setProdukt(value){
+    setProdukt(value) {
         this._prod = value
     }
 
@@ -35,7 +36,7 @@ export default class BasketStore {
         this._genPrice = value;
     }
 
-    calcGenPrice(){
+    calcGenPrice() {
         let res = 0
         this.prod.map(product => {
             res += product.amount * product.price

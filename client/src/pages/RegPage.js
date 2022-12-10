@@ -28,7 +28,7 @@ const RegPage = observer(() => {
         } else if (!checkBox.checked) {
             document.getElementById("reg_err_msg").textContent = 'You need to accept personal data processing policies!'
         } else {
-            try{
+            try {
                 let data;
                 data = await reg(email, password);
                 const user1 = {email: email, password: password}
