@@ -71,7 +71,7 @@ begin
         end loop;
     for i in 1..product_to_add_amount LOOP
             if (new.amounts[i]::int > sums[i]::int) then
-                RAISE EXCEPTION 'Недостаточно товара с id: % ;\', new.products_id[i]::int;
+                RAISE EXCEPTION 'Недостаточно товара с id: % ;\/', new.products_id[i]::int;
             end if;
         end loop;
     return new;
