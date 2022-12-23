@@ -47,10 +47,10 @@ const ProductItem = observer(({products}) => {
             favorite.setFavorite(favorite.prod.filter((item) => item.id !== products.id))
         }
     };
-    return (<Col md={4} style={{width: 310, margin: 1}}>
+    return (<Col md={4} style={{width: 310, margin: 3}}>
         <Row className="g-0">
             <div id="productCard">
-                <Card style={{width: 310, borderRadius: "7% 7% 7% 7%", padding: 7}}>
+                <Card style={{width: 310, borderRadius: "15px", padding: 9, borderColor:"black"}}>
                     <div className="d-flex" style={{width: 310}}><Text id="ProductItemText"
                                                                        style={{marginBottom: 0, cursor: "pointer"}}
                                                                        onClick={() => history.push(PRODUCT_ROUTE + '/' + products.id)}>{products.name}</Text><AiOutlineStar
@@ -59,7 +59,7 @@ const ProductItem = observer(({products}) => {
                             handleClick()
                         }}/></div>
                     <Image className="align-self-center"
-                           style={{cursor: "pointer", width: 270, height: 220, borderRadius: 10}}
+                           style={{cursor: "pointer", width: 270, height: 220, borderRadius: "15px"}}
                            src={`data:image/jpeg;base64,${products.img}`}
                            onClick={() => history.push(PRODUCT_ROUTE + '/' + products.id)}/>
 

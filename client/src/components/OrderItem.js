@@ -10,13 +10,13 @@ const OrderItem = observer(({order}) => {
     map.set(3, 'fail')
     return (<Card className="d-flex g-0" style={{marginTop: 2, marginButton: 2}}>
         <Col className="d-flex">
-            <h3 style={{marginRight: 15}}>Id заказа: {order.id}</h3>
-            <h3 style={{marginRight: 15}}>Сумма заказа: {Math.round(order.cost)}</h3>
-            <h4 style={{marginRight: 15}}>Дата заказа: {order.time.split('T')[0]}</h4>
+            <Row><h3 style={{marginRight: 15, width: 230}}>Id заказа: {order.id}</h3></Row>
+            <Row><h3 style={{marginRight: 15, width: 300}}>Сумма заказа: {Math.round(order.cost)}</h3></Row>
+            <Row><h4 style={{marginRight: 15, width: 340}}>Дата заказа: {order.time.replaceAll('-',' ').split('T')[0]}</h4></Row>
             <Row md={1} style={{width: 460, marginLeft: 10}}>
-                {res.map((key, value) => (<h4>{key[0]}x{key[1]}</h4>))}
+                {res.map((key, value) => (<h4>{key[0]} x {key[1]}</h4>))}
             </Row>
-            <h4>Status: {map.get(order.status)}</h4>
+            <h4 style={{width:250}}>Status: {map.get(order.status)}</h4>
         </Col>
     </Card>);
 });
